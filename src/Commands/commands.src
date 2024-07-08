@@ -419,3 +419,20 @@ Commands.Cmds["external"]["exe"] = function(args)
         UI.printError("Скрипт не найден. Проерьте его местоположение в <b>"+Program.path+Program.settings["internalExploits"])
     end if
 end function
+
+Commands.Cmds["crack"] = {
+    "info": "Расшифровать пароль",
+    "args": "[шифр]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["crack"]["exe"] = function(args)
+    if args.len < 1 then
+        UI.printError("Использование: <b>crack [шифр]</b>")
+        return 0
+    end if
+    UI.print("Взламываем...")
+    wait(1)
+    result = crypto.decipher(args[0])
+    wait(1)
+    if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: "+result)
+end function

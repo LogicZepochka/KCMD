@@ -64,22 +64,6 @@ Commands.Cmds["ls"]["exe"] = function(args)
     printLS(folder)
 end function
 
-Commands.Cmds["crack"] = {
-    "info": "Расшифровать пароль",
-    "args": "[шифр]",
-    "types": ["shell","computer","file"],
-}
-Commands.Cmds["crack"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: <b>crack [шифр]</b>")
-        return 0
-    end if
-    UI.print("Взламываем...")
-    wait(1)
-    result = crypto.decipher(args[0])
-    wait(1)
-    if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: "+result)
-end function
 
 Commands.Cmds["cat"] = {
     "info": "Получить содержимое файла",

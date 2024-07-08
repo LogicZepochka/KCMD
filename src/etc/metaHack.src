@@ -1,0 +1,32 @@
+﻿scanExploits = function(meta,metaLib,ip = "local",insertData = "")
+	exploitData = ExploitDB.Request(metaLib.lib_name,version(metaLib))
+	exploits = {}
+	if exploitData == null then
+		scanResult = scan(meta, metaLib)
+		for mem in scanResult
+			exploits[mem] = []
+			scanAddress = scan_address(meta, metaLib, mem)
+			segments = split(scanAddress, "Unsafe check: ")[1:]
+			for segment in segments
+				labelStart = indexOf(segment, "<b>")
+				labelEnd = indexOf(segment, "</b>")
+				exploits[mem].push(segment[labelStart + 3: labelEnd])
+				ExploitDB.AddNew(metaLib.lib_name,version(metaLib),mem,segment[labelStart + 3: labelEnd])
+			end for
+		end for
+	else
+		exploits = exploitData
+	end if
+	for mem in exploits.indexes
+			for word in exploits[mem]
+				result = metaLib.overflow(mem,word,insertData)
+				if result != null then
+					user = "---"
+					if typeof(result) == "number" then continue;
+					target = new Target
+					target.New(result,ip,user)
+					globals.targets.push(target)
+				end if
+			end for
+	end for
+end function

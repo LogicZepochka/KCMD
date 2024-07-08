@@ -2,6 +2,7 @@
 
 import_code("/home/KCMD/src/UI/UI.src")
 import_code("/home/KCMD/src/libs.src")
+import_code("/home/KCMD/src/etc/metaHack.src")
 import_code("/home/KCMD/src/Program.src")
 import_code("/home/KCMD/src/etc/jump.src")
 
