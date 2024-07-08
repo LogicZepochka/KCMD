@@ -1,7 +1,7 @@
 ﻿
 
 aptclient = include_lib("/lib/aptclient.so")
-repIp = "67.117.131.156"
+repIp = "88.224.117.148"
 if aptclient != null then
     result = ""
     if aptclient.show(repIp) == null then result = aptclient.add_repo(repIp)

@@ -21,6 +21,42 @@ Commands.Execute = function(text)
     Commands.Cmds[cmd]["exe"](params)
 end function
 
+Commands.Cmds["populatedb"] = {
+    "info": "Заполнить базу данных новыми библиотеками",
+    "args": "(Количество новых записей)",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["populatedb"]["exe"] = function(args)
+    targets = 100
+    if args.len > 0 then
+        if typeof(args[0].to_int) == "number" then targets = args[0]
+    end if
+
+    for i in range(0,targets)
+        ip = randIp
+        if not is_valid_ip(ip) then continue;
+        victimRouter = get_router(ip)
+        if victimRouter == null then continue;
+        targetPorts = [0]
+        ports = victimRouter.used_ports
+        for port in ports
+            targetPorts.push = port.port_number
+        end for
+
+        for port in targetPorts
+            netSession = net_use(meta, ip, port)
+            if netSession == null then
+                continue;
+            end if
+            metaLib = dump_lib(netSession)
+            populateExplots(meta,metaLib)
+        end for
+        UI.print("<color=red>Пополнено "+i+" из "+targets)
+        UI.print(printPercent(i,targets))
+    end for
+    ExploitDB.SaveDB()
+    UI.print("Пополнение завершено.")
+end function
 
 Commands.Cmds["help"] = {
     "info": "Список доступных комманд для выполнения",

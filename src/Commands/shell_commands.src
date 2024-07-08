@@ -229,3 +229,48 @@ Commands.Cmds["ih"]["exe"] = function(args)
     end for
     UI.print("Внутренняя атака завершена")
 end function
+
+Commands.Cmds["get"] = {
+    "info": "Скачать файл",
+    "args": "[файл]",
+    "types": ["shell"],
+}
+Commands.Cmds["get"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    if args.len < 1 then
+        UI.printError("Использование: <b>get [путь до файла]</b>")
+        return 0
+    end if
+    if trg.requestFile(args[0]) == null then return UI.printError("Файл не найден")
+    UI.print("Скачиваем файл...")
+    wait(0.4)
+    result = scp(trg.shell,args[0],current_path+Program.settings["downloadPath"],get_shell)
+    if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
+    UI.print("Файл успешно загружен в <b>"+current_path+Program.settings["downloadPath"])
+end function
+
+Commands.Cmds["put"] = {
+    "info": "Скачать файл",
+    "args": "[файл] [конечный адрес]",
+    "types": ["shell"],
+}
+Commands.Cmds["put"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    if args.len < 2 then
+        UI.printError("Использование: <b>put [файл] [конечный адрес]</b>")
+        return 0
+    end if
+    UI.print("Загружаем файл...")
+    wait(0.4)
+    result = scp(get_shell,args[0],args[1],trg.shell)
+    if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
+    UI.print("Файл успешно загружен в <b>"+args[1])
+end function

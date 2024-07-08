@@ -9,6 +9,26 @@ if not crypto then
 	if not crypto then UI.printError("<color=red>crypto.so не обнаружен</color>")
 end if
 
+
+
+randIp = function()
+	ip = ""
+	while not is_valid_ip(ip)
+		ip = floor(rnd * (255 - 1 + 1) + 1)+"."+floor(rnd * (255 - 1 + 1) + 1)+"."+floor(rnd * (255 - 1 + 1) + 1)+"."+floor(rnd * (255 - 1 + 1) + 1)
+	end while
+	return ip
+end function
+
+printPercent = function(value,maxValue)
+	str = "["
+	percent = floor(value/maxValue*100)
+	for i in range(0,10)
+		if i >= floor(percent / 100) then str = str + "#" else str = str + "_"
+	end for
+	str = str + "] ("+percent+"%)"
+	return str
+end function
+
 getComputerProtectionData = function(folder,data)
 	data["Total"] = data["Total"] + 1
 	if(folder.has_permission("r")) then data["Read"] = data["Read"] + 1
