@@ -1,0 +1,77 @@
+﻿
+
+JumpFile = {}
+JumpFile.searchJumpPath = function(start)
+    for folder in start.get_folders
+        self.searchJumpPath(folder)
+        if folder.has_permission("w") then self.jumpFolderFile = folder
+    end for
+end function
+
+JumpFile.New = function(target)
+    self.ready = false
+    self.jumpPath = ""
+    self.compilePath = ""
+    self.codePath = ""
+    self.jumpName = ".jmp.src"
+    self.target = target
+    self.jumpFolderFile = null
+
+    start = target.comp.File("/")
+    self.searchJumpPath(start)
+    result = self.jumpFolderFile
+    if(result == null) then 
+    else
+        self.jumpPath = result.path
+        self.compilePath = result.path+"/"+".jmp"
+        self.codePath = result.path+"/"+".jmp.src"
+        UI.print("<b>ДОСТУПНА УСИЛЕННАЯ АТАКА</b>")
+        self.ready = true
+    end if
+end function
+
+JumpFile.createJump = function()
+    if not self.ready then return null
+    self.target.comp.touch(self.jumpPath,".jmp.src")
+    return self.target.comp.File(self.jumpPath+"/.jmp.src")
+end function
+
+JumpFile.cleanUp = function()
+    if not self.ready then return null
+    self.target.comp.File(self.jumpPath+"/.jmp.src").delete
+    self.target.comp.File(self.jumpPath+"/.jmp").delete
+end function
+
+JumpFile.execute = function(code,params="")
+    if not self.ready then return null
+    jump = self.createJump()
+    if(jump == null) then
+        UI.printError("Произошла ошибка: JMP_NOT_FOUND")
+    end if
+    jump.set_content(code)
+    self.target.shell.build(self.jumpPath+"/.jmp.src",self.jumpPath)
+    get_custom_object.jumpResult = null
+    self.target.shell.launch(self.compilePath,params)
+    self.cleanUp()
+    return get_custom_object.jumpResult
+end function
+
+JumpFile.sudo = function(user,password)
+    shell = self.execute("get_custom_object.jumpResult = get_shell("""+user+""","""+password+""")")
+    if shell == null then 
+        UI.printWarning("Не удалось авторизироватся под учетными данными") 
+        return null
+    end if
+    target = new Target()
+    target.New(shell,self.target.public_ip)
+    return target
+end function
+
+JumpFile.getInternalMetax = function(trg)
+    metax = self.execute("metax = include_lib("""+trg.cdFolder.path+"/metaxploit.so"")
+if metax == null then metax = include_lib(""/lib/metaxploit.so"")
+if metax == null then exit(""<color=red>Для этого действия требуется metaxploit.so на жертве</color>"")
+get_custom_object.jumpResult = metax")
+    if metax == null then UI.printWarning("Не нашли на цели metaxploit.so...")
+    return metax
+end function

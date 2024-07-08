@@ -1,0 +1,33 @@
+﻿target = get_custom_object.target
+if(target.type != "shell") then 
+    print("<color=red>ЦЕЛЬ НЕ SHELL!</color>")
+    exit()
+end if
+
+shell = target.shell
+
+sss = get_shell.scp("/lib/metaxploit.so","/lib",shell)
+if typeof(sss) == "string" then exit("FAILED TO INFECT: "+sss)
+
+targetFolder = "/home/guest"
+comp = shell.host_computer
+shell.host_computer.touch(targetFolder,"jump.src")
+jumpfile = comp.File("/home/guest/jump.src")
+
+jumpfile.set_content("meta = include_lib(""/lib/metaxploit.so"")
+comp = get_shell.host_computer
+newObj = {}
+newObj.lib = meta
+newObj.ver = version(meta)
+newObj.public_ip = comp.public_ip
+newObj.local_ip = comp.local_ip
+get_custom_object.returnLib = newObj")
+
+shell.build("/home/guest/jump.src","/home/guest/")
+shell.launch("/home/guest/jump")
+if get_custom_object.importedLibs == null then
+    get_custom_object.importedLibs = []
+end if
+get_custom_object.importedLibs.push(get_custom_object.returnLib)
+jumpfile.set_content("")
+

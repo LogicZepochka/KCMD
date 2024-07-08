@@ -1,0 +1,71 @@
+﻿
+
+Target = {}
+
+Target.New = function(object,targetIp,user = "guest",local_ip = "---")
+    self.type = typeof(object)
+    self.shell = null
+    self.user = user
+    self.jump = null
+    self.public_ip = targetIp
+    if self.type == "computer" then
+        self.comp = object
+        self.user = getUserFromTarget(self)
+    end if
+    if self.type == "file" then
+        self.name = object.name
+        self.can_read = object.has_permission("r")
+        if self.can_read then self.content = object.get_content
+    end if
+    self.obj = object
+    if self.type == "shell" then
+        self.shell = object
+        self.comp = object.host_computer
+        self.user = getUserFromTarget(self)
+        self.calculateStartFolder()
+    end if
+    if local_ip != null then self.local_ip = local_ip
+    if self.type == "shell" or self.type == "computer" then
+        self.local_ip = self.comp.local_ip
+    end if
+end function
+
+Target.activeJump = function()
+    self.jump = new JumpFile()
+    self.jump.New(self)
+end function
+
+Target.calculateProtectionRate = function()
+    if self.type != "shell" and self.type != "computer" then return "<color=red>0%</color>"
+    data = {}
+    data["Total"] = 0
+    data["Write"] = 0
+    data["Read"] = 0
+    data["Exe"] = 0
+    rootFolder = self.comp.File("/")
+    getComputerProtectionData(rootFolder,@data)
+    percentR = data["Read"]/data["Total"]
+    percentW = data["Write"]/data["Total"]
+    percentX = data["Exe"]/data["Total"]
+    totalPercent = floor(((percentR + percentW + percentX) / 3)*100)
+
+    if totalPercent >= 80 then return "<color=green>"+totalPercent+"%</color>"
+    if totalPercent < 80 and totalPercent >= 50 then return "<color=yellow>"+totalPercent+"%</color>"
+    if totalPercent < 50 and totalPercent >= 12 then return "<color=#DB504A>"+totalPercent+"%</color>"
+    if totalPercent < 12 then return "<color=red>"+totalPercent+"%</color>"
+end function
+
+Target.calculateStartFolder = function()
+    startFolder = null
+    if self.user.lower == "root" then startFolder = self.comp.File("/root") else startFolder = self.comp.File("/home/"+self.user)
+    if startFolder == null then startFolder = self.comp.File("/home")
+    if startFolder == null then startFolder = self.comp.File("/")
+    self.cdFolder = startFolder
+end function
+
+Target.requestFile = function(path = "")
+    if path == "" then return null
+    result = self.comp.File(path)
+    if result == null and self.type == "shell" then result = self.comp.File(self.cdFolder.path+"/"+path)
+    return result
+end function

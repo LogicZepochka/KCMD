@@ -1,0 +1,83 @@
+﻿meta = include_lib("/lib/metaxploit.so")
+if not meta then
+	meta = include_lib(current_path+"/metaxploit.so")
+	if not meta then UI.printError("<color=red>metaxploit.so не обнаружен</color>")
+end if
+crypto = include_lib("/lib/crypto.so")
+if not crypto then
+	crypto = include_lib(current_path+"/crypto.so")
+	if not crypto then UI.printError("<color=red>crypto.so не обнаружен</color>")
+end if
+
+scanExploits = function(meta,metaLib,ip = "local",insertData = "")
+	exploitData = ExploitDB.Request(metaLib.lib_name,version(metaLib))
+	exploits = {}
+	if exploitData == null then
+		scanResult = scan(meta, metaLib)
+		for mem in scanResult
+			exploits[mem] = []
+			scanAddress = scan_address(meta, metaLib, mem)
+			segments = split(scanAddress, "Unsafe check: ")[1:]
+			for segment in segments
+				labelStart = indexOf(segment, "<b>")
+				labelEnd = indexOf(segment, "</b>")
+				exploits[mem].push(segment[labelStart + 3: labelEnd])
+				ExploitDB.AddNew(metaLib.lib_name,version(metaLib),mem,segment[labelStart + 3: labelEnd])
+			end for
+		end for
+	else
+		exploits = exploitData
+	end if
+	for mem in exploits.indexes
+			for word in exploits[mem]
+				result = metaLib.overflow(mem,word,insertData)
+				if result != null then
+					user = "---"
+					if typeof(result) == "number" then continue;
+					target = new Target
+					target.New(result,ip,user)
+					globals.targets.push(target)
+				end if
+			end for
+	end for
+end function
+
+getComputerProtectionData = function(folder,data)
+	data["Total"] = data["Total"] + 1
+	if(folder.has_permission("r")) then data["Read"] = data["Read"] + 1
+	if(folder.has_permission("w")) then data["Write"] = data["Write"] + 1
+	if(folder.has_permission("x")) then data["Exe"] = data["Exe"] + 1
+	for file in folder.get_files
+		data["Total"] = data["Total"] + 1
+		if(file.has_permission("r")) then data["Read"] = data["Read"] + 1
+		if(file.has_permission("w")) then data["Write"] = data["Write"] + 1
+		if(file.has_permission("x")) then data["Exe"] = data["Exe"] + 1
+	end for
+	for fld in folder.get_folders
+		getComputerProtectionData(fld,@data)
+	end for
+end function
+
+getUserFromTarget = function (target)
+    rootFile = target.comp.File("/root")
+    if rootFile != null then 
+		if(rootFile.has_permission("w")) then 
+			UI.print("<color=red><b>ROOT получен</b></color>")
+			return "<color=red>ROOT</color>"
+		end if
+	end if 
+        homeFile = target.comp.File("/home")
+        if homeFile != null then 
+            for user in homeFile.get_folders
+                if user.name == "guest" then continue
+                if user.has_permission("w") then 
+                    return user.name
+                end if
+            end for
+        end if
+        guestFile = target.comp.File("/home/guest")
+        if guestFile != null then 
+			if(guestFile.has_permission("w")) then return "guest"
+        end if
+    return "unknown"
+end function

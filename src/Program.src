@@ -1,0 +1,116 @@
+﻿Program = {}
+Program.version = "1.0.0"
+Program.configPath = "/Config/config.cfg"
+Program.checkInst = "/.checkInst"
+Program.path = current_path
+Program.settings = {}
+Program.portable = false
+Program.ready = false
+
+Program.saveSettings = function()
+    comp = get_shell.host_computer
+    configFile = comp.File(self.path + self.configPath)
+    if configFile == null then
+        UI.printWarning("Config не обнаружен. Создание нового")
+        comp.create_folder(self.path,"Config")
+        comp.touch(self.path + "/Config","config.cfg")
+        configFile = comp.File(self.path + self.configPath)
+        if configFile == null then
+            UI.printError("Не удалось выполнить сохранение настроек: Не удалось создать файл")
+            return 0
+        end if
+    end if
+    str = ""
+    for index in Program.settings.indexes
+        str = str + index+"="+Program.settings[index]+char(10)
+    end for
+    configFile.set_content(str[:-1])
+    UI.print("Настройки сохранены")
+    return 1
+end function
+
+Program.loadDefaultSettings = function()
+    
+    Program.settings["databasePath"] = "/Database/database.db"
+    Program.settings["downloadPath"] = "/Downloads"
+    Program.settings["internalExploits"] = "/InternalExploits"
+
+    Program.settings["useExternalDB"] = "false"
+    Program.settings["externalDBIP"] = "1.1.1.1"
+    Program.settings["externalDBuser"] = "root"
+    Program.settings["externalDBpass"] = "qwerty"
+
+    Program.settings["rshellServer"] = "1.1.1.1"
+    Program.settings["rshellPort"] = "1222"
+    Program.settings["rshellProcess"] = "Terminal"
+    Program.settings["rshellUser"] = "root"
+    Program.settings["rshellPassword"] = "qwerty"
+
+    UI.print("Установлены стандартные настройки.")
+    UI.print("Отредактировать можно по адресу <b>"+self.path+self.configPath)
+end function
+
+Program.loadSettings = function()
+    comp = get_shell.host_computer
+    configFile = comp.File(self.path + self.configPath)
+    if configFile == null then
+        
+        UI.printWarning("Config не обнаружен. Создание нового")
+        comp.create_folder(self.path,"Config")
+        comp.touch(self.path + "/Config","config.cfg")
+        configFile = comp.File(self.path + self.configPath)
+        self.loadDefaultSettings()
+        if configFile == null then
+            UI.printError("Не удалось выполнить загрузку настроек: Не удалось создать файл")
+            return 0
+        end if
+        self.saveSettings()
+        return 1
+    else 
+        content = configFile.get_content
+        for line in content.split(char(10))
+            conf = line.split("=")
+            if conf.len != 2 then continue;
+            self.settings[conf[0]] = conf[1]
+        end for
+        UI.print("Настройки загружены")
+        return 1
+    end if
+end function
+
+
+
+Program.Deploy = function()
+    UI.print("Развертываемся для работы в <b>"+Program.path)
+    
+    comp = get_shell.host_computer
+
+    comp.create_folder(self.path,"Config")
+    comp.touch(self.path + "/Config","config.cfg")
+    comp.create_folder(self.path,"Downloads")
+    comp.create_folder(self.path,"Database")
+    comp.create_folder(self.path,"InternalExploits")
+    comp.touch(self.path + "/Database","database.db")
+    comp.touch(self.path,".checkInst")
+    self.loadDefaultSettings()
+    self.saveSettings()
+
+    UI.print("Развертывание завершено")
+end function
+
+
+Program.Init = function(portable = false)
+    comp = get_shell.host_computer
+    self.portable = portable
+    if not portable then
+        chkInst = comp.File(self.path+self.checkInst)
+        if(chkInst == null) then
+            UI.print("Первый запуск...")
+            self.Deploy
+        else
+            self.loadSettings
+        end if
+    else
+        UI.printWarning("Загружено в портативном режиме")
+    end if
+end function
