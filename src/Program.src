@@ -31,7 +31,7 @@ end function
 
 Program.loadDefaultSettings = function()
     
-    Program.settings["databasePath"] = "/Database/database.db"
+    Program.settings["databasePath"] = "/Database"
     Program.settings["downloadPath"] = "/Downloads"
     Program.settings["internalExploits"] = "/InternalExploits"
 
@@ -90,7 +90,6 @@ Program.Deploy = function()
     comp.create_folder(self.path,"Downloads")
     comp.create_folder(self.path,"Database")
     comp.create_folder(self.path,"InternalExploits")
-    comp.touch(self.path + "/Database","database.db")
     comp.touch(self.path,".checkInst")
     self.loadDefaultSettings()
     self.saveSettings()

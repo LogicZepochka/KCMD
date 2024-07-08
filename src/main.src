@@ -1,6 +1,7 @@
 ﻿get_custom_object.importedLibs = []
 
 import_code("/home/KCMD/src/UI/UI.src")
+
 import_code("/home/KCMD/src/libs.src")
 import_code("/home/KCMD/src/etc/metaHack.src")
 import_code("/home/KCMD/src/Program.src")
@@ -8,7 +9,7 @@ import_code("/home/KCMD/src/etc/jump.src")
 
 import_code("/home/KCMD/src/Database/exploitDB.src")
 import_code("/home/KCMD/src/Targets/target.src")
-
+import_code("/home/KCMD/src/etc/self-updater.src")
 clear_screen
 main_target = new Target()
 main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
@@ -24,6 +25,7 @@ ExploitDB.Init()
 import_code("/home/KCMD/src/UI/UI_Input.src")
 import_code("/home/KCMD/src/Commands/commands.src")
 import_code("/home/KCMD/src/Commands/shell_commands.src")
+import_code("/home/KCMD/src/Commands/comp_commands.src")
 
 print("<color=white>                  _..._                                               
 <color=white>               .-'_..._''.                 _______         .-''-.     

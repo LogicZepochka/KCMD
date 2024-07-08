@@ -29,4 +29,5 @@
 				end if
 			end for
 	end for
+    ExploitDB.SaveDB()
 end function

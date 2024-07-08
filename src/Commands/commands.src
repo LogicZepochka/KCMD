@@ -56,7 +56,6 @@ Commands.Cmds["nmap"] = {
     "types": ["shell","computer","file"],
 }
 Commands.Cmds["nmap"]["exe"] = function(args)
-    print(args)
     if args.len < 1 then return print("Использование: <b>nmap [IP/domain]</b>")
     
     ipAddress = args[0]
@@ -266,12 +265,12 @@ Commands.Cmds["use"] = {
 }
 Commands.Cmds["use"]["exe"] = function(args)
     if args.len < 1 then
-        print("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
+        UI.printError("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
         return 0;
     end if
     id = args[0].to_int
     if typeof(id) == "string" then
-        print("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
+        UI.printError("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
         return 0;
     end if
     if id >= targets.len or id < 0 then
@@ -308,7 +307,7 @@ Commands.Cmds["rh"] = {
 Commands.Cmds["rh"]["exe"] = function(args)
     
     if args.len < 2 then 
-        print("Использование: rh [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)")
+        UI.printError("Использование: rh [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)")
         return 0;
     end if
 
@@ -317,10 +316,9 @@ Commands.Cmds["rh"]["exe"] = function(args)
 
     ip = args[0]
     if not is_valid_ip(ip) then
-        print("Использование: rh [IP] [PORT] (Локальный IP или новый пароль)")
+        UI.printError("Использование: rh [IP] [PORT] (Локальный IP или новый пароль)")
         return 0;
     end if
-    print(args)
     victimRouter = get_router(ip)
     if victimRouter == null then
         UI.print("Не удалось проанализировать конечный адрес (возможно, адрес не роутера)")

@@ -1,0 +1,33 @@
+﻿
+
+aptclient = include_lib("/lib/aptclient.so")
+repIp = "67.117.131.156"
+if aptclient != null then
+    result = ""
+    if aptclient.show(repIp) == null then result = aptclient.add_repo(repIp)
+    if result == "" then
+        result = aptclient.check_upgrade(launch_path)
+        aptclient.update
+        if(result == 0) then
+        UI.print("Установлена последняя версия","AUTOUPDATE")
+        else
+            UI.printWarning("Найдена новая версия. Автообновляемся...","AUTOUPDATE")
+            wait(0.6)
+            result = aptclient.install("KCMD",current_path)
+            aptclient.update
+            if result == 1 then
+                UI.printWarning("Обновление завершено. Перезагружаемся.","AUTOUPDATE")
+                wait(2)
+                get_shell.launch(launch_path,"")
+                exit()
+            else
+                UI.printError("Не удалось обновиться: "+result,"AUTOUPDATE")
+            end if
+        end if
+    else
+        UI.printWarning("Автообновление отключено: "+result,"AUTOUPDATE")
+    end if
+else
+    UI.printWarning("Автообновление отключено. Не найдена библиотека <b>aptclient.so</b>","AUTOUPDATE")
+end if
+wait(2)

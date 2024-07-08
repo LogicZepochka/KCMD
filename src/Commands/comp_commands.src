@@ -1,0 +1,129 @@
+﻿Commands.Cmds["ps"] = {
+    "info": "Получить список процессов",
+    "args": "",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["ps"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    procs = trg.comp.show_procs
+    list = procs.split(char(10))[1:]
+    processes = []
+    for item in list
+        parsedItem = item.split(" ")
+        process = {}
+        process.user = parsedItem[0]
+        process.pid = parsedItem[1]
+        process.cpu = parsedItem[2]
+        process.mem = parsedItem[3]
+        process.command = parsedItem[4]
+        processes.push(process)
+     end for
+     str = "<color=#9EE493>PID</color> <color=#9EE493>user</color> <color=#9EE493>CPU</color> <color=#9EE493>command</color>\n"
+    for prc in processes
+        str = str + "<color=#558C8C>"+prc.pid+"</color> " + "<color=#558C8C>"+prc.user+"</color> " + "<color=#558C8C>"+prc.cpu+"</color> " + "<color=#558C8C>"+prc.command+"</color>\n"
+    end for
+    UI.print("Активные процессы:")
+    print(format_columns(str))
+end function
+
+Commands.Cmds["touch"] = {
+    "info": "Создать текстовый файл",
+    "args": "[адрес] [название]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["touch"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 2 then
+        UI.printError("Использование - <b>touch [адрес] [название]</b>")
+        return 0;
+    end if
+    path = args[0]
+    name = args[1]
+    targetFile = trg.requestFile(path)
+    if targetFile == null then return UI.printError("Не найдена папка")
+    if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
+    trg.comp.touch(targetFile.path,name)
+    file = trg.requestFile(targetFile.path+"/"+name)
+    if file == null then return UI.printError("Не удалось создать текстовый файл")
+end function
+
+Commands.Cmds["cp"] = {
+    "info": "Скопировать файл",
+    "args": "[путь до файла] [путь назначение]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["cp"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 2 then
+        UI.printError("Использование - <b>cp [путь до файла] [путь назначение]</b>")
+        return 0;
+    end if
+    filePath = args[0]
+    targetPath = args[1]
+    targetFile = trg.requestFile(filePath)
+    targetFolder = trg.requestFile(targetPath)
+    if targetFile == null then return UI.printError("Файл не найден")
+    if targetFile.is_folder then return UI.printError("Файл - это папка")
+    if targetFolder== null then return UI.printError("Не найдена целевая папка")
+    if not targetFolder.is_folder then return UI.printError("Целевуй путь должен быть папкой")
+    result = targetFile.copy(targetFolder.path,targetFile.name)
+    if typeof(result) == "string" then return UI.printError("Не удалось скопировать файл: "+result)
+end function
+
+Commands.Cmds["rm"] = {
+    "info": "Удалить файл",
+    "args": "[путь до файла]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["rm"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 1 then
+        UI.printError("Использование - <b>rm [путь до файла]</b>")
+        return 0;
+    end if
+    filePath = args[0]
+    targetFile = trg.requestFile(filePath)
+    if targetFile == null then return UI.printError("Файл не найден")
+    result = targetFile.delete()
+    if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось удалить файл: "+result)
+end function
+
+Commands.Cmds["mkdir"] = {
+    "info": "Создать папку",
+    "args": "[целевой адрес] [название папки]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["mkdir"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 2 then
+        UI.printError("Использование - <b>mkdir [целевой адрес] [название папки]</b>")
+        return 0;
+    end if
+    targetPath = args[0]
+    folderName = args[1]
+    targetFile = trg.requestFile(targetPath)
+    if targetFile == null then return UI.printError("Файл не найден")
+    if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
+    result = trg.comp.create_folder(targetPath,folderName)
+    if typeof(result) == "string" then return UI.printError("Не удалось создать папку: "+result)
+end function

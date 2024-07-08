@@ -208,9 +208,7 @@ Commands.Cmds["ih"]["exe"] = function(args)
             targets.push(lib.path)
         end for
     end if
-    print(targets)
     inMetax = trg.jump.getInternalMetax(trg)
-    print(inMetax)
     if inMetax == null then
         UI.printWarning("На целевом компьютере, возможно, не найден metaxploit.so, загружем свой...")
         uploadResult = get_shell.scp("/lib/metaxploit.so",trg.cdFolder.path,trg.shell)
@@ -224,7 +222,6 @@ Commands.Cmds["ih"]["exe"] = function(args)
         UI.printError("Не удалось выполнить внутреннюю атаку. Возможно, усиленная атака не возможна или не удалось загрузить metaxploit.so")
         return 0
     end if
-    print("атакуем")
     for target in targets
         targetLib = inMetax.load(target)
         if targetLib == null then continue;
