@@ -1,5 +1,5 @@
 ﻿Program = {}
-Program.version = "1.0.0"
+Program.version = "1.2.1"
 Program.configPath = "/Config/config.cfg"
 Program.checkInst = "/.checkInst"
 Program.path = current_path

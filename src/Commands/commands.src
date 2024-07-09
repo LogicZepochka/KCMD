@@ -470,3 +470,22 @@ Commands.Cmds["crack"]["exe"] = function(args)
     wait(1)
     if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: "+result)
 end function
+
+Commands.Cmds["cleartargets"] = {
+    "info": "Очистить список целей",
+    "args": "",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["cleartargets"]["exe"] = function(args)
+    UI.print("Цели очищены")
+    targets = []
+end function
+
+Commands.Cmds["rshell"] = {
+    "info": "Получить соединения со стороннего сервера",
+    "args": "",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["rshell"]["exe"] = function(args)
+    RShellServer.Fetch()
+end function
