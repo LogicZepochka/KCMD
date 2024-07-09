@@ -15,7 +15,7 @@ clear_screen
 main_target = new Target()
 main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
 main_target.activeJump()
-targets = []
+globals.targets = []
 
 globals.current_target = main_target
 
