@@ -48,7 +48,7 @@ getUserFromTarget = function (target)
     if rootFile != null then 
 		if(rootFile.has_permission("w")) then 
 			UI.print("<color=red><b>ROOT получен</b></color>")
-			return "<color=red>ROOT</color>"
+			return "root"
 		end if
 	end if 
         homeFile = target.comp.File("/home")

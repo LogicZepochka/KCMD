@@ -1,0 +1,31 @@
+﻿Dictionary = {}
+Dictionary.passwords = []
+
+Dictionary.init = function()
+    self.passwords = []
+    self.passwords = self.passwords + list1.split("\n")
+    self.passwords = self.passwords + list2.split("\n")
+    self.passwords = self.passwords + list3.split("\n")
+    self.passwords = self.passwords + list4.split("\n")
+    self.passwords = self.passwords + list5.split("\n")
+    self.passwords = self.passwords + list6.split("\n")
+    self.passwords.shuffle()
+    self.len = self.passwords.len
+    self.index = 0
+end function
+
+Dictionary.requestNextPassword = function()
+    result = self.passwords[self.index]
+    self.index = self.index + 1
+    if self.index == self.len then 
+        self.index = 0
+    end if
+    return result
+end function
+
+Dictionary.New = function()
+    result = new Dictionary
+    result.init
+    print("Dictionary initialized with "+result.len+" passwords")
+    return result
+end function

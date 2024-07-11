@@ -15,3 +15,11 @@ end function
 UI.user_input = function(text,prefix = "CMD",isPass = 0)
     return user_input("[<color=#FFA630>"+prefix+"</color>] "+text,isPass)
 end function
+
+UI.ask_user = function(question,yes = "Y",no = "N")
+    answer = ""
+    while answer.lower != yes.lower and answer.lower != no.lower
+        answer = self.user_input(question + "["+yes+" / "+no+"]")
+    end while
+    return answer.lower == yes.lower
+end function

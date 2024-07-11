@@ -11,17 +11,23 @@ if aptclient != null then
         if(result == 0) then
         UI.print("Установлена последняя версия","AUTOUPDATE")
         else
-            UI.printWarning("Найдена новая версия. Автообновляемся...","AUTOUPDATE")
-            wait(0.6)
-            result = aptclient.install("KCMD",current_path)
-            aptclient.update
-            if result == 1 then
-                UI.printWarning("Обновление завершено. Перезагружаемся.","AUTOUPDATE")
-                wait(2)
-                get_shell.launch(launch_path,"")
-                exit()
+            UI.printWarning("Найдена новая версия.","AUTOUPDATE")
+            needUpdate = UI.ask_user("Обновить?")
+            if needUpdate then
+                wait(0.6)
+                result = aptclient.install("KCMD",current_path)
+                aptclient.update
+                if result == 1 then
+                    UI.printWarning("Обновление завершено. Перезагружаемся.","AUTOUPDATE")
+                    wait(2)
+                    get_shell.launch(launch_path,"")
+                    exit()
+                else
+                    UI.printError("Не удалось обновиться: "+result,"AUTOUPDATE")
+                end if
             else
-                UI.printError("Не удалось обновиться: "+result,"AUTOUPDATE")
+                UI.print("Обновление отложено","AUTOUPDATE")
+                wait(1)
             end if
         end if
     else

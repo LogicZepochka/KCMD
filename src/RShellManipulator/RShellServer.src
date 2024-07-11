@@ -30,9 +30,24 @@ RShellServer.Fetch = function()
         UI.printError("Не удалось получить RSHELL соединения","RSHELL")
         return []
     end if
+    rshellTargets = []
     for shell in shells
         newTarget = new Target
         newTarget.New(shell,shell.host_computer.public_ip)
-        targets.push(newTarget)
+        rshellTargets.push(newTarget)
     end for
+    input = ""
+    UI.print("Активные RHSELL соединения:")
+    str = "<color=#FFA630>ID</color> <color=#FFA630>IP</color> <color=#FFA630>LOCAL</color> <color=#FFA630>USER</color>\n"
+    for i in range(0,rshellTargets.len-1)
+        str = str + "<color=#990040>"+i+"</color> <color=#990040>"+rshellTargets[i].public_ip+"</color> <color=#990040>"+rshellTargets[i].local_ip+"</color> <color=#990040>"+rshellTargets[i].user+"</color>\n"
+    end for
+    print(format_columns(str))
+    while typeof(input.to_int) == "string" and input.lower != "exit" or (input.to_int <= 0 or input >= rshellTargets.len)
+        input = UI.user_input("Выбери SHELL или EXIT для отмены: ")
+    end while
+    if input.lower == "exit" then return 1;
+
+    UI.print("Подсоединяемся...")
+    globals.current_target = rshellTargets[input.to_int]
 end function

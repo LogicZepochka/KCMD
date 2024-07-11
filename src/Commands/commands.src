@@ -329,7 +329,9 @@ Commands.Cmds["targets"]["exe"] = function(args)
     str = "<color=#9EE493>ID</color> <color=#9EE493>P-IP</color> <color=#9EE493>L-IP</color> <color=#9EE493>TYPE</color> <color=#9EE493>USER</color> <color=#9EE493>VUL-LVL</color>\n"
     i = 0
     for target in globals.targets
-        str = str + "<color=#2B193D>"+i+"</color> "+"<color=#558C8C>"+target.public_ip+"</color> "+"<color=#558C8C>"+target.local_ip+"</color> "+"<color=#D17A22>"+target.type+"</color> "+"<color=#2B193D>"+target.user+"</color> "+target.calculateProtectionRate+"\n"
+        user = target.user
+        if user == "root" then user = "<color=red>root</color>" else user = "<color=#2B193D>"+user+"</color>"
+        str = str + "<color=#2B193D>"+i+"</color> "+"<color=#558C8C>"+target.public_ip+"</color> "+"<color=#558C8C>"+target.local_ip+"</color> "+"<color=#D17A22>"+target.type+"</color> "+user+" "+target.calculateProtectionRate+"\n"
         i=i+1
     end for
     print(format_columns(str))
@@ -490,6 +492,10 @@ Commands.Cmds["ssh"]["exe"] = function(args)
         return 0
     end if
     shell = get_shell.connect_service(args[0], port, args[1], args[2], "ssh")
+    if typeof(shell) != "shell" then
+        if typeof(shell) == "string" then return UI.printError("Не удалось установить соединение: "+shell)
+        return UI.printError("Не удалось установить соединение: Неизвестная ошибка")
+    end if
     sshTarget = new Target
     sshTarget.New(shell,shell.host_computer.public_ip,args[1])
     globals.current_target = sshTarget
@@ -535,4 +541,42 @@ Commands.Cmds["rshellinfo"]["exe"] = function(args)
     UI.print("Текущие данные RSHELL:")
     UI.print("IP: "+Program.settings["rshellServer"])
     UI.print("PORT: "+Program.settings["rshellPort"])
+end function
+
+Commands.Cmds["bruteforce"] = {
+    "info": "Брутфорсить цель используя библиотеку паролей",
+    "args": "[IP]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["bruteforce"]["exe"] = function(args)
+    if(args.len != 1) then return UI.printError("Использование: <b>bruteforce [IP]</b>")
+    if(not is_valid_ip(args[0])) then return UI.printError("Неправильный IP адрес")
+    trg = globals.current_target
+    if(trg.type != "shell") then trg = main_target
+    dic = globals.Dict
+    len = dic.len
+    ip = args[0]
+    if get_router(ip) == null then return UI.printError("Нет соединения с конечной целью")
+    if get_router(ip).ping_port(22) == null then return UI.printError("SSH порт закрыт")
+    result = null
+    for i in range(0,len)
+        nextPass = dic.requestNextPassword
+        UI.print("ПОПЫТКА ВЗЛОМА "+i+" из "+len)
+        shell = trg.shell.connect_service(ip,22,"root",nextPass)
+        if typeof(shell) != "shell" then 
+            UI.printError("НЕ ВЕРНЫЙ ПАРОЛЬ") 
+        else
+            UI.print("БРУТ ФОРС УСПЕШЕН. Пароль: "+nextPass)
+            result = shell
+            break;
+        end if
+    end for
+
+    if result == null then
+        UI.printWarning("Не удалось забрутфорсить цель...")
+    else
+        target = new Target
+        target.New(result,ip)
+        globals.current_target = target
+    end if
 end function
