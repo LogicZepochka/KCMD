@@ -9,8 +9,6 @@ if not crypto then
 	if not crypto then UI.printError("<color=red>crypto.so не обнаружен</color>")
 end if
 
-
-
 randIp = function()
 	ip = ""
 	while not is_valid_ip(ip)

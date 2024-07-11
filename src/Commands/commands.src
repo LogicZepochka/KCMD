@@ -470,3 +470,27 @@ Commands.Cmds["crack"]["exe"] = function(args)
     wait(1)
     if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: "+result)
 end function
+
+Commands.Cmds["ssh"] = {
+    "info": "SSH",
+    "args": "[айпи] [пользователь] [пароль] [порт (опционально)]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["ssh"]["exe"] = function(args)
+    if args.len < 3 then
+        UI.printError("Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>")
+        return 0
+    end if
+    UI.print("Подключаемся...")
+    wait(1)
+    port = 22
+    if args.len == 4 then port = args[3].to_int
+    if typeof(port) != "number" then 
+        UI.printError("Неверный порт: " + port)
+        return 0
+    end if
+    shell = get_shell.connect_service(args[0], port, args[1], args[2], "ssh")
+    sshTarget = new Target
+    sshTarget.New(shell,shell.host_computer.public_ip,args[1])
+    globals.current_target = sshTarget
+end function
