@@ -281,7 +281,7 @@ Commands.Cmds["infect"] = {
     "types": ["shell","computer","file"],
 }
 Commands.Cmds["infect"]["exe"] = function(args)
-trg = globals.current_target
+    trg = globals.current_target
     if(trg.type != "shell" ) then
         UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
         return 0
@@ -301,4 +301,33 @@ trg = globals.current_target
     result = inMetax.rshell_client(Program.settings["rshellServer"],Program.settings["rshellPort"].to_int,processName)
     if typeof(result) == "string" then return UI.printError("Не удалось заразить целевую машину - "+result)
     UI.print("Заражение успешно")
+end function
+
+Commands.Cmds["ssh"] = {
+    "info": "SSH",
+    "args": "[айпи] [пользователь] [пароль] [порт (опционально)]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["ssh"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    if args.len < 3 then
+        UI.printError("Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>")
+        return 0
+    end if
+    UI.print("Подключаемся...")
+    wait(1)
+    port = 22
+    if args.len >= 4 then port = args[3].to_int
+    if typeof(port) != "number" then 
+        UI.printError("Неверный порт: " + port)
+        return 0
+    end if
+    shell = trg.shell.connect_service(args[0], port, args[1], args[2], "ssh")
+    sshTarget = new Target
+    sshTarget.New(shell,shell.host_computer.public_ip,args[1])
+    globals.current_target = sshTarget
 end function
