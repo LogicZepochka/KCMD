@@ -127,3 +127,27 @@ Commands.Cmds["mkdir"]["exe"] = function(args)
     result = trg.comp.create_folder(targetPath,folderName)
     if typeof(result) == "string" then return UI.printError("Не удалось создать папку: "+result)
 end function
+
+Commands.Cmds["rn"] = {
+    "info": "Переименовать файл",
+    "args": "[путь до файла] [новое название]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["rn"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 2 then
+        UI.printError("Использование - <b>rn [путь до файла] [новое название]</b>")
+        return 0;
+    end if
+    filePath = args[0]
+    newName = args[1]
+    targetFile = trg.requestFile(filePath)
+    if targetFile == null then return UI.printError("Файл не найден")
+    if newName == null then return UI.printError("Укажите название")
+    result = targetFile.rename(newName)
+    if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось переименовать файл: "+result) else UI.print("Успешно!")
+end function
