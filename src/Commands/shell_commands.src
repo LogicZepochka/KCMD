@@ -274,3 +274,31 @@ Commands.Cmds["put"]["exe"] = function(args)
     if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
     UI.print("Файл успешно загружен в <b>"+args[1])
 end function
+
+Commands.Cmds["infect"] = {
+    "info": "Заразить компьютер rshell",
+    "args": "(Имя процесса)",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["infect"]["exe"] = function(args)
+trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    processName = Program.settings["rshellProcess"]
+    if args.len >= 1 then processName = args[0]
+    inMetax = trg.jump.getInternalMetax(trg)
+    if inMetax == null then
+        UI.printWarning("На целевом компьютере, возможно, не найден metaxploit.so, загружем свой...")
+        uploadResult = get_shell.scp("/lib/metaxploit.so",trg.cdFolder.path,trg.shell)
+        if typeof(uploadResult) == "string" then
+            UI.printError("Не удалось загрузить свой metaxploit.so - "+uploadResult)
+            return 0;
+        end if
+        inMetax = trg.jump.getInternalMetax(trg)
+    end if
+    result = inMetax.rshell_client(Program.settings["rshellServer"],Program.settings["rshellPort"].to_int,processName)
+    if typeof(result) == "string" then return UI.printError("Не удалось заразить целевую машину - "+result)
+    UI.print("Заражение успешно")
+end function

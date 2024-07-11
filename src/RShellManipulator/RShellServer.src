@@ -1,0 +1,38 @@
+﻿RShellServer = {}
+
+RShellServer.New = function(ip,port,user,pass)
+    self.ready = false
+    self.shell = null
+    UI.print("Соединяемся с RSHELL сервером...","RSHELL")
+    rshell = get_shell.connect_service(ip,22,user,pass)
+    if typeof(rshell) != "shell" then return UI.printError("Не удалось подключиться к RSHELL серверу - проверь Config","RSHELL")
+    self.shell = rshell
+    self.comp = rshell.host_computer
+    self.jump = self.comp.File("/etc/jump.src")
+    if self.jump == null then self.comp.touch("/etc","jump.src")
+    self.jump = self.comp.File("/etc/jump.src")
+    get_custom_object.rshellMeta = null
+    self.jump.set_content("get_custom_object.rshellMeta = include_lib(""/lib/metaxploit.so"")")
+    result = self.shell.build("/etc/jump.src","/etc")
+    if result.len > 0 then return UI.printError("Не удалось подключиться к RSHELL серверу - "+result,"RSHELL") 
+    self.shell.launch("/etc/jump")
+    self.meta = get_custom_object.rshellMeta
+    if self.meta == null then return UI.printError("Не удалось подключиться к RSHELL серверу - проверь Config","RSHELL")
+    UI.print("Соединение установлено","RSHELL")
+    self.ready = true
+end function
+
+RShellServer.Fetch = function()
+    if self.ready == false then return UI.printError("Соединение с RSHELL сервером не установлено","RSHELL")
+    shells = self.meta.rshell_server()
+    result = []
+    if typeof(shells) == "string" then 
+        UI.printError("Не удалось получить RSHELL соединения","RSHELL")
+        return []
+    end if
+    for shell in shells
+        newTarget = new Target
+        newTarget.New(shell,shell.host_computer.public_ip)
+        targets.push(newTarget)
+    end for
+end function

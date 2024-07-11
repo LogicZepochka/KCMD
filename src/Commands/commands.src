@@ -309,11 +309,11 @@ Commands.Cmds["use"]["exe"] = function(args)
         UI.printError("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
         return 0;
     end if
-    if id >= targets.len or id < 0 then
+    if id >= globals.targets.len or id < 0 then
         UI.printError("Не найдена цель. Проверь список целей.")
         return 0;
     end if
-    globals.current_target = targets[id]
+    globals.current_target = globals.targets[id]
     if(globals.current_target.type == "shell") then 
         globals.current_target.calculateStartFolder()
         globals.current_target.activeJump()
@@ -328,7 +328,7 @@ Commands.Cmds["targets"] = {
 Commands.Cmds["targets"]["exe"] = function(args)
     str = "<color=#9EE493>ID</color> <color=#9EE493>P-IP</color> <color=#9EE493>L-IP</color> <color=#9EE493>TYPE</color> <color=#9EE493>USER</color> <color=#9EE493>VUL-LVL</color>\n"
     i = 0
-    for target in targets
+    for target in globals.targets
         str = str + "<color=#2B193D>"+i+"</color> "+"<color=#558C8C>"+target.public_ip+"</color> "+"<color=#558C8C>"+target.local_ip+"</color> "+"<color=#D17A22>"+target.type+"</color> "+"<color=#2B193D>"+target.user+"</color> "+target.calculateProtectionRate+"\n"
         i=i+1
     end for
@@ -493,4 +493,46 @@ Commands.Cmds["ssh"]["exe"] = function(args)
     sshTarget = new Target
     sshTarget.New(shell,shell.host_computer.public_ip,args[1])
     globals.current_target = sshTarget
+end function
+
+Commands.Cmds["deltarget"] = {
+    "info": "Удалить из целей",
+    "args": "[ID / all]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["deltarget"]["exe"] = function(args)
+    if args.len < 1 then
+        UI.printError("Использование: <b>deltarget [ID / all]</b>")
+        return 0
+    end if
+    if args[0].lower == "all" then
+        globals.targets = []
+        UI.print("Весь список целей очищен")
+        return 1;
+    end if
+    id = args[0].to_int
+    if typeof(id) == "string" then return UI.printError("Использование: <b>deltarget [ID / all]</b>")
+    if id >= globals.targets.len or id < 0 then return UI.printError("Не найдена цель под данным ID")
+    globals.targets.remove(id)
+    UI.print("Цель под ID "+id+" удалена.")
+end function
+
+Commands.Cmds["rshell"] = {
+    "info": "Получить соединения со стороннего сервера",
+    "args": "",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["rshell"]["exe"] = function(args)
+    RShellServer.Fetch()
+end function
+
+Commands.Cmds["rshellinfo"] = {
+    "info": "Получить данные Rshell для социальной инженерии",
+    "args": "",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["rshellinfo"]["exe"] = function(args)
+    UI.print("Текущие данные RSHELL:")
+    UI.print("IP: "+Program.settings["rshellServer"])
+    UI.print("PORT: "+Program.settings["rshellPort"])
 end function
