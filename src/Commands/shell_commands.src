@@ -245,10 +245,11 @@ Commands.Cmds["get"]["exe"] = function(args)
         UI.printError("Использование: <b>get [путь до файла]</b>")
         return 0
     end if
-    if trg.requestFile(args[0]) == null then return UI.printError("Файл не найден")
+    file = trg.requestFile(args[0])
+    if file == null then return UI.printError("Файл не найден")
     UI.print("Скачиваем файл...")
     wait(0.4)
-    result = scp(trg.shell,args[0],current_path+Program.settings["downloadPath"],get_shell)
+    result = scp(trg.shell,file.path,current_path+Program.settings["downloadPath"],get_shell)
     if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
     UI.print("Файл успешно загружен в <b>"+current_path+Program.settings["downloadPath"])
 end function
@@ -278,7 +279,7 @@ end function
 Commands.Cmds["infect"] = {
     "info": "Заразить компьютер rshell",
     "args": "(Имя процесса)",
-    "types": ["shell","computer","file"],
+    "types": ["shell"],
 }
 Commands.Cmds["infect"]["exe"] = function(args)
     trg = globals.current_target

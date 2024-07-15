@@ -3,6 +3,8 @@
     "args": "",
     "types": ["shell","computer"],
 }
+
+
 Commands.Cmds["ps"]["exe"] = function(args)
     trg = globals.current_target
     if trg.type != "shell" and trg.type != "computer" then
@@ -28,6 +30,23 @@ Commands.Cmds["ps"]["exe"] = function(args)
     end for
     UI.print("Активные процессы:")
     print(format_columns(str))
+end function
+
+Commands.Cmds["kill"] = {
+    "info": "Прекратить процесс",
+    "args": "[PID]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["kill"]["exe"] = function(args)
+    if args.len < 1 then return UI.printError("Использование - <b>kill [PID]]</b>") 
+    if typeof(args[0].to_int) != "number" then return UI.printError("Использование - <b>kill [PID]]</b>")  
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    result = trg.comp.close_program(args[0].to_int)
+    if typeof(result) == "string" then UI.printError("Не удалось убить процесс: "+result) else UI.print("Процесс убит")
 end function
 
 Commands.Cmds["touch"] = {
@@ -150,4 +169,46 @@ Commands.Cmds["rn"]["exe"] = function(args)
     if newName == null then return UI.printError("Укажите название")
     result = targetFile.rename(newName)
     if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось переименовать файл: "+result) else UI.print("Успешно!")
+end function
+
+Commands.Cmds["grab"] = {
+    "info": "Заполучить данные на компьютере",
+    "args": "[Mail / Bank / All]",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["grab"]["exe"] = function(args)
+    trg = globals.current_target
+    if trg.type != "shell" and trg.type != "computer" then
+        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
+        return 0;
+    end if
+    if args.len < 1 then
+        UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
+        return 0;
+    end if
+    mode = args[0]
+    if mode.lower != "mail" and mode.lower != "bank" and mode.lower != "all" then return UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
+    homeFolder = trg.comp.File("/home")
+    if homeFolder == null then return UI.printError("На цели не обнаружено папки home")
+    banks = []
+    mails = []
+    for userFolder in homeFolder.get_folders
+        configMail = trg.comp.File("/home/"+userFolder.name+"/Config/Mail.txt")
+        configBank = trg.comp.File("/home/"+userFolder.name+"/Config/Bank.txt")
+        if configMail != null then mails.push(configMail.get_content)
+        if configBank != null then banks.push(configBank.get_content)
+    end for
+    UI.print("Результат: ")
+    if mode.lower == "mail" or mode.lower == "all" then
+        UI.print("Данные почты:")
+        for mail in mails
+            UI.print("<color=#58B9DF>"+mail)
+        end for
+    end if
+    if mode.lower == "bank" or mode.lower == "all" then
+        UI.print("Данные банков:")
+        for bank in banks
+            UI.print("<color=#58B9DF>"+bank)
+        end for
+    end if
 end function

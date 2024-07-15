@@ -21,6 +21,7 @@ import_code("/home/KCMD/src/Database/exploitDB.src")
 import_code("/home/KCMD/src/Targets/target.src")
 import_code("/home/KCMD/src/etc/self-updater.src")
 import_code("/home/KCMD/src/RShellManipulator/RShellServer.src")
+import_code("/home/KCMD/src/Nano/Nano.src")
 clear_screen
 main_target = new Target()
 main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)

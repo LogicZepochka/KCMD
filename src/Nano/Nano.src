@@ -1,0 +1,44 @@
+﻿Nano = {}
+Nano.version = "1.0.0"
+Nano.content = function()
+    return self.file.get_content
+end function
+
+
+Nano.New = function(textFile)
+    editor = new Nano
+    editor.file = textFile
+    if editor.file.is_binary then return "Требуется текстовый файл"
+    if editor.file.is_folder then return "Требуется текстовый файл"
+    if not editor.file.has_permission("r") then return "Нет прав на чтение файла"
+    return editor
+end function
+
+Nano.showEditor = function()
+    input = ""
+    while input.lower != "exit"
+        clear_screen
+        print("===================================[NANO]===================================")
+        print(self.content)
+        print("============================================================================")
+        print("[exit - exit programm, update - update current content, clear - clear file]")
+        input = user_input("append > ")
+        if input.lower != "" and input.lower != "exit" and input.lower != "update" and input.lower != "clear" then
+            self.append(input)
+        end if
+        if input.lower == "update" then
+            
+        end if
+        if input.lower == "clear" then
+            self.clearFile
+        end if
+    end while
+end function
+
+Nano.append = function(text)
+    self.file.set_content(self.content +char(10)+text)
+end function
+
+Nano.clearFile = function()
+    self.file.set_content("")
+end function

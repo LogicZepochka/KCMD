@@ -11,10 +11,10 @@
 					labelStart = indexOf(segment, "<b>")
 					labelEnd = indexOf(segment, "</b>")
 					exploits[mem].push(segment[labelStart + 3: labelEnd])
-					ExploitDB.AddNew(metaLib.lib_name,version(metaLib),mem,segment[labelStart + 3: labelEnd])
 				end for
 			end for
 		end if
+		if exploits.indexes.len > 0 then ExploitDB.SaveInDB(metaLib.name,version(metaLib),exploits)
 end function
 
 scanExploits = function(meta,metaLib,ip = "local",insertData = "")
@@ -30,9 +30,9 @@ scanExploits = function(meta,metaLib,ip = "local",insertData = "")
 				labelStart = indexOf(segment, "<b>")
 				labelEnd = indexOf(segment, "</b>")
 				exploits[mem].push(segment[labelStart + 3: labelEnd])
-				ExploitDB.AddNew(metaLib.lib_name,version(metaLib),mem,segment[labelStart + 3: labelEnd])
 			end for
 		end for
+		ExploitDB.SaveInDB(metaLib.lib_name,version(metaLib),exploits)
 	else
 		exploits = exploitData
 	end if
@@ -48,5 +48,4 @@ scanExploits = function(meta,metaLib,ip = "local",insertData = "")
 				end if
 			end for
 	end for
-    ExploitDB.SaveDB()
 end function

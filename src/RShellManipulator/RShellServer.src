@@ -49,5 +49,6 @@ RShellServer.Fetch = function()
     if input.lower == "exit" then return 1;
 
     UI.print("Подсоединяемся...")
+    rshellTargets[input.to_int].activeJump()
     globals.current_target = rshellTargets[input.to_int]
 end function

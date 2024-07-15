@@ -21,6 +21,24 @@ Commands.Execute = function(text)
     Commands.Cmds[cmd]["exe"](params)
 end function
 
+Commands.showCommands = function(wordsInRow = 4)
+    trg = globals.current_target
+    UI.print("ТЕКУЩИЕ КОММАНДЫ")
+    wordInRow = 1
+    str = ""
+    for cmd in Commands.Cmds.indexes
+        if wordInRow > 4 then
+            str = str[:-1]
+            str = str + "\n"
+            wordInRow = 1
+        end if
+        if indexOf(Commands.Cmds[cmd]["types"],trg.type) == null then str = str + "<color=#ff0000>"+cmd+"</color> " else str = str + "<color=#00ff00>"+cmd+"</color> "
+        wordInRow = wordInRow + 1
+    end for
+    print(format_columns(str))
+    UI.print("Введи <b>help [комманда]</b> для подробной информации")
+end function
+
 Commands.Cmds["populatedb"] = {
     "info": "Заполнить базу данных новыми библиотеками",
     "args": "(Количество новых записей)",
@@ -65,16 +83,15 @@ Commands.Cmds["help"] = {
 }
 Commands.Cmds["help"]["exe"] = function(args)
     
-    for index in Commands.Cmds.indexes
-        print("")
-        if indexOf(Commands.Cmds[index]["types"],current_target.type) == null then
-            print("<color-red>--- "+index,"KCMD-HELP")
-        else
-            print("--- "+index,"KCMD-HELP")
-        end if
-        print(Commands.Cmds[index]["info"],"KCMD-HELP")
-        print("Аргументы: "+Commands.Cmds[index]["args"],"KCMD-HELP")
-    end for
+    if args.len < 1 then 
+        Commands.showCommands
+    else
+        if Commands.Cmds.hasIndex(args[0]) == 0 then return UI.printError("Нет комманды <b>"+args[0]+"</b>")
+        UI.print("Команда "+args[0])
+        UI.print("Использование: <b> "+args[0]+" "+Commands.Cmds[args[0]]["args"])
+        UI.print("Описание: <b> "+Commands.Cmds[args[0]]["info"])
+        UI.print("Используется в <b> "+Commands.Cmds[args[0]]["types"].join(", "))
+    end if
 end function
 
 Commands.Cmds["exit"] = {
@@ -118,7 +135,7 @@ Commands.Cmds["nmap"]["exe"] = function(args)
     lans = []
 
     UI.print("IP: "+ipAddress,"KCMD>NMAP")
-
+    
     print("-<b>ports</b>-------------------------------------------------------------")
 
     info = " <#D06B05>TYPE PORT STATE SERVICE VERSION LAN CONNECT\n"
@@ -313,11 +330,30 @@ Commands.Cmds["use"]["exe"] = function(args)
         UI.printError("Не найдена цель. Проверь список целей.")
         return 0;
     end if
+
     globals.current_target = globals.targets[id]
     if(globals.current_target.type == "shell") then 
         globals.current_target.calculateStartFolder()
         globals.current_target.activeJump()
     end if
+end function
+
+Commands.Cmds["nano"] = {
+    "info": "Открыть текстовый редактор",
+    "args": "[Путь до текстового файла]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["nano"]["exe"] = function(args)
+    if args.len < 1 then
+        UI.printError("Использование: nano [Путь до текстового файла]")
+        return 0
+    end if
+    trg = globals.current_target
+    file = trg.requestFile(args[0])
+    if file == null then return UI.printError("Файл не найден")
+    nano = Nano.New(file)
+    if typeof(nano) == "string" then return UI.printError("Не удалось открыть файл в редакторе: "+nano)
+    nano.showEditor()
 end function
 
 Commands.Cmds["targets"] = {
