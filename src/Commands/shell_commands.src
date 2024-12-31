@@ -1,4 +1,4 @@
-﻿printLS = function(startFolder)
+printLS = function(startFolder)
 
     nameFile = startFolder.name
     permission = startFolder.permissions
@@ -10,16 +10,6 @@
     print("")
     UI.print("Целевая папка:")
     UI.print(clr+"-> "+permission+" "+owner+" "+group+" "+" "+nameFile)
-    for fld in startFolder.get_folders
-        nameFile = fld.name
-        permission = fld.permissions
-        owner = fld.owner
-        group = fld.group
-        clr = "<color=red>"
-        if fld.has_permission("r") then clr = "<color=yellow>"
-        if fld.has_permission("w") then clr = "<color=green>"
-        UI.print(clr+"-----> "+permission+" "+owner+" "+group+" "+" "+nameFile)
-    end for
     for fld in startFolder.get_files
         nameFile = fld.name
         permission = fld.permissions
@@ -30,7 +20,29 @@
         if fld.has_permission("w") then clr = "<color=green>"
         UI.print(clr+"-----> "+permission+" "+owner+" "+group+" "+" "+nameFile)
     end for
+    for fld in startFolder.get_folders
+        nameFile = fld.name
+        permission = fld.permissions
+        owner = fld.owner
+        group = fld.group
+        clr = "<color=red>"
+        if fld.has_permission("r") then clr = "<color=yellow>"
+        if fld.has_permission("w") then clr = "<color=green>"
+        UI.print(clr+"-----> "+permission+" "+owner+" "+group+" "+" "+nameFile)
+    end for
     print("")
+end function
+
+directoryTree = function(startFile,depth=0)
+    spaces = "---"*depth 
+    fileSpaces = spaces+"---"
+    UI.print(spaces+"["+startFile.name+"]")
+    for files in startFile.get_files
+        UI.print(fileSpaces+files.name+"")
+    end for
+    for folder in startFile.get_folders
+        directoryTree(folder,depth+1)
+    end for
 end function
 
 Commands.Cmds["ls"] = {
@@ -61,7 +73,26 @@ Commands.Cmds["ls"]["exe"] = function(args)
         UI.printError("Файл является исполняемым. Требуется папка")
         return 0
     end if
-    printLS(folder)
+    directoryTree(folder)
+end function
+
+Commands.Cmds["tree"] = {
+    "info": "Получить список файлов в пути",
+    "args": "",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["tree"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" and trg.type != "computer") then
+        UI.printError("Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>")
+        return 0
+    end if
+    folder = trg.comp.File("/")
+    if (folder == null) then
+        UI.printError("Файл не найден")
+        return 0
+    end if
+    directoryTree(folder)
 end function
 
 

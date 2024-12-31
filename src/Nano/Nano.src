@@ -1,4 +1,4 @@
-﻿Nano = {}
+Nano = {}
 Nano.version = "1.0.0"
 Nano.content = function()
     return self.file.get_content

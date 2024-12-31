@@ -1,4 +1,4 @@
-﻿target = get_custom_object.target
+target = get_custom_object.target
 result = {
     type: "none", // - Тип для обработчика команды external. Если none, то мы ничего не обрабатываем. targets - список эксплойтов (например, если ломанули изнутри root shell)
     object: null

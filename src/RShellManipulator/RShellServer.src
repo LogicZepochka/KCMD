@@ -1,4 +1,4 @@
-﻿RShellServer = {}
+RShellServer = {}
 
 RShellServer.New = function(ip,port,user,pass)
     self.ready = false

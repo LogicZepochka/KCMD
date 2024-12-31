@@ -1,4 +1,4 @@
-﻿
+
 JumpFile = {}
 JumpFile.searchJumpPath = function(start)
     for folder in start.get_folders

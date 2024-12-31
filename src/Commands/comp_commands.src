@@ -1,4 +1,4 @@
-﻿Commands.Cmds["ps"] = {
+Commands.Cmds["ps"] = {
     "info": "Получить список процессов",
     "args": "",
     "types": ["shell","computer"],

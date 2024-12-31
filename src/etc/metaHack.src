@@ -1,4 +1,4 @@
-﻿populateExplots = function(meta,metaLib)
+populateExplots = function(meta,metaLib)
 		exploitData = ExploitDB.Request(metaLib.lib_name,version(metaLib))
 		exploits = {}
 		if exploitData == null then
