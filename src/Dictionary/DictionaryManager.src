@@ -14,6 +14,14 @@ Dictionary.init = function()
     self.index = 0
 end function
 
+Dictionary.atEnd = function()
+    return (self.len-1 == self.index)
+end function
+
+Dictionary.reset = function()
+    self.index = 0;
+end function
+
 Dictionary.requestNextPassword = function()
     result = self.passwords[self.index]
     self.index = self.index + 1

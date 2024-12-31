@@ -512,9 +512,10 @@ end function
 Commands.Cmds["ssh"] = {
     "info": "SSH",
     "args": "[айпи] [пользователь] [пароль] [порт (опционально)]",
-    "types": ["shell","computer","file"],
+    "types": ["shell"],
 }
 Commands.Cmds["ssh"]["exe"] = function(args)
+    trg = globals.current_target
     if args.len < 3 then
         UI.printError("Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>")
         return 0
@@ -527,7 +528,7 @@ Commands.Cmds["ssh"]["exe"] = function(args)
         UI.printError("Неверный порт: " + port)
         return 0
     end if
-    shell = get_shell.connect_service(args[0], port, args[1], args[2], "ssh")
+    shell = trg.shell.connect_service(args[0], port, args[1], args[2], "ssh")
     if typeof(shell) != "shell" then
         if typeof(shell) == "string" then return UI.printError("Не удалось установить соединение: "+shell)
         return UI.printError("Не удалось установить соединение: Неизвестная ошибка")
@@ -614,5 +615,49 @@ Commands.Cmds["bruteforce"]["exe"] = function(args)
         target = new Target
         target.New(result,ip)
         globals.current_target = target
+    end if
+end function
+
+Commands.Cmds["brutelocal"] = {
+    "info": "Взломать root текущей цели",
+    "args": "",
+    "types": ["shell"],
+}
+Commands.Cmds["brutelocal"]["exe"] = function(args)
+    UI.print("Взламываем...")
+    trg = globals.current_target
+    dict = globals.Dict
+    get_custom_object.passDictionary = dict;
+    get_custom_object.localBruteSuccess = false;
+    get_custom_object.localBruteShell = null;
+    
+    
+
+    payLoad = "
+        dict = get_custom_object.passDictionary;
+        dict.reset();
+        print("">> Dictionary started with ""+dict.len)
+        while not dict.atEnd()
+            print(""Tested ""+dict.index+"" words..."")
+            shell = get_shell(""root"",dict.requestNextPassword())
+            if(typeof(shell) == ""shell"") then
+                print("">> buteforce success..."")
+                get_custom_object.localBruteSuccess=true
+                get_custom_object.localBruteShell = shell
+                break;
+            end if
+        end while
+        print("">> Dictionary ended"")
+    ";
+
+    trg.jump.execute(payLoad);
+    
+    if(get_custom_object.localBruteSuccess) then
+        UI.print("Удачный брутфорс")
+        bruteTarget = new Target
+        bruteTarget.New(get_custom_object.localBruteShell,get_custom_object.localBruteShell.host_computer.public_ip,"root")
+        globals.current_target = bruteTarget
+    else
+        UI.printError("Брутфорс неудачен")
     end if
 end function
