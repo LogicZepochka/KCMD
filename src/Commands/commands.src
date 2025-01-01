@@ -39,6 +39,15 @@ Commands.showCommands = function(wordsInRow = 4)
     UI.print("Введи <b>help [комманда]</b> для подробной информации")
 end function
 
+Commands.Cmds["pipe"] = {
+    "info": "Войти в режим pipe",
+    "args": "",
+    "types": ["shell"],
+}
+Commands.Cmds["pipe"]["exe"] = function(args)
+    PipeCmds.StartMode()
+end function
+
 Commands.Cmds["populatedb"] = {
     "info": "Заполнить базу данных новыми библиотеками",
     "args": "(Количество новых записей)",

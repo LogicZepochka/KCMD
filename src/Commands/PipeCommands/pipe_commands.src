@@ -1,0 +1,125 @@
+
+
+PipeCmds.Cmds["cat"] = function(args,buffer)
+    if(args.len < 1) then
+        buffer.error = true
+        print(">>>> cat [file path]")
+        return 0;
+    end if
+    result = ""
+    target = buffer.target
+    targetFile = target.comp.File(args[0])
+    if(targetFile == null) then 
+        buffer.error = true
+        print("err:> file not found")
+        return 0;
+    end if
+    if(not targetFile.has_permission("r")) then 
+        buffer.error = true
+        print("err:> no permissions to read file")
+        return 0;
+    end if
+    if(targetFile.is_binary or targetFile.is_folder) then 
+        buffer.error = true
+        print("err:> this is not text file")
+        return 0;
+    end if
+    buffer.type = "string"
+    buffer.data = targetFile.get_content
+end function
+
+PipeCmds.Cmds["grep"] = function(args,buffer)
+    print("<size=40>GREP</color>")
+    if(args.len < 1) then
+        buffer.error = true
+        print(">>>> grep [searchStr]")
+        return 0;
+    end if
+    if buffer.type != "string" then
+        buffer.error = true
+        print(">>>> required string in buffer")
+        return 0;
+    end if
+    lines = buffer.data.split(char(10))
+    result = null
+    for line in lines
+        if(line.indexOf(args[0]) != null) then
+            result = line
+            break;
+        end if
+    end for
+    if(result == null) then
+        buffer.error = true
+        print(">>>> "+args[0]+" not found")
+        return 0;
+    end if
+    print(line)
+    buffer.type = "string"
+    buffer.data = result;
+end function
+
+PipeCmds.Cmds["split"] = function(args,buffer)
+    if(args.len < 1) then
+        buffer.error = true
+        print(">>>> split [separator]")
+        return 0;
+    end if
+    if buffer.type != "string" then
+        buffer.error = true
+        print(">>>> required string in buffer")
+        return 0;
+    end if
+    lines = buffer.data.split(args[0])
+    buffer.type = "array"
+    buffer.data = lines;
+end function
+
+PipeCmds.Cmds["select"] = function(args,buffer)
+    if(args.len < 1) then
+        buffer.error = true
+        print(">>>> select [index]")
+        return 0;
+    end if
+    if buffer.type != "array" then
+        buffer.error = true
+        print(">>>> required array in buffer")
+        return 0;
+    end if
+    index = to_int(args[0])
+    if(index == null) then
+        buffer.error = true
+        print(">>>> required number as argument")
+        return 0;
+    end if
+    if index < 0 or index >= buffer.data.len then
+            buffer.error = true
+            print(">>>> select index out of bounds")
+            return 0;
+    end if
+    result = buffer.data[index];
+    type = typeof(result)
+    buffer.type = type
+    buffer.data = result;
+end function
+
+PipeCmds.Cmds["crack"] = function(args,buffer)
+    if buffer.type != "string" then
+        buffer.error = true
+        print(">>>> required string in buffer")
+        return 0;
+    end if
+    result = crypto.decipher(buffer.data);
+    if(result == null) then
+        buffer.error = true
+        print(">>>> failed to crack hash")
+        return 0;
+    end if
+
+    buffer.type = "string"
+    buffer.data = result;
+end function
+
+PipeCmds.Cmds["target"] = function(args,buffer)
+    buffer.type = "target"
+    buffer.data = globals.current_target
+end function

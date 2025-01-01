@@ -1,0 +1,40 @@
+PipeCmds = {}
+PipeCmds.Cmds = {}
+PipeCmds.Buffer = {}
+
+PipeCmds.StartMode = function()
+    clear_screen
+    print("Вы вошли в режим pipe режим. (exit для выхода)")
+    print(char(10))
+    cmd = ""
+    while cmd.lower() != "exit"
+        cmd = user_input("> ")
+        self.Execute(cmd)
+    end while
+end function
+
+PipeCmds.Execute = function(text)
+    buffer = {}
+    buffer.error = false
+    buffer.data = null
+    buffer.type = null
+    buffer.target = globals.current_target
+
+    cmds = text.split(" \| ")
+    for cmd in cmds
+        if(buffer.error) then return print("<color=red>Произошла ошибка в процессе выполнения команд. Цепочка остановлена");
+        cmdInfo = cmd.split(" ")
+        print(cmdInfo)
+        cmd = cmdInfo[0].lower
+        cmdInfo.remove(0)
+        params = []
+        if(cmdInfo.len > 0) then params = cmdInfo
+        if not hasIndex(PipeCmds.Cmds,cmd) then
+            print(">> Команда "+cmd+" не найдена")
+            return 0;
+        end if
+
+        PipeCmds.Cmds[cmd](params,@buffer)
+    end for
+    if(not buffer.error and buffer.type == "string") then print(buffer.data);
+end function

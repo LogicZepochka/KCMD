@@ -19,7 +19,7 @@ import_code("/home/KCMD/src/etc/jump.src")
 
 import_code("/home/KCMD/src/Database/exploitDB.src")
 import_code("/home/KCMD/src/Targets/target.src")
-import_code("/home/KCMD/src/etc/self-updater.src")
+//import_code("/home/KCMD/src/etc/self-updater.src")
 import_code("/home/KCMD/src/RShellManipulator/RShellServer.src")
 import_code("/home/KCMD/src/Nano/Nano.src")
 clear_screen
@@ -34,6 +34,8 @@ Program.Init()
 ExploitDB.Init()
 RShellServer.New(Program.settings["rshellServer"],Program.settings["rshellPort"],Program.settings["rshellUser"],Program.settings["rshellPassword"]) // (ip,port,user,pass)
 
+import_code("/home/KCMD/src/Commands/PipeCommands/pipe_processor.src")
+import_code("/home/KCMD/src/Commands/PipeCommands/pipe_commands.src")
 import_code("/home/KCMD/src/UI/UI_Input.src")
 import_code("/home/KCMD/src/Commands/commands.src")
 import_code("/home/KCMD/src/Commands/shell_commands.src")
