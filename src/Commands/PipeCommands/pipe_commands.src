@@ -29,7 +29,6 @@ PipeCmds.Cmds["cat"] = function(args,buffer)
 end function
 
 PipeCmds.Cmds["grep"] = function(args,buffer)
-    print("<size=40>GREP</color>")
     if(args.len < 1) then
         buffer.error = true
         print(">>>> grep [searchStr]")
