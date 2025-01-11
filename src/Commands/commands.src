@@ -373,6 +373,16 @@ Commands.Cmds["targets"]["exe"] = function(args)
     print(format_columns(str))
 end function
 
+Commands.Cmds["revertlogs"] = {
+    "info": "Восстановить логи",
+    "args": "",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["revertlogs"]["exe"] = function(args)
+    trg = globals.current_target
+    trg.replaceLog()
+end function
+
 Commands.Cmds["rh"] = {
     "info": "Выполнить удаленный взлом",
     "args": "[IP] [PORT] (Локальный IP или новый пароль)",
