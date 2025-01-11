@@ -24,7 +24,6 @@ PipeCmds.Execute = function(text)
     for cmd in cmds
         if(buffer.error) then return print("<color=red>Произошла ошибка в процессе выполнения команд. Цепочка остановлена");
         cmdInfo = cmd.split(" ")
-        print(cmdInfo)
         cmd = cmdInfo[0].lower
         cmdInfo.remove(0)
         params = []
