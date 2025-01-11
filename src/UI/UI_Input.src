@@ -1,4 +1,4 @@
-﻿command_imput = function(text)
+command_imput = function(text)
     print()
     text = "<color=grey>[<color=#C73E1D>"+globals.current_target.type+"</color><color=grey>]("+globals.current_target.user+")————[<color=#C73E1D>"+globals.current_target.public_ip+"</color><color=grey>][<color=#C73E1D>"+current_target.local_ip+"</color><color=grey>]"
     print(text)

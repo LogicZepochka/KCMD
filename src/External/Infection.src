@@ -1,4 +1,4 @@
-﻿target = get_custom_object.target
+target = get_custom_object.target
 if(target.type != "shell") then 
     print("<color=red>ЦЕЛЬ НЕ SHELL!</color>")
     exit()

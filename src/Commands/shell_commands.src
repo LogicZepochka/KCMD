@@ -1,4 +1,4 @@
-﻿printLS = function(startFolder)
+printLS = function(startFolder)
 
     nameFile = startFolder.name
     permission = startFolder.permissions

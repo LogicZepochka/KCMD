@@ -1,4 +1,4 @@
-﻿meta = include_lib("/lib/metaxploit.so")
+meta = include_lib("/lib/metaxploit.so")
 if not meta then
 	meta = include_lib(current_path+"/metaxploit.so")
 	if not meta then UI.printError("<color=red>metaxploit.so не обнаружен</color>")

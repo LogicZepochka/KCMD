@@ -1,4 +1,4 @@
-﻿Commands = {}
+Commands = {}
 Commands.Cmds = {}
 
 Commands.CheckExecutionTarget = function(command)

@@ -1,4 +1,4 @@
-﻿get_custom_object.importedLibs = []
+get_custom_object.importedLibs = []
 
 import_code("/home/KCMD/src/Dictionary/list-1.src")
 import_code("/home/KCMD/src/Dictionary/list-2.src")

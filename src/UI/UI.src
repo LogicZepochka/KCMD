@@ -1,4 +1,4 @@
-﻿UI = {}
+UI = {}
 
 UI.print = function(text,prefix = "KCMD2")
     print("[<color=#558C8C>"+prefix+"</color>] <color=#9EE493>"+text)
