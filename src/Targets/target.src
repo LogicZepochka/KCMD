@@ -5,6 +5,7 @@ Target = {}
 Target.New = function(object,targetIp,user = "guest",local_ip = "---")
     self.type = typeof(object)
     self.shell = null
+    self.name = "null"
     self.user = user
     self.jump = null
     self.public_ip = targetIp
@@ -14,7 +15,7 @@ Target.New = function(object,targetIp,user = "guest",local_ip = "---")
         self.user = getUserFromTarget(self)
     end if
     if self.type == "file" then
-        self.name = object.name
+        self.name = object.name()
         self.can_read = object.has_permission("r")
         if self.can_read then self.content = object.get_content
     end if
