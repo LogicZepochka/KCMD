@@ -72,7 +72,6 @@ Commands.Cmds["populatedb"]["exe"] = function(args)
         UI.print("<color=red>Пополнено "+i+" из "+targets)
         UI.print(printPercent(i,targets))
     end for
-    ExploitDB.SaveDB()
     UI.print("Пополнение завершено.")
 end function
 
