@@ -72,7 +72,6 @@ Commands.Cmds["populatedb"]["exe"] = function(args)
         UI.print("<color=red>Пополнено "+i+" из "+targets)
         UI.print(printPercent(i,targets))
     end for
-    ExploitDB.SaveDB()
     UI.print("Пополнение завершено.")
 end function
 
@@ -330,6 +329,18 @@ Commands.Cmds["use"]["exe"] = function(args)
         UI.printError("Не найдена цель. Проверь список целей.")
         return 0;
     end if
+    temp = globals.targets[id];
+    if(temp.type == "file") then 
+        if(temp.can_read) then
+            print("==================["+temp.name+"]======================")
+            print(temp.content)
+            print("==================["+temp.name+"]======================")
+        else
+            print("==================["+temp.name+"]======================")
+            UI.printError("Недостаточно прав для прочтения файла")
+            print("==================["+temp.name+"]======================")
+        end if
+    end if
 
     globals.current_target = globals.targets[id]
     if(globals.current_target.type == "shell") then 
@@ -371,6 +382,16 @@ Commands.Cmds["targets"]["exe"] = function(args)
         i=i+1
     end for
     print(format_columns(str))
+end function
+
+Commands.Cmds["revertlogs"] = {
+    "info": "Восстановить логи",
+    "args": "",
+    "types": ["shell","computer"],
+}
+Commands.Cmds["revertlogs"]["exe"] = function(args)
+    trg = globals.current_target
+    trg.replaceLog()
 end function
 
 Commands.Cmds["rh"] = {

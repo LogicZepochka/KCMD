@@ -5,15 +5,17 @@ Target = {}
 Target.New = function(object,targetIp,user = "guest",local_ip = "---")
     self.type = typeof(object)
     self.shell = null
+    self.name = "null"
     self.user = user
     self.jump = null
     self.public_ip = targetIp
+    self.logsProtected = false
     if self.type == "computer" then
         self.comp = object
         self.user = getUserFromTarget(self)
     end if
     if self.type == "file" then
-        self.name = object.name
+        self.name = object.name()
         self.can_read = object.has_permission("r")
         if self.can_read then self.content = object.get_content
     end if
@@ -27,7 +29,32 @@ Target.New = function(object,targetIp,user = "guest",local_ip = "---")
     if local_ip != null then self.local_ip = local_ip
     if self.type == "shell" or self.type == "computer" then
         self.local_ip = self.comp.local_ip
+        self.copyLog();
     end if
+end function
+
+Target.copyLog = function()
+    logFile = self.comp.File("/var/system.log")
+    result = logFile.copy("/var",".system.log")
+    if(typeof(result) == "string") then
+        self.logsProtected = true
+        UI.printWarning("Логи защищены. Нужно повысить права.")
+    else 
+        self.logsProtected = false
+        UI.print("Логи не защищены. Можно подменить старой версией")
+    end if
+end function
+
+Target.replaceLog = function()
+    if(self.logsProtected) then 
+        UI.printWarning("Не получилось восстановить логи - нет доступа")
+        return;
+    end if
+    copyLogFile = self.comp.File("/var/.system.log")
+    myLogFile = self.comp.File("/var/system.log")
+    myLogFile.delete();
+    copyLogFile.copy("/var","system.log")
+    UI.print("Лог восстановлен")
 end function
 
 Target.activeJump = function()

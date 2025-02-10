@@ -24,7 +24,7 @@ JumpFile.New = function(target)
         self.jumpPath = result.path
         self.compilePath = result.path+"/"+".jmp"
         self.codePath = result.path+"/"+".jmp.src"
-        UI.print("<b>ДОСТУПНА УСИЛЕННАЯ АТАКА</b>")
+        UI.print("<b>ДОСТУПНЫ ВНУТРЕННИЕ АТАКИ</b>")
         self.ready = true
     end if
 end function

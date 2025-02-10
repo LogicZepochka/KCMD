@@ -14,7 +14,7 @@ populateExplots = function(meta,metaLib)
 				end for
 			end for
 		end if
-		if exploits.indexes.len > 0 then ExploitDB.SaveInDB(metaLib.name,version(metaLib),exploits)
+		if exploits.indexes.len > 0 then ExploitDB.SaveInDB(metaLib.lib_name,version(metaLib),exploits)
 end function
 
 scanExploits = function(meta,metaLib,ip = "local",insertData = "")
