@@ -329,6 +329,18 @@ Commands.Cmds["use"]["exe"] = function(args)
         UI.printError("Не найдена цель. Проверь список целей.")
         return 0;
     end if
+    temp = globals.targets[id];
+    if(temp.type == "file") then 
+        if(temp.can_read) then
+            print("==================["+temp.name+"]======================")
+            print(temp.content)
+            print("==================["+temp.name+"]======================")
+        else
+            print("==================["+temp.name+"]======================")
+            UI.printError("Недостаточно прав для прочтения файла")
+            print("==================["+temp.name+"]======================")
+        end if
+    end if
 
     globals.current_target = globals.targets[id]
     if(globals.current_target.type == "shell") then 
