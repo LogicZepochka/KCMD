@@ -210,6 +210,10 @@ Commands.Cmds["ih"]["exe"] = function(args)
             targets.push(lib.path)
         end for
     end if
+    arg = ""
+    if(args.len > 1) then
+        arg = args[1];
+    end if
     inMetax = trg.jump.getInternalMetax(trg)
     if inMetax == null then
         UI.printWarning("На целевом компьютере, возможно, не найден metaxploit.so, загружем свой...")
@@ -227,7 +231,7 @@ Commands.Cmds["ih"]["exe"] = function(args)
     for target in targets
         targetLib = inMetax.load(target)
         if targetLib == null then continue;
-        scanExploits(inMetax,targetLib,trg.public_ip)
+        scanExploits(inMetax,targetLib,trg.public_ip,arg)
     end for
     UI.print("Внутренняя атака завершена")
 end function
