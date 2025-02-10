@@ -606,6 +606,11 @@ Commands.Cmds["bruteforce"] = {
     "types": ["shell","computer","file"],
 }
 Commands.Cmds["bruteforce"]["exe"] = function(args)
+
+    // Remove when dictionary will be ready
+    return print("[Currently not awailable]")
+
+
     if(args.len != 1) then return UI.printError("Использование: <b>bruteforce [IP]</b>")
     if(not is_valid_ip(args[0])) then return UI.printError("Неправильный IP адрес")
     trg = globals.current_target

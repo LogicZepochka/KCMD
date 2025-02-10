@@ -180,7 +180,7 @@ end function
 
 Commands.Cmds["ih"] = {
     "info": "Взлом изнутри цели",
-    "args": "[Библиотека/all]",
+    "args": "[Библиотека/all] (args)",
     "types": ["shell"],
 }
 
@@ -194,6 +194,7 @@ Commands.Cmds["ih"]["exe"] = function(args)
         UI.printError("Использование: <b>ih [Библиотека/all]</b>")
         return 0
     end if
+    
     
     targets = []
     if args[0] != "all" then

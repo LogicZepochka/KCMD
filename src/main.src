@@ -7,8 +7,9 @@ import_code("/home/KCMD/src/Dictionary/list-4.src")
 import_code("/home/KCMD/src/Dictionary/list-5.src")
 import_code("/home/KCMD/src/Dictionary/list-6.src")
 import_code("/home/KCMD/src/Dictionary/DictionaryManager.src")
-globals.Dict = Dictionary.New
-wait(3)
+
+
+//globals.Dict = Dictionary.New  --- Currently dictonary is obsolete. Awaiting new dictionaries
 
 import_code("/home/KCMD/src/UI/UI.src")
 
