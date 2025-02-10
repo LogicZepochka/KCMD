@@ -29,10 +29,10 @@ Target.New = function(object,targetIp,user = "guest",local_ip = "---")
     if local_ip != null then self.local_ip = local_ip
     if self.type == "shell" or self.type == "computer" then
         self.local_ip = self.comp.local_ip
-        self.copyLog();
     end if
 end function
 
+// OBSOLETE
 Target.copyLog = function()
     logFile = self.comp.File("/var/system.log")
     result = logFile.copy("/var",".system.log")
@@ -45,6 +45,7 @@ Target.copyLog = function()
     end if
 end function
 
+// OBSOLETE
 Target.replaceLog = function()
     if(self.logsProtected) then 
         UI.printWarning("Не получилось восстановить логи - нет доступа")
