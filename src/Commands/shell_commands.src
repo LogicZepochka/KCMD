@@ -305,3 +305,27 @@ Commands.Cmds["infect"]["exe"] = function(args)
     if typeof(result) == "string" then return UI.printError("Не удалось заразить целевую машину - "+result)
     UI.print("Заражение успешно")
 end function
+
+Commands.Cmds["launch"] = {
+    "info": "Заразить компьютер rshell",
+    "args": "[path] (params)",
+    "types": ["shell"],
+}
+Commands.Cmds["launch"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    if args.len < 1 then
+        UI.printError("Использование: <b>launch [path] (args)</b>")
+        return 0
+    end if
+    filePath = args[0];
+    arg = "";
+    if(args.len > 1) then
+        arg = args[1:].join(" ");
+    end if
+    result = trg.shell.launch(filePath,arg);
+    if(typeof(result) == "string") then return UI.printError("Программа не найдена")
+end function
