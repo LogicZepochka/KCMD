@@ -52,6 +52,7 @@ Commands.Cmds["ls"]["exe"] = function(args)
             UI.printError("Использование: <b>ls [путь]</b>")
         return 0
     end if
+    if(args[0].len <= 0) then return UI.printError("Использование: <b>ls [путь]</b>");
     folder = trg.comp.File(args[0])
     if (folder == null) then
         UI.printError("Файл не найден")
