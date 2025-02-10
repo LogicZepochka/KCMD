@@ -35,5 +35,13 @@ PipeCmds.Execute = function(text)
 
         PipeCmds.Cmds[cmd](params,@buffer)
     end for
-    if(not buffer.error and buffer.type == "string") then print(buffer.data);
+    if(not buffer.error) then 
+        if buffer.type == "string" then print(buffer.data);
+        if buffer.type == "array" then 
+            print("Array:")
+            for item in buffer.data
+                print(item);
+            end for
+        end if
+    end if
 end function

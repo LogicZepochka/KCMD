@@ -118,6 +118,11 @@ PipeCmds.Cmds["crack"] = function(args,buffer)
     buffer.data = result;
 end function
 
+PipeCmds.Cmds["targets"] = function(args,buffer)
+    buffer.type = "array"
+    buffer.data = globals.targets;
+end function
+
 PipeCmds.Cmds["target"] = function(args,buffer)
     buffer.type = "target"
     buffer.data = globals.current_target
