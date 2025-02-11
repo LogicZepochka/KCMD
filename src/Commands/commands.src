@@ -608,7 +608,7 @@ Commands.Cmds["bruteforce"] = {
 Commands.Cmds["bruteforce"]["exe"] = function(args)
 
     // Remove when dictionary will be ready
-    return print("[Currently not awailable]")
+    return print("[Currently not available]")
 
 
     if(args.len != 1) then return UI.printError("Использование: <b>bruteforce [IP]</b>")
