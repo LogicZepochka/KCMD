@@ -697,6 +697,8 @@ Commands.Cmds["debuglib"]["exe"] = function(args)
 
         if(select == "2") then
             print("Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER")
+            print("")
+            user_input()
             file = main_target.comp.File(Program.path+"/patch.txt")
             if(file == null) then 
                 UI.printError("Файл path.txt не найден")
