@@ -34,12 +34,17 @@ PipeCmds.Cmds["grep"] = function(args,buffer)
         print(">>>> grep [searchStr]")
         return 0;
     end if
-    if buffer.type != "string" then
+    if buffer.type != "string" and buffer.type != "array" then
         buffer.error = true
-        print(">>>> required string in buffer")
+        print(">>>> required string or array in buffer")
         return 0;
     end if
-    lines = buffer.data.split(char(10))
+    lines = []
+    if buffer.type == "array" then 
+        lines = buffer.data.join(char(10)).split(char(10))
+    else 
+        lines = buffer.data.split(char(10))
+    end if
     result = null
     for line in lines
         if(line.indexOf(args[0]) != null) then
