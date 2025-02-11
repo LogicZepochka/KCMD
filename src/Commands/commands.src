@@ -642,3 +642,84 @@ Commands.Cmds["bruteforce"]["exe"] = function(args)
         globals.current_target = target
     end if
 end function
+
+Commands.Cmds["debuglib"] = {
+    "info": "Задебажить библиотеку",
+    "args": "[lib path]",
+    "types": ["shell","computer","file"],
+}
+Commands.Cmds["debuglib"]["exe"] = function(args)
+    if args.len < 1 then
+        UI.printError("Использование: <b>debuglib [lib path]</b>")
+        return 0
+    end if
+    targetLib = meta.load(args[0])
+    if(targetLib == null) then return UI.printError("Требуемый адрес не является библиотекой")
+    print("============================================")
+    print("Name: "+targetLib.lib_name)
+    print("Version: "+targetLib.version)
+    print("============================================")
+    print("<color=red>ВНИМАНИЕ")
+    print("<color=white>Продолжая действия вы можете все запороть! Нажми CTRL+C чтобы остановиться")
+    print("")
+    username = user_input("debug user: ")
+    password = user_input("debug password: ")
+    debugLib = targetLib.debug_tools(username, password)
+    if typeof(debugLib) != "debugLibrary" then
+        return UI.printError("Неверные данные!")
+    end if
+    select = ""
+    
+    clear_screen;
+    print("=====================[DEBUG MODE]==========================")
+    print("Name: "+targetLib.lib_name)
+    print("Version: "+targetLib.version)
+    print("=====================[DEBUG MODE]==========================")
+    while select.lower != "exit"
+        print("1 - Scan")
+        print("2 - Apply Patch")
+        print("3 - Payload")
+        print("4 - Unit tests")
+        print("EXIT - exit debug mode")
+
+        select = user_input("Select: ")
+
+        if(select == "1") then
+            file = main_target.comp.touch(Program.path,"scan_results.txt");
+            if(typeof(file) == "string") then 
+                UI.printError("Ошибка создания скана: "+file) 
+            else
+            scanResult = debugLib.scan();
+            file = main_target.comp.File(Program.path+"/scan_results.txt").set_content(scanResult);
+            print("Сканирование завершено. Проверь в файл scan_results")
+            end if
+        end if
+
+        if(select == "2") then
+            print("Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER")
+            file = main_target.comp.File(Program.path+"/patch.txt").set_content(scanResult);
+            if(file == null) then 
+                UI.printError("Файл path.txt не найден")
+            else
+                patch = file.get_content
+                print("Patch result: "+debugLib.apply_patch(patch))
+            end if
+        end if
+
+        if(select == "3") then
+            print("ERROR: Не реализовано")
+        end if
+
+        if(select == "4") then
+            print("Введи числа ЧЕРЕЗ ПРОБЕЛ с ошибками в строках:")
+            linesStr = user_input()
+            numArr = []
+            numbers = linesStr.split(" ")
+            for num in numbers
+                numArr.push(num.to_int)
+            end for
+            print("Unit tests values: "+numArr)
+            print("Unit test results: " + debugLib.unit_testing(numArr))
+        end if
+    end while
+end function
