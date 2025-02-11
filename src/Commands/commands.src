@@ -697,7 +697,7 @@ Commands.Cmds["debuglib"]["exe"] = function(args)
 
         if(select == "2") then
             print("Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER")
-            file = main_target.comp.File(Program.path+"/patch.txt").set_content(scanResult);
+            file = main_target.comp.File(Program.path+"/patch.txt")
             if(file == null) then 
                 UI.printError("Файл path.txt не найден")
             else
@@ -712,6 +712,7 @@ Commands.Cmds["debuglib"]["exe"] = function(args)
 
         if(select == "4") then
             print("Введи числа ЧЕРЕЗ ПРОБЕЛ с ошибками в строках:")
+            print("")
             linesStr = user_input()
             numArr = []
             numbers = linesStr.split(" ")
