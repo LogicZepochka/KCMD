@@ -69,13 +69,18 @@ end function
 
 searchReadAndExecuteFolder = function(target,startFolder = null)
 	if startFolder == null then startFolder = target.comp.File("/")
-	for folder in rootFile.get_folders
+	result = null;
+	for folder in startFolder.get_folders
+		print(">>>>>>>> "+folder.path+" | EXECUTE: "+folder.has_permission("x")+" | WRITE: "+folder.has_permission("w"))
 		if folder.has_permission("w") and folder.has_permission("x") then
-			return folder;
+			result = folder;
 			break;
 		else
-			return searchReadAndExecuteFolder(target,folder);
+			result = searchReadAndExecuteFolder(target,folder);
+			if(result != null) then
+				return result;
+			end if
 		end if
 	end for
-	return null;
+	return result;
 end function

@@ -311,7 +311,7 @@ Commands.Cmds["infect"]["exe"] = function(args)
 end function
 
 Commands.Cmds["launch"] = {
-    "info": "Заразить компьютер rshell",
+    "info": "Запустить программу на целевом ПК",
     "args": "[path] (params)",
     "types": ["shell"],
 }
@@ -332,4 +332,34 @@ Commands.Cmds["launch"]["exe"] = function(args)
     end if
     result = trg.shell.launch(filePath,arg);
     if(typeof(result) == "string") then return UI.printError("Программа не найдена")
+end function
+
+Commands.Cmds["switch"] = {
+    "info": "Переместиться в локальную сеть",
+    "args": "[path] (params)",
+    "types": ["shell"],
+}
+Commands.Cmds["switch"]["exe"] = function(args)
+    trg = globals.current_target
+    if(trg.type != "shell" ) then
+        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
+        return 0
+    end if
+    clear_screen;
+    print("Пробираемся внутрь...")
+    payloadFolder = searchReadAndExecuteFolder(trg);
+    if(payloadFolder == null) then return UI.printError("Не найдена папка для загрузки...")
+    get_shell.scp(launch_path,payloadFolder.path,trg.shell);
+    get_shell.scp(current_path+"/Database",payloadFolder.path,trg.shell);
+    get_shell.scp("/lib/metaxploit.so",payloadFolder.path,trg.shell);
+    print("Загрузка завершена. Запускаемся...")
+    programName = launch_path.split("/")
+    programName = programName[programName.len-1]
+    result = trg.shell.launch(payloadFolder.path+"/"+programName,"")
+    if(typeof(result) == "string") then UI.printError("Возникла ошибка при запуске: "+result)
+    print("Очистка...")
+    trg.comp.File(payloadFolder.path+"/"+programName).delete();
+    trg.comp.File(payloadFolder.path+"/Database").delete();
+    trg.comp.File(payloadFolder.path+"/metaxploit.so").delete();
+    print("Завершено.")
 end function
