@@ -66,3 +66,16 @@ getUserFromTarget = function (target)
         end if
     return "unknown"
 end function
+
+searchReadAndExecuteFolder = function(target,startFolder = null)
+	if startFolder == null then startFolder = target.comp.File("/")
+	for folder in rootFile.get_folders
+		if folder.has_permission("w") and folder.has_permission("x") then
+			return folder;
+			break;
+		else
+			return searchReadAndExecuteFolder(target,folder);
+		end if
+	end for
+	return null;
+end function
