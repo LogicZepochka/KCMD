@@ -55,7 +55,7 @@ print("<color=white>                  _..._
 <color=red> '    \  \  \           `                            /    _.'         
 <color=red>'------'  '---'                                     ( _.-' </color><color=grey>"+Program.version+"</color>     ")
 print("<color=grey>==============================================")
-print("<color=grey>Authors: Motya, LogZep")
+print("<color=grey>Authors: LogZep, Motya")
 print("<color=grey>==============================================")
 
 command = ""

@@ -18,6 +18,7 @@ Target.New = function(object,targetIp,user = "guest",local_ip = "---")
         self.name = object.name()
         self.can_read = object.has_permission("r")
         if self.can_read then self.content = object.get_content
+        self.file = object;
     end if
     self.obj = object
     if self.type == "shell" then

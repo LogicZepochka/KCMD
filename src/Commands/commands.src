@@ -377,7 +377,11 @@ Commands.Cmds["targets"]["exe"] = function(args)
     i = 0
     for target in globals.targets
         user = target.user
+        if target.type == "file" then
+            user = target.file.path
+        else
         if user == "root" then user = "<color=red>root</color>" else user = "<color=#2B193D>"+user+"</color>"
+        end if
         str = str + "<color=#2B193D>"+i+"</color> "+"<color=#558C8C>"+target.public_ip+"</color> "+"<color=#558C8C>"+target.local_ip+"</color> "+"<color=#D17A22>"+target.type+"</color> "+user+" "+target.calculateProtectionRate+"\n"
         i=i+1
     end for
@@ -608,7 +612,7 @@ Commands.Cmds["bruteforce"] = {
 Commands.Cmds["bruteforce"]["exe"] = function(args)
 
     // Remove when dictionary will be ready
-    return print("[Currently not awailable]")
+    return print("[Currently not available]")
 
 
     if(args.len != 1) then return UI.printError("Использование: <b>bruteforce [IP]</b>")
