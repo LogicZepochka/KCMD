@@ -39,6 +39,7 @@ import_code("/home/KCMD/src/UI/UI_Input.src")
 import_code("/home/KCMD/src/Commands/commands.src")
 import_code("/home/KCMD/src/Commands/shell_commands.src")
 import_code("/home/KCMD/src/Commands/comp_commands.src")
+import_code("/home/KCMD/src/Commands/file_commands.src")
 
 print("<color=white>                  _..._                                               
 <color=white>               .-'_..._''.                 _______         .-''-.     
