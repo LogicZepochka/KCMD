@@ -1,0 +1,20 @@
+UI={}
+UI.print=function(text,prefix="KCMD2")
+print("[<color=#558C8C>"+prefix+"</color>] <color=#9EE493>"+text)
+end function
+UI.printWarning=function(text,prefix="WRN")
+print("[<color=#D17A22>"+prefix+"</color>] <color=#9EE493>"+text)
+end function
+UI.printError=function(text,prefix="ERR")
+print("[<color=#A44A3F>"+prefix+"</color>] <color=#A44A3F>"+text)
+end function
+UI.user_input=function(text,prefix="CMD",isPass=0)
+return user_input("[<color=#FFA630>"+prefix+"</color>] "+text,isPass)
+end function
+UI.ask_user=function(question,yes="Y",no="N")
+answer=""
+while answer.lower!=yes.lower and answer.lower!=no.lower
+answer=self.user_input(question+"["+yes+" / "+no+"]")
+end while
+return answer.lower==yes.lower
+end function

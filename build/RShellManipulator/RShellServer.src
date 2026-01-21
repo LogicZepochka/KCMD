@@ -1,0 +1,55 @@
+RShellServer={}
+RShellServer.New=function(ip,port,user,pass)
+self.ready=0
+self.shell=null
+UI.print("Соединяемся с RSHELL сервером...","RSHELL")
+rshell=get_shell.connect_service(ip,22,user,pass)
+if typeof(rshell)!="shell" then return UI.printError("Не удалось подключиться к RSHELL серверу - проверь Config","RSHELL")
+self.shell=rshell
+self.comp=rshell.host_computer
+self.jump=self.comp.File("/etc/jump.src")
+if self.jump==null then self.comp.touch("/etc","jump.src")
+self.jump=self.comp.File("/etc/jump.src")
+get_custom_object.rshellMeta=null
+self.jump.set_content("get_custom_object.rshellMeta = include_lib(""/lib/metaxploit.so"")")
+result=self.shell.build("/etc/jump.src","/etc")
+if result.len>0 then return UI.printError("Не удалось подключиться к RSHELL серверу - "+result,"RSHELL")
+self.shell.launch("/etc/jump")
+self.meta=get_custom_object.rshellMeta
+if self.meta==null then return UI.printError("Не удалось подключиться к RSHELL серверу - проверь Config","RSHELL")
+UI.print("Соединение установлено","RSHELL")
+self.ready=1
+end function
+RShellServer.Fetch=function
+if self.ready==0 then return UI.printError("Соединение с RSHELL сервером не установлено","RSHELL")
+shells=self.meta.rshell_server
+result=[]
+if typeof(shells)=="string" then
+UI.printError("Не удалось получить RSHELL соединения","RSHELL")
+return []
+end if
+if shells.len==0 then
+UI.printError("Нет текущих соединений с RSHELL сервером","RSHELL")
+return []
+end if
+rshellTargets=[]
+for shell in shells
+newTarget=new Target
+newTarget.New(shell,shell.host_computer.public_ip)
+rshellTargets.push(newTarget)
+end for
+input=""
+UI.print("Активные RHSELL соединения:")
+str="<color=#FFA630>ID</color> <color=#FFA630>IP</color> <color=#FFA630>LOCAL</color> <color=#FFA630>USER</color>\n"
+for i in range(0,rshellTargets.len-1)
+str=str+"<color=#990040>"+i+"</color> <color=#990040>"+rshellTargets[i].public_ip+"</color> <color=#990040>"+rshellTargets[i].local_ip+"</color> <color=#990040>"+rshellTargets[i].user+"</color>\n"
+end for
+print(format_columns(str))
+while typeof(input.to_int)=="string" and input.lower!="exit" or (input.to_int<0 or input>=rshellTargets.len)
+input=UI.user_input("Выбери SHELL или EXIT для отмены: ")
+end while
+if input.lower=="exit" then return 1
+UI.print("Подсоединяемся...")
+rshellTargets[input.to_int].activeJump
+globals.current_target=rshellTargets[input.to_int]
+end function

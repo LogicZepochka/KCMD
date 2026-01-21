@@ -1,0 +1,53 @@
+get_custom_object.importedLibs=[]
+import_code("/home/log/0Dtln/Dictionary/list-1.src")
+import_code("/home/log/0Dtln/Dictionary/list-2.src")
+import_code("/home/log/0Dtln/Dictionary/list-3.src")
+import_code("/home/log/0Dtln/Dictionary/list-4.src")
+import_code("/home/log/0Dtln/Dictionary/list-5.src")
+import_code("/home/log/0Dtln/Dictionary/list-6.src")
+import_code("/home/log/0Dtln/Dictionary/DictionaryManager.src")
+import_code("/home/log/0Dtln/UI/UI.src")
+import_code("/home/log/0Dtln/libs.src")
+import_code("/home/log/0Dtln/etc/metaHack.src")
+import_code("/home/log/0Dtln/Program.src")
+import_code("/home/log/0Dtln/etc/jump.src")
+import_code("/home/log/0Dtln/Database/exploitDB.src")
+import_code("/home/log/0Dtln/Targets/target.src")
+import_code("/home/log/0Dtln/etc/self-updater.src")
+import_code("/home/log/0Dtln/RShellManipulator/RShellServer.src")
+import_code("/home/log/0Dtln/Nano/Nano.src")
+clear_screen
+main_target=new Target
+main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
+main_target.activeJump
+globals.targets=[]
+globals.current_target=main_target
+Program.Init
+ExploitDB.Init
+RShellServer.New(Program.settings["rshellServer"],Program.settings["rshellPort"],Program.settings["rshellUser"],Program.settings["rshellPassword"])
+import_code("/home/log/0Dtln/UI/UI_Input.src")
+import_code("/home/log/0Dtln/Commands/commands.src")
+import_code("/home/log/0Dtln/Commands/shell_commands.src")
+import_code("/home/log/0Dtln/Commands/comp_commands.src")
+import_code("/home/log/0Dtln/Commands/file_commands.src")
+print("<color=white>                  _..._                                               
+<color=white>               .-'_..._''.                 _______         .-''-.     
+<color=white>     .       .' .'      '.\ __  __   ___   \  ___ `'.    .' .-.  )    
+<color=white>   .'|      / .'           |  |/  `.'   `.  ' |--.\  \  / .'  / /     
+<color=blue> .'  |     . '             |   .-.  .-.   ' | |    \  '(_/   / /      
+<color=blue><    |     | |             |  |  |  |  |  | | |     |  '    / /       
+<color=blue> |   | ____| |             |  |  |  |  |  | | |     |  |   / /        
+<color=blue> |   | \ .'. '             |  |  |  |  |  | | |     ' .'  . '         
+<color=red> |   |/  .  \ '.          .|  |  |  |  |  | | |___.' /'  / /    _.-') 
+<color=red> |    /\  \  '. `._____.-'/|__|  |__|  |__|/_______.'/ .' '  _.'.-''  
+<color=red> |   |  \  \   `-.______ /                 \_______|/ /  /.-'_.'      
+<color=red> '    \  \  \           `                            /    _.'         
+<color=red>'------'  '---'                                     ( _.-' </color><color=grey>"+Program.version+"</color>     ")
+print("<color=grey>==============================================")
+print("<color=grey>Authors: LogZep, Motya")
+print("<color=grey>==============================================")
+command=""
+while command!="exit"
+command=command_imput
+Commands.Execute(command)
+end while

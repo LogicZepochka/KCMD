@@ -1,0 +1,4298 @@
+BUILD_DESTINATION="/home/log";BUILD_RESOURCE_DESTINATION="/home/log/0Dtln";BUILD_AUTO_COMPILE=1;s = get_shell;c = s.host_computer;m = function(filePath, content, isNew);segments = filePath.split("/")[1 : ];fileName = segments.pop;for segment in segments;parentPath = "/" + segments[ : __segment_idx].join("/");folderName = segment;if parentPath == "/" then;folderPath = "/" + folderName;else;folderPath = parentPath + "/" + folderName;end if;folderHandle = c.File(folderPath);if folderHandle == null then;result = c.create_folder(parentPath, folderName) == 1;if result != 1 then exit("Could not create folder in """ + folderPath + """ due to: " + result);print("New folder """ + folderPath + """ got created.");folderHandle = c.File(folderPath);end if;if not folderHandle.is_folder then exit("Entity at """ + folderPath + """ is not a folder. Installation got aborted.");end for;parentPath = "/" + segments.join("/");fileEntity = c.File(filePath);if fileEntity == null then;result = c.touch(parentPath, fileName);if result != 1 then exit("Could not create file in """ + filePath + """ due to: " + result);fileEntity = c.File(filePath);end if;if fileEntity == null then exit("Unable to get file at """ + filePath + """. Installation got aborted.");if fileEntity.is_folder then exit("File at """ + filePath + """ is a folder but should be a source file. Installation got aborted.");if fileEntity.is_binary then exit("File at """ + filePath + """ is a binary but should be a source file. Installation got aborted.");if isNew then;fileEntity.set_content(content);print("New file """ + filePath + """ got created.");else;fileEntity.set_content(fileEntity.get_content + content);print("Content got appended to """ + filePath + """.");end if;end function;d = function;c.File(program_path).delete;end function;m("/home/log/0Dtln/Dictionary/list-5.src","ockey1
+Handangl
+Handang1
+Usteende
+Usteendo
+Usteends
+Usteendr
+23123qwe1
+23qwe1231
+23qwe1233
+23qwe123a
+23qwe123q
+23qwe1236
+Assicarlb
+Assicarlj
+Slicarli
+Slicarlo
+Olicarli
+Olicarlo
+Allassian
+Allassive
+Tannesig
+Tannesir
+Dinglani
+Dinglanc
+Licanderm
+Forishir
+Forishop
+Forishoo
+Ontentie
+Ontentia
+Ontentis
+Ontentim
+Thentinu
+Thentiny
+Thentina
+Thentino
+Thentimo
+Thentimb
+Thentimp
+Colastac
+Colastat
+Paringra
+Paringry
+Istrings
+Aristors
+Aristory
+Aristorn
+Aristoro
+Restarti
+Restartr
+Restarte
+Restartm
+Restarty
+Restarta
+Jestarth
+Pantenno
+Holindal
+Holindag
+Holindam
+Stricham
+Anichanc
+Anichani
+Anichans
+Anichand
+Ollanten
+Mistimpi
+Mistimpl
+Mistimpa
+Mistimpy
+Kistimpi
+Kistimpl
+Kistimpa
+Kistimpy
+Ellanico
+Ellanica
+Amatris1
+Amatriso
+Amatriss
+Amatrish
+Thandigi
+Thandigg
+Thandigo
+Thandier
+Handessa
+Handessn
+Handess1
+Handiggi
+Lashanim
+Lashanic
+Lashando
+Arontanl
+Arontany
+Arontani
+Arontann
+Arontans
+Rontanan
+Rontanad
+Rontanal
+Rontanag
+Rontanak
+Vellassp
+Gandesti
+Gandest1
+Dillassp
+Millassp
+Bellassp
+Ustanich
+Fastenno
+Endestev
+Endestep
+Estendon
+Strichev
+Strichen
+Veronatha
+Licarris
+Veronatas
+Veronatal
+Veronatan
+Veronatar
+Geronnes
+Geronnet
+Gerontie
+Gerontia
+Gerontis
+Gerontim
+Trolasta
+Trolastl
+Trolasty
+Trolasti
+Averonno
+Averonna
+Averonne
+Averonta
+Averonti
+Averonte
+Averonto
+Verontone
+Pachammy
+Bastanno
+Bastanne
+Bastanny
+Ailestac
+Ailestat
+Alliantie
+Alliantia
+Alliantis
+Alliantim
+Lorissie
+Lorissio
+Collanim
+Collanic
+Rollanci
+Tallering
+Tallerino
+Tallerink
+Rustenni
+Bastalic
+Bastalis
+Bastalib
+Trolanth
+Trolink1
+Trolinke
+Trolinkl
+Warlink1
+Warlinke
+Warlinkl
+Cholanti
+Cholanto
+Cholanta
+Cholink1
+Cholinke
+Cholinkl
+Anichero
+Anicherr
+Anicherm
+Samartha
+Samartre
+Samarter
+Samartma
+Samartan
+Samarvin
+Samarvic
+Samarvet
+Samarvey
+Samarsen
+Samarses
+Samarago
+Amartern
+Amartere
+Amartera
+Amarterl
+Amarterp
+Amarter1
+Amarterf
+Amarcury
+Amarcurt
+Amaradon
+Insamart
+Insamarl
+Insamary
+Camarcus
+Camarcur
+Camarcul
+Corestia
+Corestim
+Trestanl
+Trestany
+Trestani
+Trestann
+Trestans
+Jestanie
+Trustell
+Trustein
+Trusteme
+Trustewa
+Trustefa
+Mousteel
+Mousteen
+Mousteal
+Mousteac
+Busteens
+Busteend
+Bustenha
+Musteace
+Ioustenn
+Ioustend
+Ioustent
+Ioustenh
+Trestimo
+Trestimb
+Trestimp
+Iverthamm
+Iverthamp
+Iverthami
+Iverthaml
+Iverthamr
+Vericande
+Allaskeet
+Allicanan
+Allicanad
+Allicanal
+Allicanag
+Allicanak
+Allicando
+Allissian
+Allissive
+Brontenn
+Brontend
+Brontent
+Brontenh
+Verthamle
+Verthamro
+Ontennor
+Vericarle
+Planickm
+Planicky
+Rustella
+Rustellf
+Trolanie
+Lorestac
+Lorestat
+Allanthon
+Assmanteg
+Worlantie
+Worlantia
+Worlantis
+Worlantim
+Manterly
+Rontreap
+Rontreal
+Rontread
+Olantenn
+Olantend
+Olantent
+Olantenh
+Colanten
+Strichol
+Strichoo
+Strichop
+Strichoc
+Strichon
+Gandangl
+Gandang1
+Ontanick
+Antanich
+Artanich
+Thanicho
+Rathandm
+Rathandi
+Rathandl
+Arthandm
+Arthandi
+Arthandl
+Hanichig
+Hanichin
+Hanichip
+Hanichie
+Verommerl
+Verommero
+Verommera
+Richende
+Richendo
+Richends
+Richendr
+Nichende
+Nichendo
+Nichends
+Nichendr
+Estendal
+Estendag
+Estendam
+Samaroli
+Amaroncr
+Amaronat
+Amarollo
+Amarolla
+Averings
+Gleringr
+Gleringl
+Parishin
+Parishot
+Parishor
+Trishotd
+Trishotr
+Trishotm
+Trishotg
+Trishott
+Trishore
+Strishin
+Strishot
+Strishor
+Bustorsc
+Mustorny
+Mustorno
+Mustorna
+Katannes
+Katannet
+Amantanl
+Amantany
+Amantani
+Amantann
+Amantans
+Mantanan
+Mantanad
+Mantanal
+Mantanag
+Mantanak
+Camaris1
+Camariso
+Camariss
+Camarish
+Veronnife
+Veronniss
+Veronnise
+Iveronnif
+Anicarli
+Anicarlo
+Worlanico
+Worlanica
+Allanimal
+Licaronma
+Licarolic
+Licarolid
+Licarolde
+Licaroldi
+Hottenno
+Alicarle
+Olastimo
+Olastimb
+Olastimp
+Fastimot
+Fastimps
+Gandessa
+Gandessn
+Gandess1
+Gandiggi
+Alicande
+Ylorishi
+Ylorisho
+Ylorishe
+Ondonnes
+Ondonnet
+Licarolly
+Allastac
+Allastat
+Parinker
+Istrink1
+Istrinke
+Istrinkl
+Strinkli
+Strinkle
+Ariellas
+Ariellar
+Ariellan
+Allarinem
+Allarinee
+Allariner
+Allarinky
+Rontangl
+Rontang1
+Stendest
+Stendess
+Bastende
+Bastendo
+Bastends
+Bastendr
+Anichelp
+Snichees
+Ringlani
+Ringlanc
+Rollantu
+Rollants
+Rollante
+Mandeste
+Allericho
+Licandam
+Verichiga
+Verichigh
+Verichipp
+Verichiph
+Samaring
+Samarino
+Samarink
+Amaringr
+Amaringl
+Pachando
+Pachanim
+Pachanic
+Westanno
+Westanne
+Westanny
+Estannor
+Horestic
+Strestia
+Strestim
+Aterests
+Aterestt
+Ateresta
+Ateresth
+Evellane
+Evellant
+Bustimpi
+Bustimpl
+Bustimpa
+Bustimpy
+Pandanim
+Pandanic
+Richonew
+Anicholl
+Nichonew
+Tanichae
+Bastanim
+Bastanic
+Orestali
+Westalic
+Westalis
+Westalib
+Estaliss
+Estalisa
+Danichee
+Danichey
+Stennesi
+Allastell
+Allastein
+Allasteme
+Allastefa
+Allastewa
+Samandia
+Amandigi
+Amandigg
+Amandigo
+Amandier
+Shamingr
+Shamingl
+Iverothew
+Iverothem
+Iverothen
+Iverotheo
+Verothema
+Verotheon
+Veromerli
+Allackins
+Allackink
+Ontimons
+Ontimoni
+Ontimong
+Winglani
+Winglanc
+Windonno
+Windonna
+Windonne
+Rontende
+Rontendo
+Rontends
+Rontendr
+Licarrien
+Ontendes
+Ontendow
+Ontendor
+Ontendom
+Greatinu
+Greatiny
+Greatina
+Greatino
+Amartink
+Amarkey1
+Amaratev
+Amaratew
+Amarateu
+Taniches
+Tanicher
+Camarker
+Camarkey
+Liveringr
+Liveringl
+Iveringle
+Iverthanc
+Iverthani
+Iverthans
+Iverthand
+Verincolo
+Verinitem
+Verinited
+Veriniter
+Verinoldb
+Verinoldf
+Westenta
+Westenti
+Westentu
+Estentas
+Estentan
+Mistenta
+Mistenti
+Mistentu
+Undestev
+Undestep
+Orestenn
+Orestend
+Orestent
+Orestenh
+Restenny
+Restenne
+Kistenta
+Kistenti
+Kistentu
+Jesteace
+Haronteg
+Tallastic
+Ordanicho
+Tallashal
+Tallashag
+Tallashav
+Tallasham
+Tallacked
+Lanichig
+Lanichin
+Lanichip
+Lanichie
+Pachinsi
+Pachinsa
+Samarlbo
+Samarlos
+Samarloc
+Samarlja
+Corestal
+Ordannesi
+Allanessa
+Allanessn
+Allaness1
+Licanadon
+Stentinu
+Stentiny
+Stentina
+Stentino
+Stentimo
+Stentimb
+Stentimp
+Allanten
+Mantangl
+Mantang1
+Shantanl
+Shantany
+Shantani
+Shantann
+Shantans
+Icholani
+Icholanc
+Amaronio
+Amaronim
+Ellastia
+Ellastim
+Corestee
+Corestel
+Corestei
+Corestem
+Corestew
+Coresten
+Corestea
+Corestef
+Averink1
+Averinke
+Averinkl
+Untannor
+Istrissi
+Lashanci
+Trishels
+Trishelb
+Trishele
+Rontanna
+Rontansa
+Bringlas
+Bringlan
+Veroniche
+Veronichi
+Amaradis
+Amaradin
+Mistrinc
+Mistrine
+Mistrini
+Mistrina
+Kistrinc
+Kistrine
+Kistrini
+Kistrina
+Allandesi
+Anichong
+Rolanich
+Tanicarl
+Tanicarm
+Tanicarr
+Tanicarf
+Mustenda
+Samariel
+Windalla
+Swindan2
+Swindann
+Iverontin
+Iverontom
+Verombonn
+Verombone
+Licarmerl
+Licarmero
+Licarmera
+Vericarry
+Allicarri
+Trinkerm
+Lastanno
+Lastanne
+Lastanny
+Ustender
+Collanci
+Hotterly
+Forissie
+Forissio
+Tonichee
+Tonichey
+Estennif
+Lastalic
+Lastalis
+Lastalib
+Jestardc
+Jestardo
+Jestardi
+Jestarde
+Jestardv
+Warlinto
+Warlints
+Holantie
+Holantia
+Holantis
+Holantim
+Trolinto
+Trolints
+Untreatl
+Untreati
+Untreatm
+Untreatt
+Cholinto
+Cholints
+Hanicham
+Eathandm
+Eathandi
+Eathandl
+Orestanl
+Orestany
+Orestani
+Orestann
+Orestans
+Estanico
+Estanica
+Westanim
+Westanic
+Illanich
+Orestimo
+Orestimb
+Orestimp
+Andestia
+Andestim
+Shandies
+Vellanim
+Vellanic
+Dillanim
+Dillanic
+Millanim
+Millanic
+Bellanim
+Bellanic
+Iverthund
+Iverthung
+Verthumpe
+Meringla
+Bastenno
+Amartanl
+Amartany
+Amartani
+Amartann
+Amartans
+Hanichev
+Hanichen
+Pookinker
+Trolassm
+Holanico
+Holanica
+Verokermi
+Pachamil
+Cholassp
+Alicarry
+Strestal
+Forestac
+Forestat
+Amelinco
+Brontana
+Iverinkey
+Iverinkee
+Tallaris1
+Tallariso
+Tallariss
+Tallarish
+Anichary
+Anicharv
+Anicharg
+Anichark
+Verothers
+Verotherc
+Verothery
+Veromerce
+Paringem
+Allandani
+Allandanc
+Allandang
+Richookl
+Richooky
+Richooks
+Mandalls
+Mandalle
+Nichookl
+Nichooky
+Nichooks
+Allandriv
+Allandrix
+Allandria
+Allandriz
+Allandall
+Allandalf
+Samarkne
+Samarksi
+Samarkst
+Maronnes
+Maronnet
+Marontie
+Marontia
+Marontis
+Marontim
+Allastarg
+Strestee
+Strestel
+Strestei
+Strestem
+Strestew
+Stresten
+Strestea
+Strestef
+Estenteg
+Mustente
+Mantanna
+Mantansa
+Olantanl
+Olantany
+Olantani
+Olantann
+Olantans
+Lashantu
+Lashants
+Lashante
+Ustendan
+Veronickm
+Veronicky
+Slicandm
+Slicandi
+Slicandl
+Olicandm
+Olicandi
+Olicandl
+Etalissia
+Etalissiv
+Tallassia
+Tallassiv
+Tallanesi
+Talissian
+Talissive
+Allasspoo
+Allastick
+Licardier
+Licardina
+Licardine
+Licarding
+Ronnesig
+Ronnesir
+Rontenno
+Pachingr
+Pachingl
+Licandon
+Licander
+Licandona
+Licandonk
+Licandonn
+Licandong
+Licandows
+Licandow1
+Bonnesig
+Bonnesir
+Allastink
+Estimons
+Estimoni
+Estimong
+Stringle
+Pariella
+Pariellf
+Allaristr
+Allaristy
+Allaristo
+Wartreap
+Wartreal
+Wartread
+Lastende
+Lastendo
+Lastends
+Lastendr
+Iverichee
+Iverichey
+Verichevy
+Vericheve
+Vericheye
+Richandm
+Richandi
+Richandl
+Nichandm
+Nichandi
+Nichandl
+Samantie
+Samantia
+Samantis
+Samantim
+Collantu
+Collants
+Collante
+Untanico
+Untanica
+Nathandm
+Nathandi
+Nathandl
+Natanich
+Hanichol
+Hanichoo
+Hanichop
+Hanichoc
+Hanichon
+Lashandr
+Lashanda
+Shaniche
+Shanichi
+Meronteg
+Veromberl
+Verombern
+Pachanci
+Jestenda
+Amarissi
+Pandanna
+Beachamm
+Beachamp
+Beachami
+Beachaml
+Beachamr
+Richolic
+Richolid
+Richoldb
+Richoldf
+Nicholic
+Nicholid
+Nicholdb
+Nicholdf
+Snichola
+Snicholi
+Snicholm
+Snichold
+Lanicham
+Pandanci
+Ellastac
+Ellastat
+Lastanim
+Lastanic
+Milestac
+Milestat
+Bastimot
+Bastimps
+Ollanich
+Licanadis
+Licanadin
+Anicheel
+Camarado
+Camaradi
+Camaradl
+Lanichev
+Lanichen
+Verthance
+000
+0000
+00000
+01010
+02020
+03030
+04040
+05050
+06060
+07070
+08080
+09090
+Bank
+Email
+Pass
+Passwd
+Boot
+Etc
+Var
+Lib
+Sys
+Usr
+Bin
+Alleringe
+Estennes
+Estennet
+Mustenni
+Verichine
+Veriching
+Vericarti
+Vericartr
+Vericarte
+Vericartm
+Vericarty
+Vericarta
+Allicarth
+Verichoot
+Verichock
+Verichoco
+Tallissia
+Tallissiv
+Allaskey1
+Allicarfi
+Allicarfa
+Licartre
+Licartha
+Licarter
+Licartma
+Licartan
+Licandre
+Licarthai
+Licartham
+Licartmai
+Licandage
+Allicandr
+Allicanda
+Uckinker
+Ustentai
+Paristac
+Paristat
+Restanno
+Restanne
+Restanny
+Stristac
+Stristat
+Amarlina
+Amarlint
+Amarlink
+Amarlinc
+Veringer1
+Veringero
+Licanneth
+Licannetw
+Allandiam
+Trolandm
+Trolandi
+Trolandl
+Andestal
+Restalic
+Restalis
+Restalib
+Jestalie
+Tallantin
+Tallantom
+Allanthan
+Mantenny
+Mantenne
+Tallanter
+Paristee
+Paristel
+Paristei
+Paristem
+Paristew
+Paristen
+Paristea
+Paristef
+Stristee
+Stristel
+Stristei
+Stristem
+Stristew
+Stristen
+Stristea
+Stristef
+Bustelly
+Mustella
+Mustellf
+Torissia
+Torissiv
+Trollasv
+Trollask
+Trollash
+Trollass
+Untrolle
+Untrollt
+Monichee
+Monichey
+Verichanc
+Verichani
+Verichans
+Verichand
+Assianten
+Amaronni
+Amaroldb
+Amaroldf
+Amarkerm
+Camaronc
+Camarona
+Trustors
+Trustory
+Trustorn
+Trustoro
+Leringla
+Mistorny
+Mistorno
+Mistorna
+Veriellac
+Kistorny
+Kistorno
+Kistorna
+Arishool
+Arishook
+Ontannor
+Verinesis
+Pacharky
+Pacharke
+Pacharkn
+Andestee
+Andestel
+Andestei
+Andestem
+Andestew
+Andesten
+Andestea
+Andestef
+Shanickm
+Shanicky
+Thentanl
+Thentany
+Thentani
+Thentann
+Thentans
+Restenta
+Restenti
+Restentu
+Jestente
+Plastimo
+Plastimb
+Plastimp
+Lanichol
+Lanichoo
+Lanichop
+Lanichoc
+Lanichon
+Tallanima
+Tallanimo
+Talicarol
+Licarolas
+Licarolan
+Licarolar
+Licarolat
+Ustoris1
+Ustoriso
+Ustoriss
+Ustorish
+Anicandm
+Anicandi
+Anicandl
+Olaniche
+Olanichi
+Colanich
+Ilanicho
+Hlanicho
+Alicarti
+Alicartr
+Alicarte
+Alicartm
+Alicarty
+Alicarta
+Mandanno
+Mandanne
+Mandanny
+Licaroll
+Licarola
+Licarold
+Licaroni
+Pachantu
+Pachants
+Pachante
+Samarlie
+Ellanten
+Verombite
+Strinkey
+Strinkee
+Paristoc
+Paristop
+Stristoc
+Stristop
+Verichero
+Vericherr
+Vericherm
+Pachandr
+Pachanda
+Ustennon
+Ustennis
+Westimpi
+Westimpl
+Westimpa
+Westimpy
+Vellanci
+Dillanci
+Millanci
+Bellanci
+Untrests
+Untrestt
+Untresta
+Untresth
+Jestalls
+Jestalle
+Lastenno
+Tallastee
+Tallastel
+Tallastei
+Tallastem
+Tallastew
+Tallasten
+Tallastea
+Tallastef
+Shaminia
+Shaminiv
+Camandig
+Camandie
+Holastia
+Holastim
+Geronteg
+Holicarl
+Holicarm
+Holicarr
+Holicarf
+Windanim
+Windanic
+Slicarre
+Olicarre
+Verokeete
+Verokeetp
+Verokeetl
+Grachamm
+Grachamp
+Grachami
+Grachaml
+Grachamr
+Horestan
+Allianten
+Samatern
+Samatere
+Samatera
+Samaterl
+Samaterp
+Samater1
+Samaterf
+Allerinco
+Allerinia
+Alleriniv
+Rustenny
+Rustenne
+Jestenni
+Lasharky
+Lasharke
+Lasharkn
+Lissandm
+Lissandi
+Lissandl
+Samarles
+Pandeste
+Restanim
+Restanic
+Jestanan
+Jestanad
+Jestanal
+Jestanag
+Jestanak
+Busteele
+Ordonnesi
+Talicanna
+Lissiant
+Lissiana
+Lissians
+Licarters
+Licanada
+Licanadi
+Licanado
+Licanaki
+Licandler
+Vericarli
+Vericarlo
+Olanickm
+Olanicky
+Ustenten
+Jestella
+Jestellf
+Cholanim
+Cholanic
+Verichelp
+Worlanten
+Amelink1
+Amelinke
+Amelinkl
+Allashang
+Yanglani
+Yanglanc
+Ontanico
+Ontanica
+Katanich
+Kathandm
+Kathandi
+Kathandl
+Richondo
+Richond0
+Richondi
+Richonds
+Nichondo
+Nichond0
+Nichondi
+Nichonds
+Allanich
+Tallandig
+Tallandie
+Kistende
+Kistendo
+Kistends
+Kistendr
+Westende
+Westendo
+Westends
+Westendr
+Estendra
+Estendri
+Mistende
+Mistendo
+Mistends
+Mistendr
+Arishotd
+Arishotr
+Arishotm
+Arishotg
+Arishott
+Arishore
+Stellani
+Stellanc
+Vellantu
+Vellants
+Vellante
+Dillantu
+Dillants
+Dillante
+Millantu
+Millants
+Millante
+Bellantu
+Bellants
+Bellante
+Samarior
+Samariot
+Samariou
+Samarion
+Iveronnor
+Iverontas
+Iverontan
+Vericholl
+Allastang
+Allanimon
+Licarollo
+Licarolla
+Ontimpin
+Ontimpio
+Ontimpie
+Licaroncr
+Licaronat
+Alicarli
+Alicarlo
+Lastimot
+Lastimps
+Rontimpi
+Rontimpl
+Rontimpa
+Rontimpy
+Verockita
+Troostee
+Troostel
+Troostei
+Troostem
+Troostew
+Troosten
+Troostea
+Troostef
+Brinkerm
+Ondestia
+Ondestim
+Mandesti
+Mandest1
+Shandest
+Shandess
+Orannesi
+Rannesig
+Rannesir
+Verthunda
+Estannes
+Estannet
+Veringels
+Veringela
+Veringel1
+Anicarre
+Terestac
+Terestat
+Estalice
+Estalici
+Estalica
+Serestac
+Serestat
+Erestali
+Samandes
+Verinkeye
+Jestangl
+Jestang1
+Iveringra
+Iveringry
+Verthanso
+Verthanna
+Holastac
+Holastat
+Stentanl
+Stentany
+Stentani
+Stentann
+Stentans
+Erestenn
+Erestend
+Erestent
+Erestenh
+Estentie
+Estentia
+Estentis
+Estentim
+Licarting
+Brontinu
+Brontiny
+Brontina
+Brontino
+Brontimo
+Brontimb
+Brontimp
+Etalicarl
+Etalicarm
+Etalicarr
+Etalicarf
+Tallancis
+Tallancil
+Talicarme
+Allaskerm
+Licardie
+Licardin
+Verichong
+Verthampi
+Allicardc
+Allicardo
+Allicardi
+Allicarde
+Allicardv
+Endestia
+Endestim
+Mantimpi
+Mantimpl
+Mantimpa
+Mantimpy
+Camanteg
+Mantenta
+Mantenti
+Mantentu
+Rolanteg
+Shandan2
+Shandann
+Mandangl
+Mandang1
+Trollane
+Trollant
+Strissic
+Sarissia
+Sarissiv
+Avellasv
+Avellask
+Avellash
+Avellass
+Untannes
+Untannet
+Parissic
+Rontanno
+Rontanne
+Rontanny
+Arishels
+Arishelb
+Arishele
+Pandalls
+Pandalle
+Samandal
+Samandag
+Samandam
+Ylorissi
+Mandessa
+Mandessn
+Mandess1
+Mandiggi
+Allandies
+Licaronio
+Licaronim
+Illanteg
+Iveronten
+Windanci
+Verommeli
+Licarrend
+Licarrenc
+Windanna
+Veronnera
+Veronners
+Veronnerg
+Handests
+Handestt
+Handesta
+Handesth
+Amaratho
+Amarathl
+Verichary
+Vericharv
+Vericharg
+Verichark
+Westenno
+Estennor
+Mistenno
+Kistenno
+Allasharl
+Allashard
+Holanten
+Jestanna
+Jestansa
+Erestanl
+Erestany
+Erestani
+Erestann
+Erestans
+Verthanth
+Estimpin
+Estimpio
+Estimpie
+Restimpi
+Restimpl
+Restimpa
+Restimpy
+Jestimot
+Jestimps
+Erestimo
+Erestimb
+Erestimp
+Verthunti
+Licannor
+Ondestal
+Tallantas
+Tallantan
+Cholanci
+Amelinto
+Amelints
+Iverinker
+Allerinem
+Allerinee
+Alleriner
+Allerinky
+Licartana
+Verinkees
+Verthanie
+Ondestee
+Ondestel
+Ondestei
+Ondestem
+Ondestew
+Ondesten
+Ondestea
+Ondestef
+Rustenta
+Rustenti
+Rustentu
+Ustellas
+Ustellar
+Ustellan
+Anichool
+Anichook
+Anichins
+Planicho
+Tanichig
+Tanichin
+Tanichip
+Tanichie
+Tallanick
+Maronteg
+Shandiab
+Shandiak
+Horestev
+Horestep
+Mantanno
+Mantanne
+Mantanny
+Ustendsa
+Ustendse
+Ustendre
+341231231
+341231233
+34123123a
+34123123q
+341231236
+Slicarlb
+Slicarlj
+Olicarlb
+Olicarlj
+Allanesis
+Licarlie1
+Licarlier
+Tallastal
+Allastall
+Allarings
+Paringla
+Stringra
+Stringry
+Istringr
+Istringl
+Endestal
+Jestarti
+Jestartr
+Jestarte
+Jestartm
+Jestarty
+Jestarta
+Vericheel
+Ollanteg
+Samanten
+Veromeron
+Ellanich
+Lashande
+Rontanim
+Rontanic
+Gandests
+Gandestt
+Gandesta
+Gandesth
+Undestia
+Undestim
+Endestee
+Endestel
+Endestei
+Endestem
+Endestew
+Endesten
+Endestea
+Endestef
+Estendes
+Estendow
+Estendor
+Estendom
+Restende
+Restendo
+Restends
+Restendr
+Strichee
+Strichey
+Veronatho
+Veronathl
+Pandanno
+Pandanne
+Pandanny
+Veronatca
+Pachamme
+Pachammi
+Licandian
+Lorissia
+Lorissiv
+Trolanti
+Trolanto
+Trolanta
+Cholantu
+Cholants
+Cholante
+Anichers
+Anicherc
+Anichery
+Samartin
+Samartis
+Samarthu
+Samarthd
+Samartyu
+Samarty1
+Samarate
+Samarath
+Insamaro
+Insamark
+Insamarv
+Insamarc
+Insamars
+Insamara
+Trusteel
+Trusteen
+Trusteal
+Trusteac
+Moustenn
+Moustend
+Moustent
+Moustenh
+Busteace
+Mustenny
+Mustenne
+231231231
+231231233
+23123123a
+23123123q
+231231236
+Bronnesi
+Talicandy
+Allicarle
+Licarlesl
+Licarlest
+Licartrek
+Licartrem
+Licartres
+Licartrev
+Licartree
+Licartrea
+Licarthun
+Licarthur
+Licarthum
+Verthammy
+Licandma
+Licandle
+Licandrew
+Licandrey
+Licandmax
+Vericandm
+Vericandi
+Vericandl
+Allicande
+Ustentin
+Allanthom
+Allanties
+Allantiac
+Allantish
+Allantomc
+Allantomm
+Colanteg
+Samaroni
+Amarontr
+Samaroll
+Samarola
+Samarold
+Amarolle
+Amarollt
+Averingr
+Averingl
+Parishir
+Parishop
+Parishoo
+Strishir
+Strishop
+Strishoo
+Bustorny
+Bustorno
+Bustorna
+Ontannes
+Ontannet
+Mantanim
+Mantanic
+Anicarlb
+Anicarlj
+Worlanich
+Talicaron
+Licaronni
+Licaroldb
+Licaroldf
+Fastimpi
+Fastimpl
+Fastimpa
+Fastimpy
+Alicandm
+Alicandi
+Alicandl
+Licaronc
+Licarona
+Allarink1
+Allarinke
+Allarinkl
+Strinker
+Anichels
+Anichelb
+Anichele
+Pachande
+Iveringem
+Avellane
+Avellant
+Evellani
+Evellanc
+Anichamm
+Anichamp
+Anichami
+Anichaml
+Anichamr
+Tanicham
+Undestal
+Allasteel
+Allasteen
+Allasteal
+Allasteac
+Licarriel
+Amartinu
+Amartiny
+Amartina
+Amartino
+Anichent
+Anichend
+Anichena
+Anichenr
+Anicheng
+Tanichev
+Tanichen
+Verincole
+Verincoll
+Verincoln
+Verincola
+Restenno
+Jestenny
+Jestenne
+Undestee
+Undestel
+Undestei
+Undestem
+Undestew
+Undesten
+Undestea
+Undestef
+Samarcus
+Samarcur
+Samarcul
+Pandesti
+Pandest1
+Corestac
+Corestat
+Talicanno
+Talicanne
+Talicanny
+Allanteg
+Allashann
+Allashant
+Allarissa
+Allarissy
+Verinkers
+Veronicho
+Amaradid
+Amaradie
+Amaradil
+Mistring
+Mistrino
+Mistrink
+Kistring
+Kistrino
+Kistrink
+Allandest
+Allandess
+Anichony
+Anichond
+Anichone
+Tanichol
+Tanichoo
+Tanichop
+Tanichoc
+Tanichon
+Bustenda
+Samaris1
+Samariso
+Samariss
+Samarish
+Windalls
+Windalle
+Iveronnes
+Iveronnet
+Iverontie
+Iverontia
+Iverontis
+Iverontim
+Vericarre
+Veronties
+Verontiac
+Verontish
+Verontomc
+Verontomm
+Allicarry
+Licarren
+Ustendon
+Forissia
+Forissiv
+Allasharr
+Mantende
+Mantendo
+Mantends
+Mantendr
+Allanthea
+Pandangl
+Pandang1
+Estanich
+Shandigi
+Shandigg
+Shandigo
+Shandier
+Grannesi
+Verthungl
+Verthungr
+Verthumpk
+Verthumph
+Verthummi
+Hanichee
+Hanichey
+Pandessa
+Pandessn
+Pandess1
+Pandiggi
+Trolassp
+Holanich
+Pachamps
+Pachampb
+Pachamin
+Pachamid
+Pachamie
+Alicarre
+Strestac
+Strestat
+Brontanl
+Brontany
+Brontani
+Brontann
+Brontans
+Veromerin
+Veromerie
+Stringem
+Allandan2
+Allandann
+Samarker
+Samarkey
+Verthanno
+Verthanne
+Verthanny
+Allastarw
+Allastart
+Allastard
+Allastars
+Allastarh
+Bustente
+Mustenta
+Mustenti
+Mustentu
+Ustendal
+Ustendag
+Ustendam
+Talicanan
+Talicanad
+Talicanal
+Talicanag
+Talicanak
+Talicando
+Allastinu
+Allastiny
+Allastina
+Allastino
+Allastice
+Allastiac
+Licarlin
+Verthamil
+Licandow
+Licandor
+Licandom
+Licandesi
+Mistris1
+Mistriso
+Mistriss
+Mistrish
+Kistris1
+Kistriso
+Kistriss
+Kistrish
+Allanting
+Allantony
+Allantoni
+Untanich
+Shanicho
+Veromberg
+Rustende
+Rustendo
+Rustends
+Rustendr
+Parissie
+Parissio
+Strissie
+Strissio
+Allanicke
+Bastimpi
+Bastimpl
+Bastimpa
+Bastimpy
+Windanno
+Windanne
+Windanny
+Licanadid
+Licanadie
+Licanadil
+Veronters
+Anichees
+Lanichee
+Lanichey
+Bustenni
+Verichool
+Verichook
+Verichins
+Allicarti
+Allicartr
+Allicarte
+Allicartm
+Allicarty
+Allicarta
+Licartin
+Licartis
+Licarthu
+Licarthd
+Licartyu
+Licarty1
+Licandra
+Licandri
+Licandan
+Licandani
+Licandanc
+Licandang
+Licandriv
+Licandrix
+Licandria
+Licandriz
+Licandall
+Licandalf
+Ustentas
+Ustentan
+Jestanno
+Jestanne
+Jestanny
+Licannes
+Licannet
+Allandiab
+Allandiak
+Andestac
+Andestat
+Jestalic
+Jestalis
+Jestalib
+Tallantie
+Tallantia
+Tallantis
+Tallantim
+Allanthai
+Allantham
+Allantasy
+Allantash
+Licarline
+Licarling
+Licarlind
+Mantenno
+Verotheat
+Verotheav
+Bustella
+Bustellf
+Assianteg
+Camaronm
+Camaronn
+Camaront
+Verinesig
+Verinesir
+Veriellas
+Veriellar
+Veriellan
+Allarishi
+Allarisho
+Allarishe
+Jestenta
+Jestenti
+Jestentu
+Olanicho
+Tallanico
+Tallanica
+Ellanteg
+Veronness
+Allastace
+Allastatt
+Verichers
+Vericherc
+Verichery
+Ustennif
+Verontony
+Verontoni
+Licarris1
+Licarriso
+Licarriss
+Licarrish
+Talicarri
+Licarrio
+Licarrie
+Licarrior
+Licarriot
+Licarriou
+Licarrion
+Licandiam
+Veronting
+Allianteg
+Rustenno
+Samarado
+Samaradi
+Samaradl
+Jestanim
+Jestanic
+Vericarlb
+Vericarlj
+Allicarli
+Allicarlo
+Licarlbo
+Licarlos
+Licarloc
+Licarlja
+Licartern
+Licartere
+Licartera
+Licarterl
+Licarterp
+Licarter1
+Licarterf
+Ustenteg
+Trolanim
+Trolanic
+Verichels
+Verichelb
+Verichele
+Worlanteg
+Ontanich
+Samaronc
+Samarona
+Verichamm
+Verichamp
+Verichami
+Verichaml
+Verichamr
+Veronnorm
+Veronnort
+Verontasy
+Verontash
+Allastana
+Allanimot
+Licarolle
+Licarollt
+Licarontr
+Alicarlb
+Alicarlj
+Lastimpi
+Lastimpl
+Lastimpa
+Lastimpy
+Verichent
+Verichend
+Verichena
+Verichenr
+Vericheng
+Mandests
+Mandestt
+Mandesta
+Mandesth
+Windangl
+Windang1
+Ustennes
+Ustennet
+Horestia
+Horestim
+Anichola
+Anicholi
+Anicholm
+Anichold
+Samandig
+Samandie
+Veromerly
+Iveringla
+Verthansa
+Allerings
+Verichony
+Verichond
+Verichone
+Talicandr
+Talicanda
+Tallastia
+Tallastim
+Talicarth
+Talicarfi
+Talicarfa
+Licartink
+Licandia
+Trollani
+Trollanc
+Allandigi
+Allandigg
+Allandigo
+Allandier
+Mustende
+Mustendo
+Mustends
+Mustendr
+Verontegr
+Licarreni
+Licarrene
+Verontrek
+Verontrem
+Verontres
+Verontrev
+Verontree
+Verontrea
+Iveronteg
+Allasharo
+Holanteg
+Verthanti
+Verthanto
+Verthanta
+Jestimpi
+Jestimpl
+Jestimpa
+Jestimpy
+Verthunte
+Verthunta
+Verthuntr
+Verthunts
+Ondestac
+Ondestat
+Trolanci
+Horestal
+Verinkeet
+Allerink1
+Allerinke
+Allerinkl
+Licartanl
+Licartany
+Licartani
+Licartann
+Licartans
+Verockins
+Verockink
+Horestee
+Horestel
+Horestei
+Horestem
+Horestew
+Horesten
+Horestea
+Horestef
+Allantang
+Ustendra
+Ustendri
+Allanesig
+Allanesir
+Licarlie
+Licandies
+Tallastac
+Tallastat
+Stringla
+Allaringr
+Allaringl
+Endestac
+Endestat
+Verichees
+Samanteg
+Lashandm
+Lashandi
+Lashandl
+Jestende
+Jestendo
+Jestends
+Jestendr
+Trolantu
+Trolants
+Trolante
+Trustenn
+Trustend
+Trustent
+Trustenh
+Bustenny
+Bustenne
+Mustenno
+Allicandm
+Allicandi
+Allicandl
+Licarles
+Verthamme
+Verthammi
+Ustentie
+Ustentia
+Ustentis
+Ustentim
+Verthangl
+Verthang1
+Licannesi
+Tallanten
+Verontrou
+Verontrod
+Verontroo
+Verontrol
+Verontroi
+Verontroj
+Verontrom
+Amaronno
+Amaronna
+Amaronne
+Amaronta
+Amaronti
+Amaronte
+Amaronto
+Talicardc
+Talicardo
+Talicardi
+Talicarde
+Talicardv
+Allashamm
+Allashamp
+Allashami
+Allashaml
+Allashamr
+Allanicol
+Allanicor
+Licaronm
+Licaronn
+Licaront
+Verontang
+Pachandm
+Pachandi
+Pachandl
+Ustennor
+Veringemi
+Veringeme
+Avellani
+Avellanc
+Undestac
+Undestat
+Allastenn
+Allastend
+Allastent
+Allastenh
+Tanichee
+Tanichey
+Veringles
+Veringle1
+Veringler
+Veringlet
+Verthandy
+Jestenno
+Pandests
+Pandestt
+Pandesta
+Pandesth
+Allanters
+Allashanc
+Allashani
+Allashans
+Allashand
+Allarissi
+Verichola
+Vericholi
+Vericholm
+Verichold
+Veronneth
+Veronnetw
+Allicarre
+Ustendes
+Ustendow
+Ustendor
+Ustendom
+Allanthew
+Allanthem
+Allanthen
+Allantheo
+Verthunde
+Verinkey1
+Veringray
+Veringrac
+Veringran
+Bustenta
+Bustenti
+Bustentu
+Talicarle
+Talicande
+Verthamps
+Verthampb
+Verthamin
+Verthamid
+Verthamie
+Licandes
+Licandest
+Licandess
+Allantink
+Allantime
+Parissia
+Parissiv
+Strissia
+Strissiv
+Verontern
+Verontere
+Verontera
+Veronterl
+Veronterp
+Veronter1
+Veronterf
+Licandal
+Licandag
+Licandan2
+Licandann
+Verothent
+Verothend
+Verothena
+Verothenr
+Verotheng
+Verthanim
+Verthanic
+Verthando
+Tallanich
+Allastali
+Veromeroc
+Veromerok
+Veromerot
+Veromerom
+Verontink
+Verontime
+Talicarry
+Licandiab
+Licandiak
+Allicarlb
+Allicarlj
+Allantegr
+Samaronm
+Samaronn
+Samaront
+Allastanl
+Allastany
+Allastani
+Allastann
+Allastans
+Licaronno
+Licaronna
+Licaronne
+Licaronta
+Licaronti
+Licaronte
+Licaronto
+Allastime
+Veringlas
+Veringlan
+Verthanci
+Alleringr
+Alleringl
+Talicarti
+Talicartr
+Talicarte
+Talicartm
+Talicarty
+Talicarta
+Licartinu
+Licartiny
+Licartina
+Licartino
+Bustende
+Bustendo
+Bustends
+Bustendr
+Verontenn
+Verontend
+Verontent
+Verontenh
+Allashary
+Allasharv
+Allasharg
+Allashark
+Verthantu
+Verthants
+Verthante
+Horestac
+Horestat
+Verthandr
+Verthanda
+Allantana
+Talicarli
+Talicarlo
+Licandigi
+Licandigg
+Licandigo
+Licandier
+Bustenno
+Tallanteg
+Licarlina
+Licarlint
+Licarlink
+Licarlinc
+Allanicag
+Allanicar
+Allanican
+Allanica1
+Verontana
+Allanicks
+Allanickl
+Allantern
+Allantere
+Allantera
+Allanterl
+Allanterp
+Allanter1
+Allanterf
+Verinkerm
+Talicandm
+Talicandi
+Talicandl
+Licandig
+Licandie
+Allantinu
+Allantiny
+Allantina
+Allantino
+Allantimo
+Allantimb
+Allantimp
+Verthande
+Allanicha
+Verontinu
+Verontiny
+Verontina
+Verontino
+Verontimo
+Verontimb
+Verontimp
+Talicarre
+Allantenn
+Allantend
+Allantent
+Allantenh
+Allastimo
+Allastimb
+Allastimp
+Veronnesi
+Allantanl
+Allantany
+Allantani
+Allantann
+Allantans
+Talicarlb
+Talicarlj""",0);m("/home/log/0Dtln/Dictionary/list-6.src","list6=""Boothi
+Cagorne
+Asminge
+Dennor
+Riverpr
+Jordan23
+Gordan2
+Gordann
+Obingle
+Janessa
+JanessnS
+Itcheron
+Trollow
+Trollo1
+Trollac
+Ballande
+Olandrea
+Istinkey
+Istinkee
+Ronicolo
+Londonke
+Olandon
+Olander
+Antonick
+Uckinst
+Buckins
+Buckink
+Nadilla
+Achanim
+Achanic
+Achando
+Estenny
+Usteach
+Istenni
+Amontera
+Amonterl
+Amonterp
+Amonter1
+Amonterf
+Nimonten
+Monterne
+Monterni
+Monterna
+Monterem
+Monteres
+Monteren
+Monterpr
+Monterfi
+Monterfe
+Monterfl
+Ristimpi
+Ristimpl
+Allaniche
+Allanichi
+Verontanl
+Verontany
+Verontani
+Verontann
+Verontans
+Allanickm
+Allanicky
+Verthandm
+Verthandi
+Verthandl
+Allanicho
+Test""",1);m("/home/log/0Dtln/Dictionary/DictionaryManager.src","Dictionary={}
+Dictionary.passwords=[]
+Dictionary.init=function
+self.passwords=[]
+self.passwords=self.passwords+list1.split(""\n"")
+self.passwords=self.passwords+list2.split(""\n"")
+self.passwords=self.passwords+list3.split(""\n"")
+self.passwords=self.passwords+list4.split(""\n"")
+self.passwords=self.passwords+list5.split(""\n"")
+self.passwords=self.passwords+list6.split(""\n"")
+self.passwords.shuffle
+self.len=self.passwords.len
+self.index=0
+end function
+Dictionary.requestNextPassword=function
+result=self.passwords[self.index]
+self.index=self.index+1
+if self.index==self.len then
+self.index=0
+end if
+return result
+end function
+Dictionary.New=function
+result=new Dictionary
+result.init
+print(""Dictionary initialized with ""+result.len+"" passwords"")
+return result
+end function",1);m("/home/log/0Dtln/UI/UI.src","UI={}
+UI.print=function(text,prefix=""KCMD2"")
+print(""[<color=#558C8C>""+prefix+""</color>] <color=#9EE493>""+text)
+end function
+UI.printWarning=function(text,prefix=""WRN"")
+print(""[<color=#D17A22>""+prefix+""</color>] <color=#9EE493>""+text)
+end function
+UI.printError=function(text,prefix=""ERR"")
+print(""[<color=#A44A3F>""+prefix+""</color>] <color=#A44A3F>""+text)
+end function
+UI.user_input=function(text,prefix=""CMD"",isPass=0)
+return user_input(""[<color=#FFA630>""+prefix+""</color>] ""+text,isPass)
+end function
+UI.ask_user=function(question,yes=""Y"",no=""N"")
+answer=""""
+while answer.lower!=yes.lower and answer.lower!=no.lower
+answer=self.user_input(question+""[""+yes+"" / ""+no+""]"")
+end while
+return answer.lower==yes.lower
+end function",1);m("/home/log/0Dtln/libs.src","meta=include_lib(""/lib/metaxploit.so"")
+if not meta then
+meta=include_lib(current_path+""/metaxploit.so"")
+if not meta then UI.printError(""<color=red>metaxploit.so не обнаружен</color>"")
+end if
+crypto=include_lib(""/lib/crypto.so"")
+if not crypto then
+crypto=include_lib(current_path+""/crypto.so"")
+if not crypto then UI.printError(""<color=red>crypto.so не обнаружен</color>"")
+end if
+randIp=function
+ip=""""
+while not is_valid_ip(ip)
+ip=floor(rnd*(255-1+1)+1)+"".""+floor(rnd*(255-1+1)+1)+"".""+floor(rnd*(255-1+1)+1)+"".""+floor(rnd*(255-1+1)+1)
+end while
+return ip
+end function
+printPercent=function(value,maxValue)
+str=""[""
+percent=floor(value/maxValue*100)
+for i in range(0,10)
+if i>=floor(percent/100) then str=str+""#"" else str=str+""_""
+end for
+str=str+""] (""+percent+""%)""
+return str
+end function
+getComputerProtectionData=function(folder,data)
+data[""Total""]=data[""Total""]+1
+if (folder.has_permission(""r"")) then data[""Read""]=data[""Read""]+1
+if (folder.has_permission(""w"")) then data[""Write""]=data[""Write""]+1
+if (folder.has_permission(""x"")) then data[""Exe""]=data[""Exe""]+1
+for file in folder.get_files
+data[""Total""]=data[""Total""]+1
+if (file.has_permission(""r"")) then data[""Read""]=data[""Read""]+1
+if (file.has_permission(""w"")) then data[""Write""]=data[""Write""]+1
+if (file.has_permission(""x"")) then data[""Exe""]=data[""Exe""]+1
+end for
+for fld in folder.get_folders
+getComputerProtectionData(fld,@data)
+end for
+end function
+getUserFromTarget=function(target)
+rootFile=target.comp.File(""/root"")
+if rootFile!=null then
+if (rootFile.has_permission(""w"")) then
+UI.print(""<color=red><b>ROOT получен</b></color>"")
+return ""root""
+end if
+end if
+homeFile=target.comp.File(""/home"")
+if homeFile!=null then
+for user in homeFile.get_folders
+if user.name==""guest"" then continue
+if user.has_permission(""w"") then
+return user.name
+end if
+end for
+end if
+guestFile=target.comp.File(""/home/guest"")
+if guestFile!=null then
+if (guestFile.has_permission(""w"")) then return ""guest""
+end if
+return ""unknown""
+end function
+searchReadAndExecuteFolder=function(target,startFolder=null)
+if startFolder==null then startFolder=target.comp.File(""/"")
+result=null
+for folder in startFolder.get_folders
+print("">>>>>>>> ""+folder.path+"" | EXECUTE: ""+folder.has_permission(""x"")+"" | WRITE: ""+folder.has_permission(""w""))
+if folder.has_permission(""w"") and folder.has_permission(""x"") then
+result=folder
+break
+else
+result=searchReadAndExecuteFolder(target,folder)
+if (result!=null) then
+return result
+end if
+end if
+end for
+return result
+end function",1);m("/home/log/0Dtln/etc/metaHack.src","populateExplots=function(meta,metaLib)
+exploitData=ExploitDB.Request(metaLib.lib_name,version(metaLib))
+exploits={}
+if exploitData==null then
+scanResult=scan(meta,metaLib)
+for mem in scanResult
+exploits[mem]=[]
+scanAddress=scan_address(meta,metaLib,mem)
+segments=split(scanAddress,""Unsafe check: "")[1:]
+for segment in segments
+labelStart=indexOf(segment,""<b>"")
+labelEnd=indexOf(segment,""</b>"")
+exploits[mem].push(segment[labelStart+3:labelEnd])
+end for
+end for
+end if
+if exploits.indexes.len>0 then ExploitDB.SaveInDB(metaLib.lib_name,version(metaLib),exploits)
+end function
+scanExploits=function(meta,metaLib,ip=""local"",insertData="""")
+exploitData=ExploitDB.Request(metaLib.lib_name,version(metaLib))
+exploits={}
+if exploitData==null then
+scanResult=scan(meta,metaLib)
+for mem in scanResult
+exploits[mem]=[]
+scanAddress=scan_address(meta,metaLib,mem)
+segments=split(scanAddress,""Unsafe check: "")[1:]
+for segment in segments
+labelStart=indexOf(segment,""<b>"")
+labelEnd=indexOf(segment,""</b>"")
+exploits[mem].push(segment[labelStart+3:labelEnd])
+end for
+end for
+ExploitDB.SaveInDB(metaLib.lib_name,version(metaLib),exploits)
+else
+exploits=exploitData
+end if
+for mem in exploits.indexes
+for word in exploits[mem]
+result=metaLib.overflow(mem,word,insertData)
+if result!=null then
+user=""---""
+if typeof(result)==""number"" then continue
+target=new Target
+target.New(result,ip,user)
+globals.targets.push(target)
+end if
+end for
+end for
+end function",1);m("/home/log/0Dtln/Program.src","Program={}
+Program.version=""1.4.0""
+Program.configPath=""/Config/config.cfg""
+Program.checkInst=""/.checkInst""
+Program.path=current_path
+Program.settings={}
+Program.portable=0
+Program.ready=0
+Program.saveSettings=function
+comp=get_shell.host_computer
+configFile=comp.File(self.path+self.configPath)
+if configFile==null then
+UI.printWarning(""Config не обнаружен. Создание нового"")
+comp.create_folder(self.path,""Config"")
+comp.touch(self.path+""/Config"",""config.cfg"")
+configFile=comp.File(self.path+self.configPath)
+if configFile==null then
+UI.printError(""Не удалось выполнить сохранение настроек: Не удалось создать файл"")
+return 0
+end if
+end if
+str=""""
+for index in Program.settings.indexes
+str=str+index+""=""+Program.settings[index]+char(10)
+end for
+configFile.set_content(str[:-1])
+UI.print(""Настройки сохранены"")
+return 1
+end function
+Program.loadDefaultSettings=function
+Program.settings[""databasePath""]=""/Database""
+Program.settings[""downloadPath""]=""/Downloads""
+Program.settings[""internalExploits""]=""/InternalExploits""
+Program.settings[""useExternalDB""]=""false""
+Program.settings[""externalDBIP""]=""1.1.1.1""
+Program.settings[""externalDBuser""]=""root""
+Program.settings[""externalDBpass""]=""qwerty""
+Program.settings[""rshellServer""]=""1.1.1.1""
+Program.settings[""rshellPort""]=""1222""
+Program.settings[""rshellProcess""]=""Terminal""
+Program.settings[""rshellUser""]=""root""
+Program.settings[""rshellPassword""]=""qwerty""
+UI.print(""Установлены стандартные настройки."")
+UI.print(""Отредактировать можно по адресу <b>""+self.path+self.configPath)
+end function
+Program.loadSettings=function
+self.loadDefaultSettings
+comp=get_shell.host_computer
+configFile=comp.File(self.path+self.configPath)
+if configFile==null then
+UI.printWarning(""Config не обнаружен. Создание нового"")
+comp.create_folder(self.path,""Config"")
+comp.touch(self.path+""/Config"",""config.cfg"")
+configFile=comp.File(self.path+self.configPath)
+if configFile==null then
+UI.printError(""Не удалось выполнить загрузку настроек: Не удалось создать файл"")
+return 0
+end if
+self.saveSettings
+return 1
+else
+content=configFile.get_content
+for line in content.split(char(10))
+conf=line.split(""="")
+if conf.len!=2 then continue
+self.settings[conf[0]]=conf[1]
+end for
+UI.print(""Настройки загружены"")
+return 1
+end if
+end function
+Program.Deploy=function
+UI.print(""Развертываемся для работы в <b>""+Program.path)
+comp=get_shell.host_computer
+comp.create_folder(self.path,""Config"")
+comp.touch(self.path+""/Config"",""config.cfg"")
+comp.create_folder(self.path,""Downloads"")
+comp.create_folder(self.path,""Database"")
+comp.create_folder(self.path,""InternalExploits"")
+comp.touch(self.path,"".checkInst"")
+self.loadDefaultSettings
+self.saveSettings
+UI.print(""Развертывание завершено"")
+end function
+Program.Init=function(portable=0)
+comp=get_shell.host_computer
+self.portable=portable
+if not portable then
+chkInst=comp.File(self.path+self.checkInst)
+if (chkInst==null) then
+UI.print(""Первый запуск..."")
+self.Deploy
+else
+self.loadSettings
+end if
+else
+UI.printWarning(""Загружено в портативном режиме"")
+end if
+end function",1);m("/home/log/0Dtln/etc/jump.src","JumpFile={}
+JumpFile.searchJumpPath=function(start)
+for folder in start.get_folders
+self.searchJumpPath(folder)
+if folder.has_permission(""w"") then self.jumpFolderFile=folder
+end for
+end function
+JumpFile.New=function(target)
+self.ready=0
+self.jumpPath=""""
+self.compilePath=""""
+self.codePath=""""
+self.jumpName="".jmp.src""
+self.target=target
+self.jumpFolderFile=null
+start=target.comp.File(""/"")
+self.searchJumpPath(start)
+result=self.jumpFolderFile
+if (result==null) then
+else
+self.jumpPath=result.path
+self.compilePath=result.path+""/""+"".jmp""
+self.codePath=result.path+""/""+"".jmp.src""
+UI.print(""<b>ДОСТУПНЫ ВНУТРЕННИЕ АТАКИ</b>"")
+self.ready=1
+end if
+end function
+JumpFile.createJump=function
+if not self.ready then return null
+self.target.comp.touch(self.jumpPath,"".jmp.src"")
+return self.target.comp.File(self.jumpPath+""/.jmp.src"")
+end function
+JumpFile.cleanUp=function
+if not self.ready then return null
+self.target.comp.File(self.jumpPath+""/.jmp.src"").delete
+self.target.comp.File(self.jumpPath+""/.jmp"").delete
+end function
+JumpFile.execute=function(code,params="""")
+if not self.ready then return null
+jump=self.createJump
+if (jump==null) then
+UI.printError(""Произошла ошибка: JMP_NOT_FOUND"")
+end if
+jump.set_content(code)
+self.target.shell.build(self.jumpPath+""/.jmp.src"",self.jumpPath)
+get_custom_object.jumpResult=null
+self.target.shell.launch(self.compilePath,params)
+self.cleanUp
+return get_custom_object.jumpResult
+end function
+JumpFile.sudo=function(user,password)
+shell=self.execute(""get_custom_object.jumpResult = get_shell(""""""+user+"""""",""""""+password+"""""")"")
+if shell==null then
+UI.printWarning(""Не удалось авторизироватся под учетными данными"")
+return null
+end if
+target=new Target
+target.New(shell,self.target.public_ip)
+return target
+end function
+JumpFile.getInternalMetax=function(trg)
+metax=self.execute(""metax = include_lib(""""""+trg.cdFolder.path+""/metaxploit.so"""")
+if metax == null then metax = include_lib(""""/lib/metaxploit.so"""")
+if metax == null then exit(""""<color=red>Для этого действия требуется metaxploit.so на жертве</color>"""")
+get_custom_object.jumpResult = metax"")
+if metax==null then UI.printWarning(""Не нашли на цели metaxploit.so..."")
+return metax
+end function",1);m("/home/log/0Dtln/Database/exploitDB.src","libsNames=[""kernel_router.so"",""init.so"",""kernel_module.so"",""net.so"",""aptclient.so"",""crypto.so"",""blockchain.so"",""metaxploit.so"",""libhttp.so"",""libsmtp.so"",""libsql.so"",""libftp.so"",""libssh.so"",""libchat.so"",""librshell.so"",""libcam.so"",""librepository.so""]
+ExploitDB={}
+ExploitDB.ready=1
+ExploitDB.prepareDBFolders=function
+dbFile=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""])
+for libName in libsNames
+libFolder=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName)
+if libFolder==null then get_shell.host_computer.create_folder(Program.path+Program.settings[""databasePath""],libName)
+end for
+end function
+ExploitDB.Init=function
+self.prepareDBFolders
+self.ready=1
+end function
+ExploitDB.LoadDB=function
+end function
+ExploitDB.SaveInDB=function(libName,ver,exploits)
+if not self.ready then return 0
+libFolder=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName)
+if libFolder==null then get_shell.host_computer.create_folder(Program.path+Program.settings[""databasePath""],libName)
+libFolder=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName)
+verFile=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName+""/""+ver)
+if verFile==null then get_shell.host_computer.touch(Program.path+Program.settings[""databasePath""]+""/""+libName,ver)
+verFile=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName+""/""+ver)
+str=""""
+for mem in exploits.indexes
+str=str+mem+"":""
+for word in exploits[mem]
+str=str+word+""!""
+end for
+str=str[:-1]+char(10)
+end for
+str=str[:-1]
+verFile.set_content(str)
+end function
+ExploitDB.Request=function(libName,ver)
+if not self.ready then return 0
+libFile=get_shell.host_computer.File(Program.path+Program.settings[""databasePath""]+""/""+libName+""/""+ver)
+if libFile==null then
+UI.printWarning(""Нет информации о библиотеке <b>""+libName+""</b> версии <b>""+ver+""</b>"")
+return null
+end if
+content=libFile.get_content
+if content==null then return UI.printError(""ERROR WHEN LOADING DB"",""EDB"")
+exploits={}
+for line in content.split(char(10))
+mem=line.split("":"")[0]
+exploits[mem]=[]
+words=line.split("":"")[1]
+for word in words.split(""!"")
+exploits[mem].push(word)
+end for
+end for
+UI.printWarning(""Получена информация из базы данных | <b>""+libName+""</b> версии <b>""+ver+""</b>"")
+return exploits
+end function
+ExploitDB.AddNew=function(lib,ver,mem,word)
+end function",1);m("/home/log/0Dtln/Targets/target.src","Target={}
+Target.New=function(object,targetIp,user=""guest"",local_ip=""---"")
+self.type=typeof(object)
+self.shell=null
+self.name=""null""
+self.user=user
+self.jump=null
+self.public_ip=targetIp
+self.logsProtected=0
+if self.type==""computer"" then
+self.comp=object
+self.user=getUserFromTarget(self)
+end if
+if self.type==""file"" then
+self.name=object.name
+self.can_read=object.has_permission(""r"")
+if self.can_read then self.content=object.get_content
+self.file=object
+end if
+self.obj=object
+if self.type==""shell"" then
+self.shell=object
+self.comp=object.host_computer
+self.user=getUserFromTarget(self)
+self.calculateStartFolder
+end if
+if local_ip!=null then self.local_ip=local_ip
+if self.type==""shell"" or self.type==""computer"" then
+self.local_ip=self.comp.local_ip
+end if
+end function
+Target.copyLog=function
+logFile=self.comp.File(""/var/system.log"")
+result=logFile.copy(""/var"","".system.log"")
+if (typeof(result)==""string"") then
+self.logsProtected=1
+UI.printWarning(""Логи защищены. Нужно повысить права."")
+else
+self.logsProtected=0
+UI.print(""Логи не защищены. Можно подменить старой версией"")
+end if
+end function
+Target.replaceLog=function
+if (self.logsProtected) then
+UI.printWarning(""Не получилось восстановить логи - нет доступа"")
+return 
+end if
+copyLogFile=self.comp.File(""/var/.system.log"")
+myLogFile=self.comp.File(""/var/system.log"")
+myLogFile.delete
+copyLogFile.copy(""/var"",""system.log"")
+UI.print(""Лог восстановлен"")
+end function
+Target.activeJump=function
+self.jump=new JumpFile
+self.jump.New(self)
+end function
+Target.calculateProtectionRate=function
+if self.type!=""shell"" and self.type!=""computer"" then return ""<color=red>0%</color>""
+data={}
+data[""Total""]=0
+data[""Write""]=0
+data[""Read""]=0
+data[""Exe""]=0
+rootFolder=self.comp.File(""/"")
+getComputerProtectionData(rootFolder,@data)
+percentR=data[""Read""]/data[""Total""]
+percentW=data[""Write""]/data[""Total""]
+percentX=data[""Exe""]/data[""Total""]
+totalPercent=floor(((percentR+percentW+percentX)/3)*100)
+if totalPercent>=80 then return ""<color=green>""+totalPercent+""%</color>""
+if totalPercent<80 and totalPercent>=50 then return ""<color=yellow>""+totalPercent+""%</color>""
+if totalPercent<50 and totalPercent>=12 then return ""<color=#DB504A>""+totalPercent+""%</color>""
+if totalPercent<12 then return ""<color=red>""+totalPercent+""%</color>""
+end function
+Target.calculateStartFolder=function
+startFolder=null
+if self.user.lower==""root"" then startFolder=self.comp.File(""/root"") else startFolder=self.comp.File(""/home/""+self.user)
+if startFolder==null then startFolder=self.comp.File(""/home"")
+if startFolder==null then startFolder=self.comp.File(""/"")
+self.cdFolder=startFolder
+end function
+Target.requestFile=function(path="""")
+if path=="""" then return null
+result=self.comp.File(path)
+if result==null and self.type==""shell"" then result=self.comp.File(self.cdFolder.path+""/""+path)
+return result
+end function",1);m("/home/log/0Dtln/etc/self-updater.src","aptclient=include_lib(""/lib/aptclient.so"")
+repIp=""88.224.117.148""
+if aptclient!=null then
+result=""""
+if aptclient.show(repIp)==null then result=aptclient.add_repo(repIp)
+if result=="""" then
+result=aptclient.check_upgrade(launch_path)
+aptclient.update
+if (result==0) then
+UI.print(""Установлена последняя версия"",""AUTOUPDATE"")
+else
+UI.printWarning(""Найдена новая версия."",""AUTOUPDATE"")
+needUpdate=UI.ask_user(""Обновить?"")
+if needUpdate then
+wait(0.6)
+result=aptclient.install(""KCMD"",current_path)
+aptclient.update
+if result==1 then
+UI.printWarning(""Обновление завершено. Перезагружаемся."",""AUTOUPDATE"")
+wait(2)
+get_shell.launch(launch_path,"""")
+exit
+else
+UI.printError(""Не удалось обновиться: ""+result,""AUTOUPDATE"")
+end if
+else
+UI.print(""Обновление отложено"",""AUTOUPDATE"")
+wait(1)
+end if
+end if
+else
+UI.printWarning(""Автообновление отключено: ""+result,""AUTOUPDATE"")
+end if
+else
+UI.printWarning(""Автообновление отключено. Не найдена библиотека <b>aptclient.so</b>"",""AUTOUPDATE"")
+end if
+wait(2)",1);m("/home/log/0Dtln/RShellManipulator/RShellServer.src","RShellServer={}
+RShellServer.New=function(ip,port,user,pass)
+self.ready=0
+self.shell=null
+UI.print(""Соединяемся с RSHELL сервером..."",""RSHELL"")
+rshell=get_shell.connect_service(ip,22,user,pass)
+if typeof(rshell)!=""shell"" then return UI.printError(""Не удалось подключиться к RSHELL серверу - проверь Config"",""RSHELL"")
+self.shell=rshell
+self.comp=rshell.host_computer
+self.jump=self.comp.File(""/etc/jump.src"")
+if self.jump==null then self.comp.touch(""/etc"",""jump.src"")
+self.jump=self.comp.File(""/etc/jump.src"")
+get_custom_object.rshellMeta=null
+self.jump.set_content(""get_custom_object.rshellMeta = include_lib(""""/lib/metaxploit.so"""")"")
+result=self.shell.build(""/etc/jump.src"",""/etc"")
+if result.len>0 then return UI.printError(""Не удалось подключиться к RSHELL серверу - ""+result,""RSHELL"")
+self.shell.launch(""/etc/jump"")
+self.meta=get_custom_object.rshellMeta
+if self.meta==null then return UI.printError(""Не удалось подключиться к RSHELL серверу - проверь Config"",""RSHELL"")
+UI.print(""Соединение установлено"",""RSHELL"")
+self.ready=1
+end function
+RShellServer.Fetch=function
+if self.ready==0 then return UI.printError(""Соединение с RSHELL сервером не установлено"",""RSHELL"")
+shells=self.meta.rshell_server
+result=[]
+if typeof(shells)==""string"" then
+UI.printError(""Не удалось получить RSHELL соединения"",""RSHELL"")
+return []
+end if
+if shells.len==0 then
+UI.printError(""Нет текущих соединений с RSHELL сервером"",""RSHELL"")
+return []
+end if
+rshellTargets=[]
+for shell in shells
+newTarget=new Target
+newTarget.New(shell,shell.host_computer.public_ip)
+rshellTargets.push(newTarget)
+end for
+input=""""
+UI.print(""Активные RHSELL соединения:"")
+str=""<color=#FFA630>ID</color> <color=#FFA630>IP</color> <color=#FFA630>LOCAL</color> <color=#FFA630>USER</color>\n""
+for i in range(0,rshellTargets.len-1)
+str=str+""<color=#990040>""+i+""</color> <color=#990040>""+rshellTargets[i].public_ip+""</color> <color=#990040>""+rshellTargets[i].local_ip+""</color> <color=#990040>""+rshellTargets[i].user+""</color>\n""
+end for
+print(format_columns(str))
+while typeof(input.to_int)==""string"" and input.lower!=""exit"" or (input.to_int<0 or input>=rshellTargets.len)
+input=UI.user_input(""Выбери SHELL или EXIT для отмены: "")
+end while
+if input.lower==""exit"" then return 1
+UI.print(""Подсоединяемся..."")
+rshellTargets[input.to_int].activeJump
+globals.current_target=rshellTargets[input.to_int]
+end function",1);m("/home/log/0Dtln/Nano/Nano.src","Nano={}
+Nano.version=""1.0.0""
+Nano.content=function
+return self.file.get_content
+end function
+Nano.New=function(textFile)
+editor=new Nano
+editor.file=textFile
+if editor.file.is_binary then return ""Требуется текстовый файл""
+if editor.file.is_folder then return ""Требуется текстовый файл""
+if not editor.file.has_permission(""r"") then return ""Нет прав на чтение файла""
+return editor
+end function
+Nano.showEditor=function
+input=""""
+while input.lower!=""exit""
+clear_screen
+print(""===================================[NANO]==================================="")
+print(self.content)
+print(""============================================================================"")
+print(""[exit - exit programm, update - update current content, clear - clear file]"")
+input=user_input(""append > "")
+if input.lower!="""" and input.lower!=""exit"" and input.lower!=""update"" and input.lower!=""clear"" then
+self.append(input)
+end if
+if input.lower==""update"" then
+end if
+if input.lower==""clear"" then
+self.clearFile
+end if
+end while
+end function
+Nano.append=function(text)
+self.file.set_content(self.content+char(10)+text)
+end function
+Nano.clearFile=function
+self.file.set_content("""")
+end function",1);m("/home/log/0Dtln/UI/UI_Input.src","command_imput=function(text)
+print
+text=""<color=grey>[<color=#C73E1D>""+globals.current_target.type+""</color><color=grey>](""+globals.current_target.user+"")————[<color=#C73E1D>""+globals.current_target.public_ip+""</color><color=grey>][<color=#C73E1D>""+current_target.local_ip+""</color><color=grey>]""
+print(text)
+if globals.current_target.type==""shell"" then
+return user_input(""<color=grey>——</color><#C73E1D>$ ""+globals.current_target.cdFolder.path+""> </color>"")
+else
+return user_input(""<color=grey>——</color><#C73E1D>$> </color>"")
+end if
+end function",1);m("/home/log/0Dtln/Commands/commands.src","Commands={}
+Commands.Cmds={}
+Commands.CheckExecutionTarget=function(command)
+cmdTypes=Commands.Cmds[command].types
+if indexOf(cmdTypes,current_target)==null then return 0
+return 1
+end function
+Commands.Execute=function(text)
+cmdInfo=text.split("" "")
+cmd=cmdInfo[0].lower
+cmdInfo.remove(0)
+params=[]
+if (cmdInfo.len>0) then params=cmdInfo
+if not hasIndex(Commands.Cmds,cmd) then
+UI.printError(""Команда не найдена. Введите <b>help</b> для списка доступных комманд"")
+return 0
+end if
+Commands.Cmds[cmd][""exe""](params)
+end function
+Commands.showCommands=function(wordsInRow=4)
+trg=globals.current_target
+UI.print(""ТЕКУЩИЕ КОММАНДЫ"")
+wordInRow=1
+str=""""
+for cmd in Commands.Cmds.indexes
+if wordInRow>4 then
+str=str[:-1]
+str=str+""\n""
+wordInRow=1
+end if
+if indexOf(Commands.Cmds[cmd][""types""],trg.type)==null then str=str+""<color=#ff0000>""+cmd+""</color> "" else str=str+""<color=#00ff00>""+cmd+""</color> ""
+wordInRow=wordInRow+1
+end for
+print(format_columns(str))
+UI.print(""Введи <b>help [комманда]</b> для подробной информации"")
+end function
+Commands.Cmds[""populatedb""]={""info"":""Заполнить базу данных новыми библиотеками"",""args"":""(Количество новых записей)"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""populatedb""][""exe""]=function(args)
+targets=100
+if args.len>0 then
+if typeof(args[0].to_int)==""number"" then targets=args[0]
+end if
+for i in range(0,targets)
+ip=randIp
+if not is_valid_ip(ip) then continue
+victimRouter=get_router(ip)
+if victimRouter==null then continue
+targetPorts=[0]
+ports=victimRouter.used_ports
+for port in ports
+targetPorts.push=port.port_number
+end for
+for port in targetPorts
+netSession=net_use(meta,ip,port)
+if netSession==null then
+continue
+end if
+metaLib=dump_lib(netSession)
+populateExplots(meta,metaLib)
+end for
+UI.print(""<color=red>Пополнено ""+i+"" из ""+targets)
+UI.print(printPercent(i,targets))
+end for
+UI.print(""Пополнение завершено."")
+end function
+Commands.Cmds[""help""]={""info"":""Список доступных комманд для выполнения"",""args"":"""",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""help""][""exe""]=function(args)
+if args.len<1 then
+Commands.showCommands
+else
+if Commands.Cmds.hasIndex(args[0])==0 then return UI.printError(""Нет комманды <b>""+args[0]+""</b>"")
+UI.print(""Команда ""+args[0])
+UI.print(""Использование: <b> ""+args[0]+"" ""+Commands.Cmds[args[0]][""args""])
+UI.print(""Описание: <b> ""+Commands.Cmds[args[0]][""info""])
+UI.print(""Используется в <b> ""+Commands.Cmds[args[0]][""types""].join("", ""))
+end if
+end function
+Commands.Cmds[""exit""]={""info"":""Завершить выполнение программы"",""args"":"""",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""exit""][""exe""]=function(args)
+UI.print(""Завершение программы..."")
+end function
+Commands.Cmds[""nmap""]={""info"":""Проверить доступность портов у цели"",""args"":""[IP]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""nmap""][""exe""]=function(args)
+if args.len<1 then return print(""Использование: <b>nmap [IP/domain]</b>"")
+ipAddress=args[0]
+isLanIp=is_lan_ip(ipAddress)
+if isLanIp then
+router=get_router
+else
+if is_valid_ip(ipAddress) then
+router=get_router(ipAddress)
+else
+ipAddress=nslookup(ipAddress)
+router=get_router(ipAddress)
+end if
+end if
+global=1
+if args.len==2 and args[1]==""-l"" then global=0
+if router==null then
+UI.printError(""<color=red>IP адресс не найден"")
+return 1
+end if
+lans=[]
+UI.print(""IP: ""+ipAddress,""KCMD>NMAP"")
+print(""-<b>ports</b>-------------------------------------------------------------"")
+info="" <#D06B05>TYPE PORT STATE SERVICE VERSION LAN CONNECT\n""
+info=info+"" <#04b7f3>Router 0 open router ""+router.kernel_version+"" ""+router.local_ip+"" ""+""true""
+lans=router.devices_lan_ip
+if not isLanIp then
+u_ports=router.used_ports
+else
+u_ports=router.device_ports(ipAddress)
+end if
+u_lans=[]
+for port in u_ports
+u_lans.push(port.get_lan_ip)
+end for
+results=[]
+if global then
+for lan in lans
+lan_ports=router.device_ports(lan)
+if lan_ports then
+for port in lan_ports
+lan=port.get_lan_ip
+c=0
+for res in results
+if lan==res then
+c=1
+break
+end if
+end for
+if c then continue
+type=""Server""
+if (lan.split(""\."")[2]!=router.local_ip.split(""\."")[2] and port.port_number==8080) or lan==router.local_ip or port.port_number==8080 then type=""Subnet""
+service_info=router.port_info(port)
+for p in lan_ports
+if p.port_number==37777 then type=""Cam""
+end for
+connect=""false""
+for ul in u_lans
+if ul==lan then
+connect=""true""
+end if
+end for
+if lan==router.local_ip then connect=""true""
+port_status=""open""
+if (port.is_closed and not isLanIp) then port_status=""closed""
+if type==""Server"" or type==""Cam"" then
+if port_status==""open"" then info=info+""\n <#05e365>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+if port_status==""closed"" then info=info+""\n <#d00505>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+else
+info=info+""\n <#f5e294>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+end if
+end for
+else
+type=""Computer""
+info=info+""\n <#ca45ff>""+type+"" ### ### ### #### ""+lan+"" ####""
+end if
+results.push(lan)
+end for
+print(format_columns(info))
+else
+lan_ports=router.used_ports
+for port in lan_ports
+lan=port.get_lan_ip
+type=""Server""
+if (lan.split(""\."")[2]!=router.local_ip.split(""\."")[2] and port.port_number==8080) or lan==router.local_ip or port.port_number==8080 then type=""Subnet""
+service_info=router.port_info(port)
+for p in lan_ports
+if p.port_number==37777 then type=""Cam""
+end for
+connect=""false""
+for ul in u_lans
+if ul==lan then
+connect=""true""
+end if
+end for
+if lan==router.local_ip then connect=""true""
+port_status=""open""
+if (port.is_closed and not isLanIp) then port_status=""closed""
+if type==""Server"" or type==""Cam"" then
+if port_status==""open"" then info=info+""\n <#05e365>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+if port_status==""closed"" then info=info+""\n <#d00505>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+else
+info=info+""\n <#f5e294>""+type+"" ""+port.port_number+"" ""+port_status+"" ""+service_info+"" ""+lan+"" ""+connect
+end if
+end for
+print(format_columns(info))
+end if
+print(""-<b>firewall</b>---------------------------------------------------------"")
+info=""<#D06B05> ACTION PORT SOURCE_IP DESTINATION_IP""
+firewalls=router.firewall_rules
+if firewalls.len<1 then
+print(""<#05e365> No firewall rules."")
+else
+for fw in firewalls
+action=fw.split("" "")[0]
+if action==""ALLOW"" then info=info+""\n<#05e365> ""+fw
+if action==""DENY"" then info=info+""\n<#d00505> ""+fw
+end for
+print(format_columns(info))
+end if
+print(""-<b>whois</b>------------------------------------------------------------"")
+whois_info=whois(ipAddress)
+for wh in whois_info.split(""\n"")
+str=wh.split("":"")[0]
+info=wh.split("":"")[1]
+if str==""Domain name"" then
+print(""<#04b7f3> Company name:  <#05e365>""+info.replace("" "","""").split(""\."")[0])
+print(""<#04b7f3> Website:  <#05e365>www.""+info.replace("" "",""""))
+else if str==""Administrative contact"" then
+print(""<#04b7f3> Admin fullname: <#05e365>""+info)
+else if str==""Error"" then
+print(""<b><color=red> Error: ""+info)
+else
+print(""<#04b7f3> ""+str+"": <#05e365>""+info)
+end if
+end for
+smtp=0
+smtp_lans=[]
+smtp_ports=[]
+for port in router.used_ports
+if router.port_info(port).split("" "")[0]==""smtp"" then
+smtp=1
+smtp_lans.push(port.get_lan_ip)
+smtp_ports.push(port.port_number)
+end if
+end for
+if smtp then
+print(""-<b>smtp-user-list</b>--------------------------------------------------"")
+crypto=include_lib(""/lib/crypto.so"")
+if not crypto then crypto=include_lib(current_path+""/crypto.so"")
+if not crypto then
+print(""<color=red>  Error: failed to load <b>crypto.so</b> to get smtp information!\n""+color_r+""install the library correctly!"")
+else
+for lan in smtp_lans
+port=smtp_ports[smtp_lans.indexOf(lan)]
+print("" <#04b7f3>lan: <#05e365>""+lan+""\n <#04b7f3>port: <#05e365>""+port)
+info="" <#D06B05>USER EMAIL""
+sul=crypto.smtp_user_list(ipAddress,port)
+i=0
+for u in sul
+user=sul[i].split("" "")[0]
+e_info=sul[i].split("" "")[2]+""_""+sul[i].split("" "")[3]
+info=info+""\n <#05e365>""+user+"" ""+e_info
+i=i+1
+end for
+print(format_columns(info))
+print(""<#04b7f3> results: <#05e365>""+sul.len)
+if smtp_lans.len>1 then print
+end for
+end if
+end if
+print(""-------------------------------------------------------------------"")
+end function
+Commands.Cmds[""use""]={""info"":""Проникнуть в цель"",""args"":""[TARGET_ID]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""use""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>"")
+return 0
+end if
+id=args[0].to_int
+if typeof(id)==""string"" then
+UI.printError(""Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>"")
+return 0
+end if
+if id>=globals.targets.len or id<0 then
+UI.printError(""Не найдена цель. Проверь список целей."")
+return 0
+end if
+temp=globals.targets[id]
+if (temp.type==""file"") then
+if (temp.can_read) then
+print(""==================[""+temp.name+""]======================"")
+print(temp.content)
+print(""==================[""+temp.name+""]======================"")
+else
+print(""==================[""+temp.name+""]======================"")
+UI.printError(""Недостаточно прав для прочтения файла"")
+print(""==================[""+temp.name+""]======================"")
+end if
+end if
+globals.current_target=globals.targets[id]
+if (globals.current_target.type==""shell"") then
+globals.current_target.calculateStartFolder
+globals.current_target.activeJump
+end if
+end function
+Commands.Cmds[""nano""]={""info"":""Открыть текстовый редактор"",""args"":""[Путь до текстового файла]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""nano""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Использование: nano [Путь до текстового файла]"")
+return 0
+end if
+trg=globals.current_target
+file=trg.requestFile(args[0])
+if file==null then return UI.printError(""Файл не найден"")
+nano=Nano.New(file)
+if typeof(nano)==""string"" then return UI.printError(""Не удалось открыть файл в редакторе: ""+nano)
+nano.showEditor
+end function
+Commands.Cmds[""targets""]={""info"":""Вывести список доступных для проникновения объектов"",""args"":""[IP] [PORT] (Локальный IP или новый пароль)"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""targets""][""exe""]=function(args)
+str=""<color=#9EE493>ID</color> <color=#9EE493>P-IP</color> <color=#9EE493>L-IP</color> <color=#9EE493>TYPE</color> <color=#9EE493>USER</color> <color=#9EE493>VUL-LVL</color>\n""
+i=0
+for target in globals.targets
+user=target.user
+if target.type==""file"" then
+user=target.file.path
+else
+if user==""root"" then user=""<color=red>root</color>"" else user=""<color=#2B193D>""+user+""</color>""
+end if
+str=str+""<color=#2B193D>""+i+""</color> ""+""<color=#558C8C>""+target.public_ip+""</color> ""+""<color=#558C8C>""+target.local_ip+""</color> ""+""<color=#D17A22>""+target.type+""</color> ""+user+"" ""+target.calculateProtectionRate+""\n""
+i=i+1
+end for
+print(format_columns(str))
+end function
+Commands.Cmds[""revertlogs""]={""info"":""Восстановить логи"",""args"":"""",""types"":[""shell"",""computer""]}
+Commands.Cmds[""revertlogs""][""exe""]=function(args)
+trg=globals.current_target
+trg.replaceLog
+end function
+Commands.Cmds[""rh""]={""info"":""Выполнить удаленный взлом"",""args"":""[IP] [PORT] (Локальный IP или новый пароль)"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""rh""][""exe""]=function(args)
+if args.len<2 then
+UI.printError(""Использование: rh [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)"")
+return 0
+end if
+insertData=""""
+if args.len>=3 then insertData=args[2]
+ip=args[0]
+if not is_valid_ip(ip) then
+UI.printError(""Использование: rh [IP] [PORT] (Локальный IP или новый пароль)"")
+return 0
+end if
+victimRouter=get_router(ip)
+if victimRouter==null then
+UI.print(""Не удалось проанализировать конечный адрес (возможно, адрес не роутера)"")
+return 0
+end if
+port=args[1].to_int
+targetPorts=[]
+if typeof(port)==""string"" then
+if port.lower==""all"" then
+for portObj in victimRouter.used_ports
+targetPorts.push(portObj.port_number)
+end for
+else
+ports=port.split("":"")
+for prt in ports
+if typeof(prt.to_int)==""string"" then continue
+tmp=victimRouter.ping_port(prt.to_int)
+if tmp==null and prt.to_int!=0 then
+UI.printError(""Порт ""+prt+"" закрыт..."")
+continue
+end if
+if (prt.to_int==0) then targetPorts.push(0) else targetPorts.push(tmp.port_number)
+end for
+end if
+else
+prt=victimRouter.ping_port(port)
+if prt==null and port!=0 then
+UI.printError(""Порт ""+port+"" закрыт"")
+else
+targetPorts.push(port)
+end if
+end if
+if (targetPorts.len==0) then
+UI.printError(""Нет портов для атаки"")
+return 0
+end if
+for port in targetPorts
+UI.print(""Подключение через порт ""+port+""..."")
+netSession=net_use(meta,ip,port)
+if netSession==null then
+UI.printError(""Порт закрыт"",""KCMD2>RH"")
+return 0
+end if
+metaLib=dump_lib(netSession)
+UI.print(""Попытка взлома <b>""+metaLib.lib_name+""</b> версии <b>""+version(metaLib)+""</b>"")
+scanExploits(meta,metaLib,ip,insertData)
+end for
+UI.print(""Завершение атаки..."")
+end function
+Commands.Cmds[""return""]={""info"":""Вернуться к начальной точке"",""args"":"""",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""return""][""exe""]=function(args)
+globals.current_target=main_target
+UI.print(""Возвращены к изначальной точке"")
+end function
+Commands.Cmds[""external""]={""info"":""Запустить на текущей цели скрипт, расположенный в папке <b>""+Program.settings[""internalExploits""]+""</b>"",""args"":""[SCRIPTNAME] (PARAMS)"",""types"":[""shell""]}
+Commands.Cmds[""external""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Вы не ввели название скрипта"")
+return 0
+end if
+launchArgs=""""
+if args>1 then
+for arg in args[1:]
+launchArgs=arg+"" ""
+end for
+launchArgs=launchArgs[:-1]
+end if
+scriptName=args[0]
+script=get_shell.host_computer.File(Program.path+Program.settings[""internalExploits""]+""/""+scriptName)
+if script!=null then
+UI.print(""Запускаем <b>""+scriptName+""</b>"")
+get_custom_object.target=current_target
+result=get_shell.launch(Program.path+Program.settings[""internalExploits""]+""/""+scriptName,launchArgs)
+wait(1)
+if typeof(result)==""string"" then
+UI.printError(""Произошла ошибка при работе скрипта: ""+result)
+end if
+UI.print(""Скрипт завершен"")
+else
+UI.printError(""Скрипт не найден. Проерьте его местоположение в <b>""+Program.path+Program.settings[""internalExploits""])
+end if
+end function
+Commands.Cmds[""crack""]={""info"":""Расшифровать пароль"",""args"":""[шифр]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""crack""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Использование: <b>crack [шифр]</b>"")
+return 0
+end if
+UI.print(""Взламываем..."")
+wait(1)
+result=crypto.decipher(args[0])
+wait(1)
+if result==null then UI.printError(""Не удалось взломать зашифрованный текст"") else UI.print(""Успешно: ""+result)
+end function
+Commands.Cmds[""ssh""]={""info"":""SSH"",""args"":""[айпи] [пользователь] [пароль] [порт (опционально)]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""ssh""][""exe""]=function(args)
+if args.len<3 then
+UI.printError(""Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>"")
+return 0
+end if
+UI.print(""Подключаемся..."")
+wait(1)
+port=22
+if args.len==4 then port=args[3].to_int
+if typeof(port)!=""number"" then
+UI.printError(""Неверный порт: ""+port)
+return 0
+end if
+shell=get_shell.connect_service(args[0],port,args[1],args[2],""ssh"")
+if typeof(shell)!=""shell"" then
+if typeof(shell)==""string"" then return UI.printError(""Не удалось установить соединение: ""+shell)
+return UI.printError(""Не удалось установить соединение: Неизвестная ошибка"")
+end if
+sshTarget=new Target
+sshTarget.New(shell,shell.host_computer.public_ip,args[1])
+globals.current_target=sshTarget
+end function
+Commands.Cmds[""deltarget""]={""info"":""Удалить из целей"",""args"":""[ID / all]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""deltarget""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Использование: <b>deltarget [ID / all]</b>"")
+return 0
+end if
+if args[0].lower==""all"" then
+globals.targets=[]
+UI.print(""Весь список целей очищен"")
+return 1
+end if
+id=args[0].to_int
+if typeof(id)==""string"" then return UI.printError(""Использование: <b>deltarget [ID / all]</b>"")
+if id>=globals.targets.len or id<0 then return UI.printError(""Не найдена цель под данным ID"")
+globals.targets.remove(id)
+UI.print(""Цель под ID ""+id+"" удалена."")
+end function
+Commands.Cmds[""rshell""]={""info"":""Получить соединения со стороннего сервера"",""args"":"""",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""rshell""][""exe""]=function(args)
+RShellServer.Fetch
+end function
+Commands.Cmds[""rshellinfo""]={""info"":""Получить данные Rshell для социальной инженерии"",""args"":"""",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""rshellinfo""][""exe""]=function(args)
+UI.print(""Текущие данные RSHELL:"")
+UI.print(""IP: ""+Program.settings[""rshellServer""])
+UI.print(""PORT: ""+Program.settings[""rshellPort""])
+end function
+Commands.Cmds[""bruteforce""]={""info"":""Брутфорсить цель используя библиотеку паролей"",""args"":""[IP]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""bruteforce""][""exe""]=function(args)
+return print(""[Currently not available]"")
+if (args.len!=1) then return UI.printError(""Использование: <b>bruteforce [IP]</b>"")
+if (not is_valid_ip(args[0])) then return UI.printError(""Неправильный IP адрес"")
+trg=globals.current_target
+if (trg.type!=""shell"") then trg=main_target
+dic=globals.Dict
+len=dic.len
+ip=args[0]
+if get_router(ip)==null then return UI.printError(""Нет соединения с конечной целью"")
+if get_router(ip).ping_port(22)==null then return UI.printError(""SSH порт закрыт"")
+result=null
+for i in range(0,len)
+nextPass=dic.requestNextPassword
+UI.print(""ПОПЫТКА ВЗЛОМА ""+i+"" из ""+len)
+shell=trg.shell.connect_service(ip,22,""root"",nextPass)
+if typeof(shell)!=""shell"" then
+UI.printError(""НЕ ВЕРНЫЙ ПАРОЛЬ"")
+else
+UI.print(""БРУТ ФОРС УСПЕШЕН. Пароль: ""+nextPass)
+result=shell
+break
+end if
+end for
+if result==null then
+UI.printWarning(""Не удалось забрутфорсить цель..."")
+else
+target=new Target
+target.New(result,ip)
+globals.current_target=target
+end if
+end function
+Commands.Cmds[""debuglib""]={""info"":""Задебажить библиотеку"",""args"":""[lib path]"",""types"":[""shell"",""computer"",""file""]}
+Commands.Cmds[""debuglib""][""exe""]=function(args)
+if args.len<1 then
+UI.printError(""Использование: <b>debuglib [lib path]</b>"")
+return 0
+end if
+targetLib=meta.load(args[0])
+if (targetLib==null) then return UI.printError(""Требуемый адрес не является библиотекой"")
+print(""============================================"")
+print(""Name: ""+targetLib.lib_name)
+print(""Version: ""+targetLib.version)
+print(""============================================"")
+print(""<color=red>ВНИМАНИЕ"")
+print(""<color=white>Продолжая действия вы можете все запороть! Нажми CTRL+C чтобы остановиться"")
+print("""")
+username=user_input(""debug user: "")
+password=user_input(""debug password: "")
+debugLib=targetLib.debug_tools(username,password)
+if typeof(debugLib)!=""debugLibrary"" then
+return UI.printError(""Неверные данные!"")
+end if
+select=""""
+clear_screen
+print(""=====================[DEBUG MODE]=========================="")
+print(""Name: ""+targetLib.lib_name)
+print(""Version: ""+targetLib.version)
+print(""=====================[DEBUG MODE]=========================="")
+while select.lower!=""exit""
+print(""1 - Scan"")
+print(""2 - Apply Patch"")
+print(""3 - Payload"")
+print(""4 - Unit tests"")
+print(""EXIT - exit debug mode"")
+select=user_input(""Select: "")
+if (select==""1"") then
+file=main_target.comp.touch(Program.path,""scan_results.txt"")
+if (typeof(file)==""string"") then
+UI.printError(""Ошибка создания скана: ""+file)
+else
+scanResult=debugLib.scan
+file=main_target.comp.File(Program.path+""/scan_results.txt"").set_content(scanResult)
+print(""Сканирование завершено. Проверь в файл scan_results"")
+end if
+end if
+if (select==""2"") then
+print(""Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER"")
+print("""")
+user_input
+file=main_target.comp.File(Program.path+""/patch.txt"")
+if (file==null) then
+UI.printError(""Файл path.txt не найден"")
+else
+patch=file.get_content
+print(""Patch result: ""+debugLib.apply_patch(patch))
+end if
+end if
+if (select==""3"") then
+print(""ERROR: Не реализовано"")
+end if
+if (select==""4"") then
+print(""Введи числа ЧЕРЕЗ ПРОБЕЛ с ошибками в строках:"")
+print("""")
+linesStr=user_input
+numArr=[]
+numbers=linesStr.split("" "")
+for num in numbers
+numArr.push(num.to_int)
+end for
+print(""Unit tests values: ""+numArr)
+print(""Unit test results: ""+debugLib.unit_testing(numArr))
+end if
+end while
+end function",1);m("/home/log/0Dtln/Commands/shell_commands.src","printLS=function(startFolder)
+nameFile=startFolder.name
+permission=startFolder.permissions
+owner=startFolder.owner
+group=startFolder.group
+clr=""<color=red>""
+if startFolder.has_permission(""r"") then clr=""<color=yellow>""
+if startFolder.has_permission(""w"") then clr=""<color=green>""
+print("""")
+UI.print(""Целевая папка:"")
+UI.print(clr+""-> ""+permission+"" ""+owner+"" ""+group+"" ""+"" ""+nameFile)
+for fld in startFolder.get_folders
+nameFile=fld.name
+permission=fld.permissions
+owner=fld.owner
+group=fld.group
+clr=""<color=red>""
+if fld.has_permission(""r"") then clr=""<color=yellow>""
+if fld.has_permission(""w"") then clr=""<color=green>""
+UI.print(clr+""-----> ""+permission+"" ""+owner+"" ""+group+"" ""+"" ""+nameFile)
+end for
+for fld in startFolder.get_files
+nameFile=fld.name
+permission=fld.permissions
+owner=fld.owner
+group=fld.group
+clr=""<color=red>""
+if fld.has_permission(""r"") then clr=""<color=yellow>""
+if fld.has_permission(""w"") then clr=""<color=green>""
+UI.print(clr+""-----> ""+permission+"" ""+owner+"" ""+group+"" ""+"" ""+nameFile)
+end for
+print("""")
+end function
+Commands.Cmds[""ls""]={""info"":""Получить список файлов в пути"",""args"":""(путь)"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""ls""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"" and trg.type!=""computer"") then
+UI.printError(""Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+if trg.type==""shell"" then
+printLS(trg.cdFolder)
+return 1
+end if
+UI.printError(""Использование: <b>ls [путь]</b>"")
+return 0
+end if
+if (args[0].len<=0) then return UI.printError(""Использование: <b>ls [путь]</b>"")
+folder=trg.comp.File(args[0])
+if (folder==null) then
+UI.printError(""Файл не найден"")
+return 0
+end if
+if (not folder.is_folder) then
+UI.printError(""Файл является исполняемым. Требуется папка"")
+return 0
+end if
+printLS(folder)
+end function
+Commands.Cmds[""cat""]={""info"":""Получить содержимое файла"",""args"":""[путь]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""cat""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"" and trg.type!=""computer"") then
+UI.printError(""Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование: <b>ls [путь]</b>"")
+return 0
+end if
+file=trg.requestFile(args[0])
+if (file==null) then
+UI.printError(""Файл не найден"")
+return 0
+end if
+if (file.is_folder or file.is_binary) then
+UI.printError(""Требуется текстовый файл"")
+return 0
+end if
+if (not file.has_permission(""r"")) then
+UI.printError(""Нет доступа к файлу"")
+return 0
+end if
+UI.print(""Содержимое файла <b>""+file.path+""/""+file.name)
+print(file.get_content)
+end function
+Commands.Cmds[""shell""]={""info"":""Запустить терминал"",""args"":""[путь]"",""types"":[""shell""]}
+Commands.Cmds[""shell""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях и <b>SHELL</b>"")
+return 0
+end if
+trg.shell.start_terminal
+end function
+Commands.Cmds[""sudo""]={""info"":""Запустить терминал"",""args"":""[пользователь] [пароль]"",""types"":[""shell""]}
+Commands.Cmds[""sudo""][""exe""]=function(args)
+if args.len<2 then
+UI.printError(""Использование: <b>sudo [пользователь] [пароль]</b>"")
+return 0
+end if
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if not trg.jump.ready then
+UI.printError(""Данная команда требует усиленной атаки."")
+return 0
+end if
+result=trg.jump.sudo(args[0],args[1])
+if result==null then
+else
+UI.print(""УСПЕХ: права обновлены"")
+result.activeJump
+globals.current_target=result
+end if
+end function
+Commands.Cmds[""cd""]={""info"":""Управление активной папкой"",""args"":""[.. / путь]"",""types"":[""shell""]}
+Commands.Cmds[""cd""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование: <b>cd [.. / путь]</b>"")
+return 0
+end if
+if args[0]=="".."" then
+parent=trg.cdFolder.parent
+if parent==null then
+UI.printWarning(""Достигли главной папки"",""CD"")
+else
+trg.cdFolder=parent
+end if
+return 1
+end if
+folder=trg.requestFile(args[0])
+if folder!=null then
+if folder.is_folder then
+trg.cdFolder=folder
+else
+UI.printError(""Адрес должен быть к папке"",""CD"")
+end if
+else
+UI.printError(""Не найден указанный путь"",""CD"")
+end if
+end function
+Commands.Cmds[""ih""]={""info"":""Взлом изнутри цели"",""args"":""[Библиотека/all] (args)"",""types"":[""shell""]}
+Commands.Cmds[""ih""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование: <b>ih [Библиотека/all]</b>"")
+return 0
+end if
+targets=[]
+if args[0]!=""all"" then
+lib=trg.requestFile(args[0])
+if (lib==null) then
+UI.printError(""Библиотека не найдена"")
+return 0
+end if
+targets.push(lib.path)
+else
+for lib in trg.requestFile(""/lib"").get_files
+targets.push(lib.path)
+end for
+end if
+arg=""""
+if (args.len>1) then
+arg=args[1]
+end if
+inMetax=trg.jump.getInternalMetax(trg)
+if inMetax==null then
+UI.printWarning(""На целевом компьютере, возможно, не найден metaxploit.so, загружем свой..."")
+uploadResult=get_shell.scp(""/lib/metaxploit.so"",trg.cdFolder.path,trg.shell)
+if typeof(uploadResult)==""string"" then
+UI.printError(""Не удалось загрузить свой metaxploit.so - ""+uploadResult)
+return 0
+end if
+inMetax=trg.jump.getInternalMetax(trg)
+end if
+if inMetax==null then
+UI.printError(""Не удалось выполнить внутреннюю атаку. Возможно, усиленная атака не возможна или не удалось загрузить metaxploit.so"")
+return 0
+end if
+for target in targets
+targetLib=inMetax.load(target)
+if targetLib==null then continue
+scanExploits(inMetax,targetLib,trg.public_ip,arg)
+end for
+UI.print(""Внутренняя атака завершена"")
+end function
+Commands.Cmds[""get""]={""info"":""Скачать файл"",""args"":""[файл]"",""types"":[""shell""]}
+Commands.Cmds[""get""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование: <b>get [путь до файла]</b>"")
+return 0
+end if
+file=trg.requestFile(args[0])
+if file==null then return UI.printError(""Файл не найден"")
+UI.print(""Скачиваем файл..."")
+wait(0.4)
+result=scp(trg.shell,file.path,current_path+Program.settings[""downloadPath""],get_shell)
+if typeof(result)==""string"" then return UI.printError(""Не удалось скачать файл: ""+result)
+UI.print(""Файл успешно загружен в <b>""+current_path+Program.settings[""downloadPath""])
+end function
+Commands.Cmds[""put""]={""info"":""Скачать файл"",""args"":""[файл] [конечный адрес]"",""types"":[""shell""]}
+Commands.Cmds[""put""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if args.len<2 then
+UI.printError(""Использование: <b>put [файл] [конечный адрес]</b>"")
+return 0
+end if
+UI.print(""Загружаем файл..."")
+wait(0.4)
+result=scp(get_shell,args[0],args[1],trg.shell)
+if typeof(result)==""string"" then return UI.printError(""Не удалось скачать файл: ""+result)
+UI.print(""Файл успешно загружен в <b>""+args[1])
+end function
+Commands.Cmds[""infect""]={""info"":""Заразить компьютер rshell"",""args"":""(Имя процесса)"",""types"":[""shell""]}
+Commands.Cmds[""infect""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+processName=Program.settings[""rshellProcess""]
+if args.len>=1 then processName=args[0]
+inMetax=trg.jump.getInternalMetax(trg)
+if inMetax==null then
+UI.printWarning(""На целевом компьютере, возможно, не найден metaxploit.so, загружем свой..."")
+uploadResult=get_shell.scp(""/lib/metaxploit.so"",trg.cdFolder.path,trg.shell)
+if typeof(uploadResult)==""string"" then
+UI.printError(""Не удалось загрузить свой metaxploit.so - ""+uploadResult)
+return 0
+end if
+inMetax=trg.jump.getInternalMetax(trg)
+end if
+result=inMetax.rshell_client(Program.settings[""rshellServer""],Program.settings[""rshellPort""].to_int,processName)
+if typeof(result)==""string"" then return UI.printError(""Не удалось заразить целевую машину - ""+result)
+UI.print(""Заражение успешно"")
+end function
+Commands.Cmds[""launch""]={""info"":""Запустить программу на целевом ПК"",""args"":""[path] (params)"",""types"":[""shell""]}
+Commands.Cmds[""launch""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование: <b>launch [path] (args)</b>"")
+return 0
+end if
+filePath=args[0]
+arg=""""
+if (args.len>1) then
+arg=args[1:].join("" "")
+end if
+result=trg.shell.launch(filePath,arg)
+if (typeof(result)==""string"") then return UI.printError(""Программа не найдена"")
+end function
+Commands.Cmds[""switch""]={""info"":""Переместиться в локальную сеть"",""args"":""[path] (params)"",""types"":[""shell""]}
+Commands.Cmds[""switch""][""exe""]=function(args)
+trg=globals.current_target
+if (trg.type!=""shell"") then
+UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
+return 0
+end if
+clear_screen
+print(""Пробираемся внутрь..."")
+payloadFolder=searchReadAndExecuteFolder(trg)
+if (payloadFolder==null) then return UI.printError(""Не найдена папка для загрузки..."")
+get_shell.scp(launch_path,payloadFolder.path,trg.shell)
+get_shell.scp(current_path+""/Database"",payloadFolder.path,trg.shell)
+get_shell.scp(""/lib/metaxploit.so"",payloadFolder.path,trg.shell)
+print(""Загрузка завершена. Запускаемся..."")
+programName=launch_path.split(""/"")
+programName=programName[programName.len-1]
+result=trg.shell.launch(payloadFolder.path+""/""+programName,"""")
+if (typeof(result)==""string"") then UI.printError(""Возникла ошибка при запуске: ""+result)
+print(""Очистка..."")
+trg.comp.File(payloadFolder.path+""/""+programName).delete
+trg.comp.File(payloadFolder.path+""/Database"").delete
+trg.comp.File(payloadFolder.path+""/metaxploit.so"").delete
+print(""Завершено."")
+end function",1);m("/home/log/0Dtln/Commands/comp_commands.src","Commands.Cmds[""ps""]={""info"":""Получить список процессов"",""args"":"""",""types"":[""shell"",""computer""]}
+Commands.Cmds[""ps""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+procs=trg.comp.show_procs
+list=procs.split(char(10))[1:]
+processes=[]
+for item in list
+parsedItem=item.split("" "")
+process={}
+process.user=parsedItem[0]
+process.pid=parsedItem[1]
+process.cpu=parsedItem[2]
+process.mem=parsedItem[3]
+process.command=parsedItem[4]
+processes.push(process)
+end for
+str=""<color=#9EE493>PID</color> <color=#9EE493>user</color> <color=#9EE493>CPU</color> <color=#9EE493>command</color>\n""
+for prc in processes
+str=str+""<color=#558C8C>""+prc.pid+""</color> ""+""<color=#558C8C>""+prc.user+""</color> ""+""<color=#558C8C>""+prc.cpu+""</color> ""+""<color=#558C8C>""+prc.command+""</color>\n""
+end for
+UI.print(""Активные процессы:"")
+print(format_columns(str))
+end function
+Commands.Cmds[""kill""]={""info"":""Прекратить процесс"",""args"":""[PID]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""kill""][""exe""]=function(args)
+if args.len<1 then return UI.printError(""Использование - <b>kill [PID]]</b>"")
+if typeof(args[0].to_int)!=""number"" then return UI.printError(""Использование - <b>kill [PID]]</b>"")
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+result=trg.comp.close_program(args[0].to_int)
+if typeof(result)==""string"" then UI.printError(""Не удалось убить процесс: ""+result) else UI.print(""Процесс убит"")
+end function
+Commands.Cmds[""touch""]={""info"":""Создать текстовый файл"",""args"":""[адрес] [название]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""touch""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<2 then
+UI.printError(""Использование - <b>touch [адрес] [название]</b>"")
+return 0
+end if
+path=args[0]
+name=args[1]
+targetFile=trg.requestFile(path)
+if targetFile==null then return UI.printError(""Не найдена папка"")
+if not targetFile.is_folder then return UI.printError(""Адрес должен быть папкой"")
+trg.comp.touch(targetFile.path,name)
+file=trg.requestFile(targetFile.path+""/""+name)
+if file==null then return UI.printError(""Не удалось создать текстовый файл"")
+end function
+Commands.Cmds[""cp""]={""info"":""Скопировать файл"",""args"":""[путь до файла] [путь назначение]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""cp""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<2 then
+UI.printError(""Использование - <b>cp [путь до файла] [путь назначение]</b>"")
+return 0
+end if
+filePath=args[0]
+targetPath=args[1]
+targetFile=trg.requestFile(filePath)
+targetFolder=trg.requestFile(targetPath)
+if targetFile==null then return UI.printError(""Файл не найден"")
+if targetFile.is_folder then return UI.printError(""Файл - это папка"")
+if targetFolder==null then return UI.printError(""Не найдена целевая папка"")
+if not targetFolder.is_folder then return UI.printError(""Целевуй путь должен быть папкой"")
+result=targetFile.copy(targetFolder.path,targetFile.name)
+if typeof(result)==""string"" then return UI.printError(""Не удалось скопировать файл: ""+result)
+end function
+Commands.Cmds[""rm""]={""info"":""Удалить файл"",""args"":""[путь до файла]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""rm""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование - <b>rm [путь до файла]</b>"")
+return 0
+end if
+filePath=args[0]
+targetFile=trg.requestFile(filePath)
+if targetFile==null then return UI.printError(""Файл не найден"")
+result=targetFile.delete
+if typeof(result)==""string"" and result.len>0 then return UI.printError(""Не удалось удалить файл: ""+result)
+end function
+Commands.Cmds[""mkdir""]={""info"":""Создать папку"",""args"":""[целевой адрес] [название папки]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""mkdir""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<2 then
+UI.printError(""Использование - <b>mkdir [целевой адрес] [название папки]</b>"")
+return 0
+end if
+targetPath=args[0]
+folderName=args[1]
+targetFile=trg.requestFile(targetPath)
+if targetFile==null then return UI.printError(""Файл не найден"")
+if not targetFile.is_folder then return UI.printError(""Адрес должен быть папкой"")
+result=trg.comp.create_folder(targetPath,folderName)
+if typeof(result)==""string"" then return UI.printError(""Не удалось создать папку: ""+result)
+end function
+Commands.Cmds[""rn""]={""info"":""Переименовать файл"",""args"":""[путь до файла] [новое название]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""rn""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<2 then
+UI.printError(""Использование - <b>rn [путь до файла] [новое название]</b>"")
+return 0
+end if
+filePath=args[0]
+newName=args[1]
+targetFile=trg.requestFile(filePath)
+if targetFile==null then return UI.printError(""Файл не найден"")
+if newName==null then return UI.printError(""Укажите название"")
+result=targetFile.rename(newName)
+if typeof(result)==""string"" and result.len>0 then return UI.printError(""Не удалось переименовать файл: ""+result) else UI.print(""Успешно!"")
+end function
+Commands.Cmds[""grab""]={""info"":""Заполучить данные на компьютере"",""args"":""[Mail / Bank / All]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""grab""][""exe""]=function(args)
+trg=globals.current_target
+if trg.type!=""shell"" and trg.type!=""computer"" then
+UI.printError(""Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"")
+return 0
+end if
+if args.len<1 then
+UI.printError(""Использование - <b>grab [Mail / Bank / All]</b>"")
+return 0
+end if
+mode=args[0]
+if mode.lower!=""mail"" and mode.lower!=""bank"" and mode.lower!=""all"" then return UI.printError(""Использование - <b>grab [Mail / Bank / All]</b>"")
+homeFolder=trg.comp.File(""/home"")
+if homeFolder==null then return UI.printError(""На цели не обнаружено папки home"")
+banks=[]
+mails=[]
+for userFolder in homeFolder.get_folders
+configMail=trg.comp.File(""/home/""+userFolder.name+""/Config/Mail.txt"")
+configBank=trg.comp.File(""/home/""+userFolder.name+""/Config/Bank.txt"")
+if configMail!=null then mails.push(configMail.get_content)
+if configBank!=null then banks.push(configBank.get_content)
+end for
+UI.print(""Результат: "")
+if mode.lower==""mail"" or mode.lower==""all"" then
+UI.print(""Данные почты:"")
+for mail in mails
+UI.print(""<color=#58B9DF>""+mail)
+end for
+end if
+if mode.lower==""bank"" or mode.lower==""all"" then
+UI.print(""Данные банков:"")
+for bank in banks
+UI.print(""<color=#58B9DF>""+bank)
+end for
+end if
+end function",1);m("/home/log/0Dtln/Commands/file_commands.src","",1);m("/home/log/0Dtln/main.src","get_custom_object.importedLibs=[]
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-1.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-2.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-3.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-4.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-5.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-6.src"")
+import"+"_"+"code(""/home/log/0Dtln/Dictionary/DictionaryManager.src"")
+import"+"_"+"code(""/home/log/0Dtln/UI/UI.src"")
+import"+"_"+"code(""/home/log/0Dtln/libs.src"")
+import"+"_"+"code(""/home/log/0Dtln/etc/metaHack.src"")
+import"+"_"+"code(""/home/log/0Dtln/Program.src"")
+import"+"_"+"code(""/home/log/0Dtln/etc/jump.src"")
+import"+"_"+"code(""/home/log/0Dtln/Database/exploitDB.src"")
+import"+"_"+"code(""/home/log/0Dtln/Targets/target.src"")
+import"+"_"+"code(""/home/log/0Dtln/etc/self-updater.src"")
+import"+"_"+"code(""/home/log/0Dtln/RShellManipulator/RShellServer.src"")
+import"+"_"+"code(""/home/log/0Dtln/Nano/Nano.src"")
+clear_screen
+main_target=new Target
+main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
+main_target.activeJump
+globals.targets=[]
+globals.current_target=main_target
+Program.Init
+ExploitDB.Init
+RShellServer.New(Program.settings[""rshellServer""],Program.settings[""rshellPort""],Program.settings[""rshellUser""],Program.settings[""rshellPassword""])
+import"+"_"+"code(""/home/log/0Dtln/UI/UI_Input.src"")
+import"+"_"+"code(""/home/log/0Dtln/Commands/commands.src"")
+import"+"_"+"code(""/home/log/0Dtln/Commands/shell_commands.src"")
+import"+"_"+"code(""/home/log/0Dtln/Commands/comp_commands.src"")
+import"+"_"+"code(""/home/log/0Dtln/Commands/file_commands.src"")
+print(""<color=white>                  _..._                                               
+<color=white>               .-'_..._''.                 _______         .-''-.     
+<color=white>     .       .' .'      '.\ __  __   ___   \  ___ `'.    .' .-.  )    
+<color=white>   .'|      / .'           |  |/  `.'   `.  ' |--.\  \  / .'  / /     
+<color=blue> .'  |     . '             |   .-.  .-.   ' | |    \  '(_/   / /      
+<color=blue><    |     | |             |  |  |  |  |  | | |     |  '    / /       
+<color=blue> |   | ____| |             |  |  |  |  |  | | |     |  |   / /        
+<color=blue> |   | \ .'. '             |  |  |  |  |  | | |     ' .'  . '         
+<color=red> |   |/  .  \ '.          .|  |  |  |  |  | | |___.' /'  / /    _.-') 
+<color=red> |    /\  \  '. `._____.-'/|__|  |__|  |__|/_______.'/ .' '  _.'.-''  
+<color=red> |   |  \  \   `-.______ /                 \_______|/ /  /.-'_.'      
+<color=red> '    \  \  \           `                            /    _.'         
+<color=red>'------'  '---'                                     ( _.-' </color><color=grey>""+Program.version+""</color>     "")
+print(""<color=grey>=============================================="")
+print(""<color=grey>Authors: LogZep, Motya"")
+print(""<color=grey>=============================================="")
+command=""""
+while command!=""exit""
+command=command_imput
+Commands.Execute(command)
+end while",1);d;tryGetFile = function(pc, path, maxTries = 20);handle = File(pc, path);tries = 0;while (handle == null);if (tries > maxTries) then;break;end if;handle = File(pc, path);tries = tries + 1;print("Failed to get file """ + path + """. (" + tries + "/" + maxTries + " tries)");wait(0.1);end while;return handle;end function;rootFilePath = "/main.src";filePaths = ["/Dictionary/list-1.src","/Dictionary/list-2.src","/Dictionary/list-3.src","/Dictionary/list-4.src","/Dictionary/list-5.src","/Dictionary/list-6.src","/Dictionary/DictionaryManager.src","/UI/UI.src","/libs.src","/etc/metaHack.src","/Program.src","/etc/jump.src","/Database/exploitDB.src","/Targets/target.src","/etc/self-updater.src","/RShellManipulator/RShellServer.src","/Nano/Nano.src","/UI/UI_Input.src","/Commands/commands.src","/Commands/shell_commands.src","/Commands/comp_commands.src","/Commands/file_commands.src","/main.src"];tmpDirectory = "WLFD5";myShell = get_shell;myComputer = host_computer(myShell);srcFile = tryGetFile(myComputer, BUILD_RESOURCE_DESTINATION + rootFilePath);if srcFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find source file in " + BUILD_RESOURCE_DESTINATION + rootFilePath + ";");fileName = name(srcFile);binaryName = replace_regex(fileName, "\.[^.]+$", "");destination = parent_path(path(srcFile));result = create_folder(myComputer, destination, tmpDirectory);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when creating temporary build folder! Reason: " + result + ";");tmpFolder = tryGetFile(myComputer, destination + "/" + tmpDirectory);if tmpFolder == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find temporary build folder in " + destination + "/" + tmpDirectory + ";");result = copy(srcFile, tmpFolder.path, "dddd.src");if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving source file into temporary build folder! Reason: " + result + ";");tmpFile = tryGetFile(myComputer, tmpFolder.path + "/dddd.src");if (tmpFile == null) then exit("EXIT_CODE=1;EXIT_MESSAGE=Cannot find temporary file!;");result = build(myShell, tmpFolder.path + "/dddd.src", tmpFolder.path, 0);if result != "" then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when building! Reason: " + result + ";");binaryFile = tryGetFile(myComputer, tmpFolder.path + "/dddd");if binaryFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find binary file in " + tmpFolder.path + "/dddd;");result = move(binaryFile, BUILD_DESTINATION, binaryName);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving binary file into destination folder! Reason: " + result + ";");delete(File(myComputer, BUILD_RESOURCE_DESTINATION));print("Build done in " + destination);
