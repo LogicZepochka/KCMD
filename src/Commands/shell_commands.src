@@ -1,365 +1,383 @@
 printLS = function(startFolder)
 
-    nameFile = startFolder.name
-    permission = startFolder.permissions
-    owner = startFolder.owner
-    group = startFolder.group
-    clr = "<color=red>"
-    if startFolder.has_permission("r") then clr = "<color=yellow>"
-    if startFolder.has_permission("w") then clr = "<color=green>"
-    print("")
-    UI.print("Целевая папка:")
-    UI.print(clr+"-> "+permission+" "+owner+" "+group+" "+" "+nameFile)
-    for fld in startFolder.get_folders
-        nameFile = fld.name
-        permission = fld.permissions
-        owner = fld.owner
-        group = fld.group
-        clr = "<color=red>"
-        if fld.has_permission("r") then clr = "<color=yellow>"
-        if fld.has_permission("w") then clr = "<color=green>"
-        UI.print(clr+"-----> "+permission+" "+owner+" "+group+" "+" "+nameFile)
-    end for
-    for fld in startFolder.get_files
-        nameFile = fld.name
-        permission = fld.permissions
-        owner = fld.owner
-        group = fld.group
-        clr = "<color=red>"
-        if fld.has_permission("r") then clr = "<color=yellow>"
-        if fld.has_permission("w") then clr = "<color=green>"
-        UI.print(clr+"-----> "+permission+" "+owner+" "+group+" "+" "+nameFile)
-    end for
-    print("")
+	nameFile = startFolder.name
+	permission = startFolder.permissions
+	owner = startFolder.owner
+	group = startFolder.group
+	clr = "<color=red>"
+	if startFolder.has_permission("r") then clr = "<color=yellow>"
+	if startFolder.has_permission("w") then clr = "<color=green>"
+	print ""
+	UI.print "Целевая папка:"
+	UI.print clr + "-> " + permission + " " + owner + " " + group + " " + " " + nameFile
+	for fld in startFolder.get_folders
+		nameFile = fld.name
+		permission = fld.permissions
+		owner = fld.owner
+		group = fld.group
+		clr = "<color=red>"
+		if fld.has_permission("r") then clr = "<color=yellow>"
+		if fld.has_permission("w") then clr = "<color=green>"
+		UI.print clr + "-----> " + permission + " " + owner + " " + group + " " + " " + nameFile
+	end for
+	for fld in startFolder.get_files
+		nameFile = fld.name
+		permission = fld.permissions
+		owner = fld.owner
+		group = fld.group
+		clr = "<color=red>"
+		if fld.has_permission("r") then clr = "<color=yellow>"
+		if fld.has_permission("w") then clr = "<color=green>"
+		UI.print clr + "-----> " + permission + " " + owner + " " + group + " " + " " + nameFile
+	end for
+	print ""
 end function
 
 Commands.Cmds["ls"] = {
-    "info": "Получить список файлов в пути",
-    "args": "(путь)",
-    "types": ["shell","computer"],
+	"info": "Получить список файлов в пути",
+	"args": "(путь)",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["ls"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" and trg.type != "computer") then
-        UI.printError("Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        if trg.type == "shell" then
-            printLS(trg.cdFolder)
-            return 1;
-        end if
-            UI.printError("Использование: <b>ls [путь]</b>")
-        return 0
-    end if
-    if(args[0].len <= 0) then return UI.printError("Использование: <b>ls [путь]</b>");
-    folder = trg.comp.File(args[0])
-    if (folder == null) then
-        UI.printError("Файл не найден")
-        return 0
-    end if
-    if (not folder.is_folder) then
-        UI.printError("Файл является исполняемым. Требуется папка")
-        return 0
-    end if
-    printLS(folder)
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		if trg.type == "shell" then
+			printLS trg.cdFolder
+			return 1
+		end if
+		UI.printError "Использование: <b>ls [путь]</b>"
+		return 0
+	end if
+	if args[0].len <= 0 then return UI.printError("Использование: <b>ls [путь]</b>")
+	folder = trg.comp.File(args[0])
+	if folder == null then
+		UI.printError "Файл не найден"
+		return 0
+	end if
+	if not folder.is_folder then
+		UI.printError "Файл является исполняемым. Требуется папка"
+		return 0
+	end if
+	printLS folder
 end function
 
 
 Commands.Cmds["cat"] = {
-    "info": "Получить содержимое файла",
-    "args": "[путь]",
-    "types": ["shell","computer"],
+	"info": "Получить содержимое файла",
+	"args": "[путь]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["cat"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" and trg.type != "computer") then
-        UI.printError("Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        UI.printError("Использование: <b>ls [путь]</b>")
-        return 0
-    end if
-    file = trg.requestFile(args[0])
-    if (file == null) then
-        UI.printError("Файл не найден")
-        return 0
-    end if
-    if (file.is_folder or file.is_binary) then
-        UI.printError("Требуется текстовый файл")
-        return 0
-    end if
-    if ( not file.has_permission("r")) then
-        UI.printError("Нет доступа к файлу")
-        return 0
-    end if
-    UI.print("Содержимое файла <b>"+file.path+"/"+file.name)
-    print(file.get_content)
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование: <b>ls [путь]</b>"
+		return 0
+	end if
+	file = trg.requestFile(args[0])
+	if file == null then
+		UI.printError "Файл не найден"
+		return 0
+	end if
+	if file.is_folder or file.is_binary then
+		UI.printError "Требуется текстовый файл"
+		return 0
+	end if
+	if not file.has_permission("r") then
+		UI.printError "Нет доступа к файлу"
+		return 0
+	end if
+	UI.print "Содержимое файла <b>" + file.path + "/" + file.name
+	print file.get_content
 end function
 
 Commands.Cmds["shell"] = {
-    "info": "Запустить терминал",
-    "args": "[путь]",
-    "types": ["shell"],
+	"info": "Запустить терминал",
+	"args": "[путь]",
+	"types": [ "shell" ],
 }
 Commands.Cmds["shell"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях и <b>SHELL</b>")
-        return 0
-    end if
-    trg.shell.start_terminal
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях и <b>SHELL</b>"
+		return 0
+	end if
+	trg.shell.start_terminal
 end function
 
 Commands.Cmds["sudo"] = {
-    "info": "Запустить терминал",
-    "args": "[пользователь] [пароль]",
-    "types": ["shell"],
+	"info": "Запустить терминал",
+	"args": "[пользователь] [пароль]",
+	"types": [ "shell" ],
 }
 Commands.Cmds["sudo"]["exe"] = function(args)
-    if args.len < 2 then
-        UI.printError("Использование: <b>sudo [пользователь] [пароль]</b>")
-        return 0
-    end if
+	if args.len < 2 then
+		UI.printError "Использование: <b>sudo [пользователь] [пароль]</b>"
+		return 0
+	end if
 
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if not trg.jump.ready then
-        UI.printError("Данная команда требует усиленной атаки.")
-        return 0
-    end if
-    result = trg.jump.sudo(args[0],args[1])
-    if result == null then 
-        
-    else
-        UI.print("УСПЕХ: права обновлены")
-        result.activeJump()
-        globals.current_target = result
-    end if
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if not trg.jump.ready then
+		UI.printError "Данная команда требует усиленной атаки."
+		return 0
+	end if
+	result = trg.jump.sudo(args[0], args[1])
+	if result == null then
+
+	else
+		UI.print "УСПЕХ: права обновлены"
+		result.activeJump
+		globals.current_target = result
+	end if
 end function
 
 Commands.Cmds["cd"] = {
-    "info": "Управление активной папкой",
-    "args": "[.. / путь]",
-    "types": ["shell"],
+	"info": "Управление активной папкой",
+	"args": "[.. / путь]",
+	"types": [ "shell" ],
 }
 
 Commands.Cmds["cd"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        UI.printError("Использование: <b>cd [.. / путь]</b>")
-        return 0
-    end if
-    if args[0] == ".." then
-        parent = trg.cdFolder.parent
-        if parent == null then
-            UI.printWarning("Достигли главной папки","CD")
-        else
-            trg.cdFolder = parent
-        end if
-        return 1;
-    end if
-    folder = trg.requestFile(args[0])
-    if folder != null then
-        if folder.is_folder then
-            trg.cdFolder = folder
-        else
-            UI.printError("Адрес должен быть к папке","CD")
-        end if
-    else
-        UI.printError("Не найден указанный путь","CD")
-    end if
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование: <b>cd [.. / путь]</b>"
+		return 0
+	end if
+	if args[0] == ".." then
+		parent = trg.cdFolder.parent
+		if parent == null then
+			UI.printWarning "Достигли главной папки", "CD"
+		else
+			trg.cdFolder = parent
+		end if
+		return 1
+	end if
+	folder = trg.requestFile(args[0])
+	if folder != null then
+		if folder.is_folder then
+			trg.cdFolder = folder
+		else
+			UI.printError "Адрес должен быть к папке", "CD"
+		end if
+	else
+		UI.printError "Не найден указанный путь", "CD"
+	end if
 end function
 
 Commands.Cmds["ih"] = {
-    "info": "Взлом изнутри цели",
-    "args": "[Библиотека/all] (args)",
-    "types": ["shell"],
+	"info": "Взлом изнутри цели",
+	"args": "[Библиотека/all] (args)",
+	"types": [ "shell" ],
 }
 
 Commands.Cmds["ih"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        UI.printError("Использование: <b>ih [Библиотека/all]</b>")
-        return 0
-    end if
-    
-    
-    targets = []
-    if args[0] != "all" then
-        lib = trg.requestFile(args[0])
-        if(lib == null) then
-            UI.printError("Библиотека не найдена")
-            return 0;
-        end if
-        targets.push(lib.path)
-    else
-        for lib in trg.requestFile("/lib").get_files
-            targets.push(lib.path)
-        end for
-    end if
-    arg = ""
-    if(args.len > 1) then
-        arg = args[1];
-    end if
-    inMetax = trg.jump.getInternalMetax(trg)
-    if inMetax == null then
-        UI.printWarning("На целевом компьютере, возможно, не найден metaxploit.so, загружем свой...")
-        uploadResult = get_shell.scp("/lib/metaxploit.so",trg.cdFolder.path,trg.shell)
-        if typeof(uploadResult) == "string" then
-            UI.printError("Не удалось загрузить свой metaxploit.so - "+uploadResult)
-            return 0;
-        end if
-        inMetax = trg.jump.getInternalMetax(trg)
-    end if
-    if inMetax == null then
-        UI.printError("Не удалось выполнить внутреннюю атаку. Возможно, усиленная атака не возможна или не удалось загрузить metaxploit.so")
-        return 0
-    end if
-    for target in targets
-        targetLib = inMetax.load(target)
-        if targetLib == null then continue;
-        scanExploits(inMetax,targetLib,trg.public_ip,arg)
-    end for
-    UI.print("Внутренняя атака завершена")
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование: <b>ih [Библиотека/all]</b>"
+		return 0
+	end if
+
+
+	targets = []
+	if args[0] != "all" then
+		lib = trg.requestFile("/lib/" + args[0])
+		if lib == null then
+			UI.printError "Библиотека не найдена"
+			return 0
+		end if
+		targets.push lib.path
+	else
+		for lib in trg.requestFile("/lib").get_files
+			targets.push lib.path
+		end for
+	end if
+	arg = ""
+	if args.len > 1 then
+		arg = args[1]
+	end if
+	inMetax = trg.jump.getInternalMetax(trg)
+	if inMetax == null then
+		UI.printWarning "На целевом компьютере, возможно, не найден metaxploit.so, загружем свой..."
+		uploadResult = get_shell.scp("/lib/metaxploit.so", trg.cdFolder.path, trg.shell)
+		if typeof(uploadResult) == "string" then
+			UI.printError "Не удалось загрузить свой metaxploit.so - " + uploadResult
+			return 0
+		end if
+		inMetax = trg.jump.getInternalMetax(trg)
+	end if
+	if inMetax == null then
+		UI.printError "Не удалось выполнить внутреннюю атаку. Возможно, усиленная атака не возможна или не удалось загрузить metaxploit.so"
+		return 0
+	end if
+	for target in targets
+		targetLib = inMetax.load(target)
+		if targetLib == null then continue
+		scanExploits(
+			inMetax,
+			targetLib,
+			trg.public_ip,
+			arg)
+	end for
+	UI.print "Внутренняя атака завершена"
 end function
 
 Commands.Cmds["get"] = {
-    "info": "Скачать файл",
-    "args": "[файл]",
-    "types": ["shell"],
+	"info": "Скачать файл",
+	"args": "[файл]",
+	"types": [ "shell" ],
 }
 Commands.Cmds["get"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        UI.printError("Использование: <b>get [путь до файла]</b>")
-        return 0
-    end if
-    file = trg.requestFile(args[0])
-    if file == null then return UI.printError("Файл не найден")
-    UI.print("Скачиваем файл...")
-    wait(0.4)
-    result = scp(trg.shell,file.path,current_path+Program.settings["downloadPath"],get_shell)
-    if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
-    UI.print("Файл успешно загружен в <b>"+current_path+Program.settings["downloadPath"])
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование: <b>get [путь до файла]</b>"
+		return 0
+	end if
+	file = trg.requestFile(args[0])
+	if file == null then return UI.printError("Файл не найден")
+	UI.print "Скачиваем файл..."
+	wait 0.4
+	result = scp(
+		trg.shell,
+		file.path,
+		current_path + Program.settings["downloadPath"],
+		get_shell)
+	if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: " + result)
+	UI.print "Файл успешно загружен в <b>" + current_path + Program.settings["downloadPath"]
 end function
 
 Commands.Cmds["put"] = {
-    "info": "Скачать файл",
-    "args": "[файл] [конечный адрес]",
-    "types": ["shell"],
+	"info": "Скачать файл",
+	"args": "[файл] [конечный адрес]",
+	"types": [ "shell" ],
 }
 Commands.Cmds["put"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 2 then
-        UI.printError("Использование: <b>put [файл] [конечный адрес]</b>")
-        return 0
-    end if
-    UI.print("Загружаем файл...")
-    wait(0.4)
-    result = scp(get_shell,args[0],args[1],trg.shell)
-    if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: "+result)
-    UI.print("Файл успешно загружен в <b>"+args[1])
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 2 then
+		UI.printError "Использование: <b>put [файл] [конечный адрес]</b>"
+		return 0
+	end if
+	UI.print "Загружаем файл..."
+	wait 0.4
+	result = scp(
+		get_shell,
+		args[0],
+		args[1],
+		trg.shell)
+	if typeof(result) == "string" then return UI.printError("Не удалось скачать файл: " + result)
+	UI.print "Файл успешно загружен в <b>" + args[1]
 end function
 
 Commands.Cmds["infect"] = {
-    "info": "Заразить компьютер rshell",
-    "args": "(Имя процесса)",
-    "types": ["shell"],
+	"info": "Заразить компьютер rshell",
+	"args": "(Имя процесса)",
+	"types": [ "shell" ],
 }
 Commands.Cmds["infect"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    processName = Program.settings["rshellProcess"]
-    if args.len >= 1 then processName = args[0]
-    inMetax = trg.jump.getInternalMetax(trg)
-    if inMetax == null then
-        UI.printWarning("На целевом компьютере, возможно, не найден metaxploit.so, загружем свой...")
-        uploadResult = get_shell.scp("/lib/metaxploit.so",trg.cdFolder.path,trg.shell)
-        if typeof(uploadResult) == "string" then
-            UI.printError("Не удалось загрузить свой metaxploit.so - "+uploadResult)
-            return 0;
-        end if
-        inMetax = trg.jump.getInternalMetax(trg)
-    end if
-    result = inMetax.rshell_client(Program.settings["rshellServer"],Program.settings["rshellPort"].to_int,processName)
-    if typeof(result) == "string" then return UI.printError("Не удалось заразить целевую машину - "+result)
-    UI.print("Заражение успешно")
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	processName = Program.settings["rshellProcess"]
+	if args.len >= 1 then processName = args[0]
+	inMetax = trg.jump.getInternalMetax(trg)
+	if inMetax == null then
+		UI.printWarning "На целевом компьютере, возможно, не найден metaxploit.so, загружем свой..."
+		uploadResult = get_shell.scp("/lib/metaxploit.so", trg.cdFolder.path, trg.shell)
+		if typeof(uploadResult) == "string" then
+			UI.printError "Не удалось загрузить свой metaxploit.so - " + uploadResult
+			return 0
+		end if
+		inMetax = trg.jump.getInternalMetax(trg)
+	end if
+	result = inMetax.rshell_client(Program.settings["rshellServer"], Program.settings["rshellPort"].to_int, processName)
+	if typeof(result) == "string" then return UI.printError("Не удалось заразить целевую машину - " + result)
+	UI.print "Заражение успешно"
 end function
 
 Commands.Cmds["launch"] = {
-    "info": "Запустить программу на целевом ПК",
-    "args": "[path] (params)",
-    "types": ["shell"],
+	"info": "Запустить программу на целевом ПК",
+	"args": "[path] (params)",
+	"types": [ "shell" ],
 }
 Commands.Cmds["launch"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    if args.len < 1 then
-        UI.printError("Использование: <b>launch [path] (args)</b>")
-        return 0
-    end if
-    filePath = args[0];
-    arg = "";
-    if(args.len > 1) then
-        arg = args[1:].join(" ");
-    end if
-    result = trg.shell.launch(filePath,arg);
-    if(typeof(result) == "string") then return UI.printError("Программа не найдена")
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование: <b>launch [path] (args)</b>"
+		return 0
+	end if
+	filePath = args[0]
+	arg = ""
+	if args.len > 1 then
+		arg = args[1 : ].join(" ")
+	end if
+	result = trg.shell.launch(filePath, arg)
+	if typeof(result) == "string" then return UI.printError("Программа не найдена")
 end function
 
 Commands.Cmds["switch"] = {
-    "info": "Переместиться в локальную сеть",
-    "args": "[path] (params)",
-    "types": ["shell"],
+	"info": "Переместиться в локальную сеть",
+	"args": "[path] (params)",
+	"types": [ "shell" ],
 }
 Commands.Cmds["switch"]["exe"] = function(args)
-    trg = globals.current_target
-    if(trg.type != "shell" ) then
-        UI.printError("Ты можешь запустить это только в целях <b>SHELL</b>")
-        return 0
-    end if
-    clear_screen;
-    print("Пробираемся внутрь...")
-    payloadFolder = searchReadAndExecuteFolder(trg);
-    if(payloadFolder == null) then return UI.printError("Не найдена папка для загрузки...")
-    get_shell.scp(launch_path,payloadFolder.path,trg.shell);
-    get_shell.scp(current_path+"/Database",payloadFolder.path,trg.shell);
-    get_shell.scp("/lib/metaxploit.so",payloadFolder.path,trg.shell);
-    print("Загрузка завершена. Запускаемся...")
-    programName = launch_path.split("/")
-    programName = programName[programName.len-1]
-    result = trg.shell.launch(payloadFolder.path+"/"+programName,"")
-    if(typeof(result) == "string") then UI.printError("Возникла ошибка при запуске: "+result)
-    print("Очистка...")
-    trg.comp.File(payloadFolder.path+"/"+programName).delete();
-    trg.comp.File(payloadFolder.path+"/Database").delete();
-    trg.comp.File(payloadFolder.path+"/metaxploit.so").delete();
-    print("Завершено.")
+	trg = globals.current_target
+	if trg.type != "shell" then
+		UI.printError "Ты можешь запустить это только в целях <b>SHELL</b>"
+		return 0
+	end if
+	clear_screen
+	print "Пробираемся внутрь..."
+	payloadFolder = searchReadAndExecuteFolder(trg)
+	if payloadFolder == null then return UI.printError("Не найдена папка для загрузки...")
+	get_shell.scp launch_path, payloadFolder.path, trg.shell
+	get_shell.scp current_path + "/Database", payloadFolder.path, trg.shell
+	get_shell.scp "/lib/metaxploit.so", payloadFolder.path, trg.shell
+	print "Загрузка завершена. Запускаемся..."
+	programName = launch_path.split("/")
+	programName = programName[programName.len - 1]
+	result = trg.shell.launch(payloadFolder.path + "/" + programName, "")
+	if typeof(result) == "string" then UI.printError("Возникла ошибка при запуске: " + result)
+	print "Очистка..."
+	trg.comp.File(payloadFolder.path + "/" + programName).delete
+	trg.comp.File(payloadFolder.path + "/Database").delete
+	trg.comp.File(payloadFolder.path + "/metaxploit.so").delete
+	print "Завершено."
 end function
