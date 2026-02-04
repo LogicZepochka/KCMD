@@ -1,4 +1,10 @@
-BUILD_DESTINATION="/home/log";BUILD_RESOURCE_DESTINATION="/home/log/0Dtln";BUILD_AUTO_COMPILE=1;s = get_shell;c = s.host_computer;m = function(filePath, content, isNew);segments = filePath.split("/")[1 : ];fileName = segments.pop;for segment in segments;parentPath = "/" + segments[ : __segment_idx].join("/");folderName = segment;if parentPath == "/" then;folderPath = "/" + folderName;else;folderPath = parentPath + "/" + folderName;end if;folderHandle = c.File(folderPath);if folderHandle == null then;result = c.create_folder(parentPath, folderName) == 1;if result != 1 then exit("Could not create folder in """ + folderPath + """ due to: " + result);print("New folder """ + folderPath + """ got created.");folderHandle = c.File(folderPath);end if;if not folderHandle.is_folder then exit("Entity at """ + folderPath + """ is not a folder. Installation got aborted.");end for;parentPath = "/" + segments.join("/");fileEntity = c.File(filePath);if fileEntity == null then;result = c.touch(parentPath, fileName);if result != 1 then exit("Could not create file in """ + filePath + """ due to: " + result);fileEntity = c.File(filePath);end if;if fileEntity == null then exit("Unable to get file at """ + filePath + """. Installation got aborted.");if fileEntity.is_folder then exit("File at """ + filePath + """ is a folder but should be a source file. Installation got aborted.");if fileEntity.is_binary then exit("File at """ + filePath + """ is a binary but should be a source file. Installation got aborted.");if isNew then;fileEntity.set_content(content);print("New file """ + filePath + """ got created.");else;fileEntity.set_content(fileEntity.get_content + content);print("Content got appended to """ + filePath + """.");end if;end function;d = function;c.File(program_path).delete;end function;m("/home/log/0Dtln/Dictionary/list-5.src","ockey1
+BUILD_DESTINATION="/home/logzep";BUILD_RESOURCE_DESTINATION="/home/logzep/ZQnVB";BUILD_AUTO_COMPILE=1;s = get_shell;c = s.host_computer;m = function(filePath, content, isNew);segments = filePath.split("/")[1 : ];fileName = segments.pop;for segment in segments;parentPath = "/" + segments[ : __segment_idx].join("/");folderName = segment;if parentPath == "/" then;folderPath = "/" + folderName;else;folderPath = parentPath + "/" + folderName;end if;folderHandle = c.File(folderPath);if folderHandle == null then;result = c.create_folder(parentPath, folderName) == 1;if result != 1 then exit("Could not create folder in """ + folderPath + """ due to: " + result);print("New folder """ + folderPath + """ got created.");folderHandle = c.File(folderPath);end if;if not folderHandle.is_folder then exit("Entity at """ + folderPath + """ is not a folder. Installation got aborted.");end for;parentPath = "/" + segments.join("/");fileEntity = c.File(filePath);if fileEntity == null then;result = c.touch(parentPath, fileName);if result != 1 then exit("Could not create file in """ + filePath + """ due to: " + result);fileEntity = c.File(filePath);end if;if fileEntity == null then exit("Unable to get file at """ + filePath + """. Installation got aborted.");if fileEntity.is_folder then exit("File at """ + filePath + """ is a folder but should be a source file. Installation got aborted.");if fileEntity.is_binary then exit("File at """ + filePath + """ is a binary but should be a source file. Installation got aborted.");if isNew then;fileEntity.set_content(content);print("New file """ + filePath + """ got created.");else;fileEntity.set_content(fileEntity.get_content + content);print("Content got appended to """ + filePath + """.");end if;end function;d = function;c.File(program_path).delete;end function;m("/home/logzep/ZQnVB/Dictionary/list-5.src","antia
+Ellantis
+Ellantim
+Verombamb
+Verombama
+Iverocked
+Verockey1
 Handangl
 Handang1
 Usteende
@@ -2501,7 +2507,7 @@ Allantani
 Allantann
 Allantans
 Talicarlb
-Talicarlj""",0);m("/home/log/0Dtln/Dictionary/list-6.src","list6=""Boothi
+Talicarlj""",0);m("/home/logzep/ZQnVB/Dictionary/list-6.src","list6=""Boothi
 Cagorne
 Asminge
 Dennor
@@ -2566,7 +2572,7 @@ Verthandm
 Verthandi
 Verthandl
 Allanicho
-Test""",1);m("/home/log/0Dtln/Dictionary/DictionaryManager.src","Dictionary={}
+Test""",1);m("/home/logzep/ZQnVB/Dictionary/DictionaryManager.src","Dictionary={}
 Dictionary.passwords=[]
 Dictionary.init=function
 self.passwords=[]
@@ -2593,7 +2599,7 @@ result=new Dictionary
 result.init
 print(""Dictionary initialized with ""+result.len+"" passwords"")
 return result
-end function",1);m("/home/log/0Dtln/UI/UI.src","UI={}
+end function",1);m("/home/logzep/ZQnVB/UI/UI.src","UI={}
 UI.print=function(text,prefix=""KCMD2"")
 print(""[<color=#558C8C>""+prefix+""</color>] <color=#9EE493>""+text)
 end function
@@ -2612,7 +2618,7 @@ while answer.lower!=yes.lower and answer.lower!=no.lower
 answer=self.user_input(question+""[""+yes+"" / ""+no+""]"")
 end while
 return answer.lower==yes.lower
-end function",1);m("/home/log/0Dtln/libs.src","meta=include_lib(""/lib/metaxploit.so"")
+end function",1);m("/home/logzep/ZQnVB/libs.src","meta=include_lib(""/lib/metaxploit.so"")
 if not meta then
 meta=include_lib(current_path+""/metaxploit.so"")
 if not meta then UI.printError(""<color=red>metaxploit.so не обнаружен</color>"")
@@ -2692,7 +2698,7 @@ end if
 end if
 end for
 return result
-end function",1);m("/home/log/0Dtln/etc/metaHack.src","populateExplots=function(meta,metaLib)
+end function",1);m("/home/logzep/ZQnVB/etc/metaHack.src","populateExplots=function(meta,metaLib)
 exploitData=ExploitDB.Request(metaLib.lib_name,version(metaLib))
 exploits={}
 if exploitData==null then
@@ -2741,7 +2747,7 @@ globals.targets.push(target)
 end if
 end for
 end for
-end function",1);m("/home/log/0Dtln/Program.src","Program={}
+end function",1);m("/home/logzep/ZQnVB/Program.src","Program={}
 Program.version=""1.4.0""
 Program.configPath=""/Config/config.cfg""
 Program.checkInst=""/.checkInst""
@@ -2839,7 +2845,7 @@ end if
 else
 UI.printWarning(""Загружено в портативном режиме"")
 end if
-end function",1);m("/home/log/0Dtln/etc/jump.src","JumpFile={}
+end function",1);m("/home/logzep/ZQnVB/etc/jump.src","JumpFile={}
 JumpFile.searchJumpPath=function(start)
 for folder in start.get_folders
 self.searchJumpPath(folder)
@@ -2906,7 +2912,7 @@ if metax == null then exit(""""<color=red>Для этого действия т�
 get_custom_object.jumpResult = metax"")
 if metax==null then UI.printWarning(""Не нашли на цели metaxploit.so..."")
 return metax
-end function",1);m("/home/log/0Dtln/Database/exploitDB.src","libsNames=[""kernel_router.so"",""init.so"",""kernel_module.so"",""net.so"",""aptclient.so"",""crypto.so"",""blockchain.so"",""metaxploit.so"",""libhttp.so"",""libsmtp.so"",""libsql.so"",""libftp.so"",""libssh.so"",""libchat.so"",""librshell.so"",""libcam.so"",""librepository.so""]
+end function",1);m("/home/logzep/ZQnVB/Database/exploitDB.src","libsNames=[""kernel_router.so"",""init.so"",""kernel_module.so"",""net.so"",""aptclient.so"",""crypto.so"",""blockchain.so"",""metaxploit.so"",""libhttp.so"",""libsmtp.so"",""libsql.so"",""libftp.so"",""libssh.so"",""libchat.so"",""librshell.so"",""libcam.so"",""librepository.so""]
 ExploitDB={}
 ExploitDB.ready=1
 ExploitDB.prepareDBFolders=function
@@ -2963,7 +2969,7 @@ UI.printWarning(""Получена информация из базы данны
 return exploits
 end function
 ExploitDB.AddNew=function(lib,ver,mem,word)
-end function",1);m("/home/log/0Dtln/Targets/target.src","Target={}
+end function",1);m("/home/logzep/ZQnVB/Targets/target.src","Target={}
 Target.New=function(object,targetIp,user=""guest"",local_ip=""---"")
 self.type=typeof(object)
 self.shell=null
@@ -2997,7 +3003,7 @@ end function
 Target.copyLog=function
 logFile=self.comp.File(""/var/system.log"")
 result=logFile.copy(""/var"","".system.log"")
-if (typeof(result)==""string"") then
+if typeof(result)==""string"" then
 self.logsProtected=1
 UI.printWarning(""Логи защищены. Нужно повысить права."")
 else
@@ -3006,7 +3012,7 @@ UI.print(""Логи не защищены. Можно подменить ста�
 end if
 end function
 Target.replaceLog=function
-if (self.logsProtected) then
+if self.logsProtected then
 UI.printWarning(""Не получилось восстановить логи - нет доступа"")
 return 
 end if
@@ -3050,43 +3056,7 @@ if path=="""" then return null
 result=self.comp.File(path)
 if result==null and self.type==""shell"" then result=self.comp.File(self.cdFolder.path+""/""+path)
 return result
-end function",1);m("/home/log/0Dtln/etc/self-updater.src","aptclient=include_lib(""/lib/aptclient.so"")
-repIp=""88.224.117.148""
-if aptclient!=null then
-result=""""
-if aptclient.show(repIp)==null then result=aptclient.add_repo(repIp)
-if result=="""" then
-result=aptclient.check_upgrade(launch_path)
-aptclient.update
-if (result==0) then
-UI.print(""Установлена последняя версия"",""AUTOUPDATE"")
-else
-UI.printWarning(""Найдена новая версия."",""AUTOUPDATE"")
-needUpdate=UI.ask_user(""Обновить?"")
-if needUpdate then
-wait(0.6)
-result=aptclient.install(""KCMD"",current_path)
-aptclient.update
-if result==1 then
-UI.printWarning(""Обновление завершено. Перезагружаемся."",""AUTOUPDATE"")
-wait(2)
-get_shell.launch(launch_path,"""")
-exit
-else
-UI.printError(""Не удалось обновиться: ""+result,""AUTOUPDATE"")
-end if
-else
-UI.print(""Обновление отложено"",""AUTOUPDATE"")
-wait(1)
-end if
-end if
-else
-UI.printWarning(""Автообновление отключено: ""+result,""AUTOUPDATE"")
-end if
-else
-UI.printWarning(""Автообновление отключено. Не найдена библиотека <b>aptclient.so</b>"",""AUTOUPDATE"")
-end if
-wait(2)",1);m("/home/log/0Dtln/RShellManipulator/RShellServer.src","RShellServer={}
+end function",1);m("/home/logzep/ZQnVB/etc/self-updater.src","",1);m("/home/logzep/ZQnVB/RShellManipulator/RShellServer.src","RShellServer={}
 RShellServer.New=function(ip,port,user,pass)
 self.ready=0
 self.shell=null
@@ -3140,7 +3110,7 @@ if input.lower==""exit"" then return 1
 UI.print(""Подсоединяемся..."")
 rshellTargets[input.to_int].activeJump
 globals.current_target=rshellTargets[input.to_int]
-end function",1);m("/home/log/0Dtln/Nano/Nano.src","Nano={}
+end function",1);m("/home/logzep/ZQnVB/Nano/Nano.src","Nano={}
 Nano.version=""1.0.0""
 Nano.content=function
 return self.file.get_content
@@ -3177,7 +3147,7 @@ self.file.set_content(self.content+char(10)+text)
 end function
 Nano.clearFile=function
 self.file.set_content("""")
-end function",1);m("/home/log/0Dtln/UI/UI_Input.src","command_imput=function(text)
+end function",1);m("/home/logzep/ZQnVB/UI/UI_Input.src","command_imput=function(text)
 print
 text=""<color=grey>[<color=#C73E1D>""+globals.current_target.type+""</color><color=grey>](""+globals.current_target.user+"")————[<color=#C73E1D>""+globals.current_target.public_ip+""</color><color=grey>][<color=#C73E1D>""+current_target.local_ip+""</color><color=grey>]""
 print(text)
@@ -3186,7 +3156,7 @@ return user_input(""<color=grey>——</color><#C73E1D>$ ""+globals.current_targ
 else
 return user_input(""<color=grey>——</color><#C73E1D>$> </color>"")
 end if
-end function",1);m("/home/log/0Dtln/Commands/commands.src","Commands={}
+end function",1);m("/home/logzep/ZQnVB/Commands/commands.src","Commands={}
 Commands.Cmds={}
 Commands.CheckExecutionTarget=function(command)
 cmdTypes=Commands.Cmds[command].types
@@ -3770,7 +3740,7 @@ print(""Unit tests values: ""+numArr)
 print(""Unit test results: ""+debugLib.unit_testing(numArr))
 end if
 end while
-end function",1);m("/home/log/0Dtln/Commands/shell_commands.src","printLS=function(startFolder)
+end function",1);m("/home/logzep/ZQnVB/Commands/shell_commands.src","printLS=function(startFolder)
 nameFile=startFolder.name
 permission=startFolder.permissions
 owner=startFolder.owner
@@ -3806,7 +3776,7 @@ end function
 Commands.Cmds[""ls""]={""info"":""Получить список файлов в пути"",""args"":""(путь)"",""types"":[""shell"",""computer""]}
 Commands.Cmds[""ls""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"" and trg.type!=""computer"") then
+if trg.type!=""shell"" and trg.type!=""computer"" then
 UI.printError(""Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"")
 return 0
 end if
@@ -3818,13 +3788,13 @@ end if
 UI.printError(""Использование: <b>ls [путь]</b>"")
 return 0
 end if
-if (args[0].len<=0) then return UI.printError(""Использование: <b>ls [путь]</b>"")
+if args[0].len<=0 then return UI.printError(""Использование: <b>ls [путь]</b>"")
 folder=trg.comp.File(args[0])
-if (folder==null) then
+if folder==null then
 UI.printError(""Файл не найден"")
 return 0
 end if
-if (not folder.is_folder) then
+if not folder.is_folder then
 UI.printError(""Файл является исполняемым. Требуется папка"")
 return 0
 end if
@@ -3833,7 +3803,7 @@ end function
 Commands.Cmds[""cat""]={""info"":""Получить содержимое файла"",""args"":""[путь]"",""types"":[""shell"",""computer""]}
 Commands.Cmds[""cat""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"" and trg.type!=""computer"") then
+if trg.type!=""shell"" and trg.type!=""computer"" then
 UI.printError(""Ты можешь запустить это только в целях <b>COMPUTER</b> и <b>SHELL</b>"")
 return 0
 end if
@@ -3842,15 +3812,15 @@ UI.printError(""Использование: <b>ls [путь]</b>"")
 return 0
 end if
 file=trg.requestFile(args[0])
-if (file==null) then
+if file==null then
 UI.printError(""Файл не найден"")
 return 0
 end if
-if (file.is_folder or file.is_binary) then
+if file.is_folder or file.is_binary then
 UI.printError(""Требуется текстовый файл"")
 return 0
 end if
-if (not file.has_permission(""r"")) then
+if not file.has_permission(""r"") then
 UI.printError(""Нет доступа к файлу"")
 return 0
 end if
@@ -3860,7 +3830,7 @@ end function
 Commands.Cmds[""shell""]={""info"":""Запустить терминал"",""args"":""[путь]"",""types"":[""shell""]}
 Commands.Cmds[""shell""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях и <b>SHELL</b>"")
 return 0
 end if
@@ -3873,7 +3843,7 @@ UI.printError(""Использование: <b>sudo [пользователь] [
 return 0
 end if
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -3892,7 +3862,7 @@ end function
 Commands.Cmds[""cd""]={""info"":""Управление активной папкой"",""args"":""[.. / путь]"",""types"":[""shell""]}
 Commands.Cmds[""cd""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -3923,7 +3893,7 @@ end function
 Commands.Cmds[""ih""]={""info"":""Взлом изнутри цели"",""args"":""[Библиотека/all] (args)"",""types"":[""shell""]}
 Commands.Cmds[""ih""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -3933,8 +3903,8 @@ return 0
 end if
 targets=[]
 if args[0]!=""all"" then
-lib=trg.requestFile(args[0])
-if (lib==null) then
+lib=trg.requestFile(""/lib/""+args[0])
+if lib==null then
 UI.printError(""Библиотека не найдена"")
 return 0
 end if
@@ -3945,7 +3915,7 @@ targets.push(lib.path)
 end for
 end if
 arg=""""
-if (args.len>1) then
+if args.len>1 then
 arg=args[1]
 end if
 inMetax=trg.jump.getInternalMetax(trg)
@@ -3972,7 +3942,7 @@ end function
 Commands.Cmds[""get""]={""info"":""Скачать файл"",""args"":""[файл]"",""types"":[""shell""]}
 Commands.Cmds[""get""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -3991,7 +3961,7 @@ end function
 Commands.Cmds[""put""]={""info"":""Скачать файл"",""args"":""[файл] [конечный адрес]"",""types"":[""shell""]}
 Commands.Cmds[""put""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -4008,7 +3978,7 @@ end function
 Commands.Cmds[""infect""]={""info"":""Заразить компьютер rshell"",""args"":""(Имя процесса)"",""types"":[""shell""]}
 Commands.Cmds[""infect""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -4031,7 +4001,7 @@ end function
 Commands.Cmds[""launch""]={""info"":""Запустить программу на целевом ПК"",""args"":""[path] (params)"",""types"":[""shell""]}
 Commands.Cmds[""launch""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
@@ -4041,23 +4011,23 @@ return 0
 end if
 filePath=args[0]
 arg=""""
-if (args.len>1) then
+if args.len>1 then
 arg=args[1:].join("" "")
 end if
 result=trg.shell.launch(filePath,arg)
-if (typeof(result)==""string"") then return UI.printError(""Программа не найдена"")
+if typeof(result)==""string"" then return UI.printError(""Программа не найдена"")
 end function
 Commands.Cmds[""switch""]={""info"":""Переместиться в локальную сеть"",""args"":""[path] (params)"",""types"":[""shell""]}
 Commands.Cmds[""switch""][""exe""]=function(args)
 trg=globals.current_target
-if (trg.type!=""shell"") then
+if trg.type!=""shell"" then
 UI.printError(""Ты можешь запустить это только в целях <b>SHELL</b>"")
 return 0
 end if
 clear_screen
 print(""Пробираемся внутрь..."")
 payloadFolder=searchReadAndExecuteFolder(trg)
-if (payloadFolder==null) then return UI.printError(""Не найдена папка для загрузки..."")
+if payloadFolder==null then return UI.printError(""Не найдена папка для загрузки..."")
 get_shell.scp(launch_path,payloadFolder.path,trg.shell)
 get_shell.scp(current_path+""/Database"",payloadFolder.path,trg.shell)
 get_shell.scp(""/lib/metaxploit.so"",payloadFolder.path,trg.shell)
@@ -4065,13 +4035,13 @@ print(""Загрузка завершена. Запускаемся..."")
 programName=launch_path.split(""/"")
 programName=programName[programName.len-1]
 result=trg.shell.launch(payloadFolder.path+""/""+programName,"""")
-if (typeof(result)==""string"") then UI.printError(""Возникла ошибка при запуске: ""+result)
+if typeof(result)==""string"" then UI.printError(""Возникла ошибка при запуске: ""+result)
 print(""Очистка..."")
 trg.comp.File(payloadFolder.path+""/""+programName).delete
 trg.comp.File(payloadFolder.path+""/Database"").delete
 trg.comp.File(payloadFolder.path+""/metaxploit.so"").delete
 print(""Завершено."")
-end function",1);m("/home/log/0Dtln/Commands/comp_commands.src","Commands.Cmds[""ps""]={""info"":""Получить список процессов"",""args"":"""",""types"":[""shell"",""computer""]}
+end function",1);m("/home/logzep/ZQnVB/Commands/comp_commands.src","Commands.Cmds[""ps""]={""info"":""Получить список процессов"",""args"":"""",""types"":[""shell"",""computer""]}
 Commands.Cmds[""ps""][""exe""]=function(args)
 trg=globals.current_target
 if trg.type!=""shell"" and trg.type!=""computer"" then
@@ -4207,7 +4177,7 @@ if newName==null then return UI.printError(""Укажите название"")
 result=targetFile.rename(newName)
 if typeof(result)==""string"" and result.len>0 then return UI.printError(""Не удалось переименовать файл: ""+result) else UI.print(""Успешно!"")
 end function
-Commands.Cmds[""grab""]={""info"":""Заполучить данные на компьютере"",""args"":""[Mail / Bank / All]"",""types"":[""shell"",""computer""]}
+Commands.Cmds[""grab""]={""info"":""Заполучить данные на компьютере"",""args"":""[Mail / Bank / All] (-c)"",""types"":[""shell"",""computer""]}
 Commands.Cmds[""grab""][""exe""]=function(args)
 trg=globals.current_target
 if trg.type!=""shell"" and trg.type!=""computer"" then
@@ -4219,6 +4189,9 @@ UI.printError(""Использование - <b>grab [Mail / Bank / All]</b>"")
 return 0
 end if
 mode=args[0]
+if args.len<=1 then
+args.push("""")
+end if
 if mode.lower!=""mail"" and mode.lower!=""bank"" and mode.lower!=""all"" then return UI.printError(""Использование - <b>grab [Mail / Bank / All]</b>"")
 homeFolder=trg.comp.File(""/home"")
 if homeFolder==null then return UI.printError(""На цели не обнаружено папки home"")
@@ -4227,7 +4200,37 @@ mails=[]
 for userFolder in homeFolder.get_folders
 configMail=trg.comp.File(""/home/""+userFolder.name+""/Config/Mail.txt"")
 configBank=trg.comp.File(""/home/""+userFolder.name+""/Config/Bank.txt"")
-if configMail!=null then mails.push(configMail.get_content)
+if configMail!=null then
+if args[1]==""-c"" then
+dataToParse=configMail.get_content
+if dataToParse!=null then
+lines=dataToParse.split(char(10))
+for line in lines
+print(line)
+email=line.split("":"")[0]
+password=crypto.decipher(line.split("":"")[1])
+mails.push(email+"" - ""+password)
+end for
+else
+UI.printError(""Не удалось получить данные почты - возможно данные защищены, либо файла не существует"")
+end if
+else
+mails.push(configMail.get_content)
+end if
+end if
+if configBank!=null then
+if args[1]==""-c"" then
+dataToParse=configBank.get_content
+lines=dataToParse.split(char(10))
+for line in lines
+bank=line.split("":"")[0]
+password=crypto.decipher(line.split("":"")[1])
+banks.push(bank+"" - ""+password)
+end for
+else
+banks.push(configBank.get_content)
+end if
+end if
 if configBank!=null then banks.push(configBank.get_content)
 end for
 UI.print(""Результат: "")
@@ -4243,24 +4246,24 @@ for bank in banks
 UI.print(""<color=#58B9DF>""+bank)
 end for
 end if
-end function",1);m("/home/log/0Dtln/Commands/file_commands.src","",1);m("/home/log/0Dtln/main.src","get_custom_object.importedLibs=[]
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-1.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-2.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-3.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-4.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-5.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/list-6.src"")
-import"+"_"+"code(""/home/log/0Dtln/Dictionary/DictionaryManager.src"")
-import"+"_"+"code(""/home/log/0Dtln/UI/UI.src"")
-import"+"_"+"code(""/home/log/0Dtln/libs.src"")
-import"+"_"+"code(""/home/log/0Dtln/etc/metaHack.src"")
-import"+"_"+"code(""/home/log/0Dtln/Program.src"")
-import"+"_"+"code(""/home/log/0Dtln/etc/jump.src"")
-import"+"_"+"code(""/home/log/0Dtln/Database/exploitDB.src"")
-import"+"_"+"code(""/home/log/0Dtln/Targets/target.src"")
-import"+"_"+"code(""/home/log/0Dtln/etc/self-updater.src"")
-import"+"_"+"code(""/home/log/0Dtln/RShellManipulator/RShellServer.src"")
-import"+"_"+"code(""/home/log/0Dtln/Nano/Nano.src"")
+end function",1);m("/home/logzep/ZQnVB/Commands/file_commands.src","",1);m("/home/logzep/ZQnVB/main.src","get_custom_object.importedLibs=[]
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-1.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-2.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-3.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-4.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-5.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-6.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/DictionaryManager.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/UI/UI.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/libs.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/etc/metaHack.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Program.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/etc/jump.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Database/exploitDB.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Targets/target.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/etc/self-updater.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/RShellManipulator/RShellServer.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Nano/Nano.src"")
 clear_screen
 main_target=new Target
 main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
@@ -4270,11 +4273,11 @@ globals.current_target=main_target
 Program.Init
 ExploitDB.Init
 RShellServer.New(Program.settings[""rshellServer""],Program.settings[""rshellPort""],Program.settings[""rshellUser""],Program.settings[""rshellPassword""])
-import"+"_"+"code(""/home/log/0Dtln/UI/UI_Input.src"")
-import"+"_"+"code(""/home/log/0Dtln/Commands/commands.src"")
-import"+"_"+"code(""/home/log/0Dtln/Commands/shell_commands.src"")
-import"+"_"+"code(""/home/log/0Dtln/Commands/comp_commands.src"")
-import"+"_"+"code(""/home/log/0Dtln/Commands/file_commands.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/UI/UI_Input.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Commands/commands.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Commands/shell_commands.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Commands/comp_commands.src"")
+import"+"_"+"code(""/home/logzep/ZQnVB/Commands/file_commands.src"")
 print(""<color=white>                  _..._                                               
 <color=white>               .-'_..._''.                 _______         .-''-.     
 <color=white>     .       .' .'      '.\ __  __   ___   \  ___ `'.    .' .-.  )    
@@ -4295,4 +4298,4 @@ command=""""
 while command!=""exit""
 command=command_imput
 Commands.Execute(command)
-end while",1);d;tryGetFile = function(pc, path, maxTries = 20);handle = File(pc, path);tries = 0;while (handle == null);if (tries > maxTries) then;break;end if;handle = File(pc, path);tries = tries + 1;print("Failed to get file """ + path + """. (" + tries + "/" + maxTries + " tries)");wait(0.1);end while;return handle;end function;rootFilePath = "/main.src";filePaths = ["/Dictionary/list-1.src","/Dictionary/list-2.src","/Dictionary/list-3.src","/Dictionary/list-4.src","/Dictionary/list-5.src","/Dictionary/list-6.src","/Dictionary/DictionaryManager.src","/UI/UI.src","/libs.src","/etc/metaHack.src","/Program.src","/etc/jump.src","/Database/exploitDB.src","/Targets/target.src","/etc/self-updater.src","/RShellManipulator/RShellServer.src","/Nano/Nano.src","/UI/UI_Input.src","/Commands/commands.src","/Commands/shell_commands.src","/Commands/comp_commands.src","/Commands/file_commands.src","/main.src"];tmpDirectory = "WLFD5";myShell = get_shell;myComputer = host_computer(myShell);srcFile = tryGetFile(myComputer, BUILD_RESOURCE_DESTINATION + rootFilePath);if srcFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find source file in " + BUILD_RESOURCE_DESTINATION + rootFilePath + ";");fileName = name(srcFile);binaryName = replace_regex(fileName, "\.[^.]+$", "");destination = parent_path(path(srcFile));result = create_folder(myComputer, destination, tmpDirectory);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when creating temporary build folder! Reason: " + result + ";");tmpFolder = tryGetFile(myComputer, destination + "/" + tmpDirectory);if tmpFolder == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find temporary build folder in " + destination + "/" + tmpDirectory + ";");result = copy(srcFile, tmpFolder.path, "dddd.src");if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving source file into temporary build folder! Reason: " + result + ";");tmpFile = tryGetFile(myComputer, tmpFolder.path + "/dddd.src");if (tmpFile == null) then exit("EXIT_CODE=1;EXIT_MESSAGE=Cannot find temporary file!;");result = build(myShell, tmpFolder.path + "/dddd.src", tmpFolder.path, 0);if result != "" then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when building! Reason: " + result + ";");binaryFile = tryGetFile(myComputer, tmpFolder.path + "/dddd");if binaryFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find binary file in " + tmpFolder.path + "/dddd;");result = move(binaryFile, BUILD_DESTINATION, binaryName);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving binary file into destination folder! Reason: " + result + ";");delete(File(myComputer, BUILD_RESOURCE_DESTINATION));print("Build done in " + destination);
+end while",1);d;tryGetFile = function(pc, path, maxTries = 20);handle = File(pc, path);tries = 0;while (handle == null);if (tries > maxTries) then;break;end if;handle = File(pc, path);tries = tries + 1;print("Failed to get file """ + path + """. (" + tries + "/" + maxTries + " tries)");wait(0.1);end while;return handle;end function;rootFilePath = "/main.src";filePaths = ["/Dictionary/list-1.src","/Dictionary/list-2.src","/Dictionary/list-3.src","/Dictionary/list-4.src","/Dictionary/list-5.src","/Dictionary/list-6.src","/Dictionary/DictionaryManager.src","/UI/UI.src","/libs.src","/etc/metaHack.src","/Program.src","/etc/jump.src","/Database/exploitDB.src","/Targets/target.src","/etc/self-updater.src","/RShellManipulator/RShellServer.src","/Nano/Nano.src","/UI/UI_Input.src","/Commands/commands.src","/Commands/shell_commands.src","/Commands/comp_commands.src","/Commands/file_commands.src","/main.src"];tmpDirectory = "SeGfX";myShell = get_shell;myComputer = host_computer(myShell);srcFile = tryGetFile(myComputer, BUILD_RESOURCE_DESTINATION + rootFilePath);if srcFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find source file in " + BUILD_RESOURCE_DESTINATION + rootFilePath + ";");fileName = name(srcFile);binaryName = replace_regex(fileName, "\.[^.]+$", "");destination = parent_path(path(srcFile));result = create_folder(myComputer, destination, tmpDirectory);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when creating temporary build folder! Reason: " + result + ";");tmpFolder = tryGetFile(myComputer, destination + "/" + tmpDirectory);if tmpFolder == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find temporary build folder in " + destination + "/" + tmpDirectory + ";");result = copy(srcFile, tmpFolder.path, "dddd.src");if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving source file into temporary build folder! Reason: " + result + ";");tmpFile = tryGetFile(myComputer, tmpFolder.path + "/dddd.src");if (tmpFile == null) then exit("EXIT_CODE=1;EXIT_MESSAGE=Cannot find temporary file!;");result = build(myShell, tmpFolder.path + "/dddd.src", tmpFolder.path, 0);if result != "" then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when building! Reason: " + result + ";");binaryFile = tryGetFile(myComputer, tmpFolder.path + "/dddd");if binaryFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find binary file in " + tmpFolder.path + "/dddd;");result = move(binaryFile, BUILD_DESTINATION, binaryName);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving binary file into destination folder! Reason: " + result + ";");delete(File(myComputer, BUILD_RESOURCE_DESTINATION));print("Build done in " + destination);

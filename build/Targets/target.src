@@ -32,7 +32,7 @@ end function
 Target.copyLog=function
 logFile=self.comp.File("/var/system.log")
 result=logFile.copy("/var",".system.log")
-if (typeof(result)=="string") then
+if typeof(result)=="string" then
 self.logsProtected=1
 UI.printWarning("Логи защищены. Нужно повысить права.")
 else
@@ -41,7 +41,7 @@ UI.print("Логи не защищены. Можно подменить стар
 end if
 end function
 Target.replaceLog=function
-if (self.logsProtected) then
+if self.logsProtected then
 UI.printWarning("Не получилось восстановить логи - нет доступа")
 return 
 end if

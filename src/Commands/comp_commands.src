@@ -1,214 +1,272 @@
 Commands.Cmds["ps"] = {
-    "info": "Получить список процессов",
-    "args": "",
-    "types": ["shell","computer"],
+	"info": "Получить список процессов",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 
 
 Commands.Cmds["ps"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    procs = trg.comp.show_procs
-    list = procs.split(char(10))[1:]
-    processes = []
-    for item in list
-        parsedItem = item.split(" ")
-        process = {}
-        process.user = parsedItem[0]
-        process.pid = parsedItem[1]
-        process.cpu = parsedItem[2]
-        process.mem = parsedItem[3]
-        process.command = parsedItem[4]
-        processes.push(process)
-     end for
-     str = "<color=#9EE493>PID</color> <color=#9EE493>user</color> <color=#9EE493>CPU</color> <color=#9EE493>command</color>\n"
-    for prc in processes
-        str = str + "<color=#558C8C>"+prc.pid+"</color> " + "<color=#558C8C>"+prc.user+"</color> " + "<color=#558C8C>"+prc.cpu+"</color> " + "<color=#558C8C>"+prc.command+"</color>\n"
-    end for
-    UI.print("Активные процессы:")
-    print(format_columns(str))
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	procs = trg.comp.show_procs
+	list = procs.split(char(10))[1 : ]
+	processes = []
+	for item in list
+		parsedItem = item.split(" ")
+		process = {}
+		process.user = parsedItem[0]
+		process.pid = parsedItem[1]
+		process.cpu = parsedItem[2]
+		process.mem = parsedItem[3]
+		process.command = parsedItem[4]
+		processes.push process
+	end for
+	str = "<color=#9EE493>PID</color> <color=#9EE493>user</color> <color=#9EE493>CPU</color> <color=#9EE493>command</color>\n"
+	for prc in processes
+		str = str + "<color=#558C8C>" + prc.pid + "</color> " + "<color=#558C8C>" + prc.user + "</color> " + "<color=#558C8C>" + prc.cpu + "</color> " + "<color=#558C8C>" + prc.command + "</color>\n"
+	end for
+	UI.print "Активные процессы:"
+	print format_columns(str)
 end function
 
 Commands.Cmds["kill"] = {
-    "info": "Прекратить процесс",
-    "args": "[PID]",
-    "types": ["shell","computer"],
+	"info": "Прекратить процесс",
+	"args": "[PID]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["kill"]["exe"] = function(args)
-    if args.len < 1 then return UI.printError("Использование - <b>kill [PID]]</b>") 
-    if typeof(args[0].to_int) != "number" then return UI.printError("Использование - <b>kill [PID]]</b>")  
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    result = trg.comp.close_program(args[0].to_int)
-    if typeof(result) == "string" then UI.printError("Не удалось убить процесс: "+result) else UI.print("Процесс убит")
+	if args.len < 1 then return UI.printError("Использование - <b>kill [PID]]</b>")
+	if typeof(args[0].to_int) != "number" then return UI.printError("Использование - <b>kill [PID]]</b>")
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	result = trg.comp.close_program(args[0].to_int)
+	if typeof(result) == "string" then UI.printError("Не удалось убить процесс: " + result) else UI.print("Процесс убит")
 end function
 
 Commands.Cmds["touch"] = {
-    "info": "Создать текстовый файл",
-    "args": "[адрес] [название]",
-    "types": ["shell","computer"],
+	"info": "Создать текстовый файл",
+	"args": "[адрес] [название]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["touch"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 2 then
-        UI.printError("Использование - <b>touch [адрес] [название]</b>")
-        return 0;
-    end if
-    path = args[0]
-    name = args[1]
-    targetFile = trg.requestFile(path)
-    if targetFile == null then return UI.printError("Не найдена папка")
-    if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
-    trg.comp.touch(targetFile.path,name)
-    file = trg.requestFile(targetFile.path+"/"+name)
-    if file == null then return UI.printError("Не удалось создать текстовый файл")
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 2 then
+		UI.printError "Использование - <b>touch [адрес] [название]</b>"
+		return 0
+	end if
+	path = args[0]
+	name = args[1]
+	targetFile = trg.requestFile(path)
+	if targetFile == null then return UI.printError("Не найдена папка")
+	if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
+	trg.comp.touch targetFile.path, name
+	file = trg.requestFile(targetFile.path + "/" + name)
+	if file == null then return UI.printError("Не удалось создать текстовый файл")
 end function
 
 Commands.Cmds["cp"] = {
-    "info": "Скопировать файл",
-    "args": "[путь до файла] [путь назначение]",
-    "types": ["shell","computer"],
+	"info": "Скопировать файл",
+	"args": "[путь до файла] [путь назначение]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["cp"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 2 then
-        UI.printError("Использование - <b>cp [путь до файла] [путь назначение]</b>")
-        return 0;
-    end if
-    filePath = args[0]
-    targetPath = args[1]
-    targetFile = trg.requestFile(filePath)
-    targetFolder = trg.requestFile(targetPath)
-    if targetFile == null then return UI.printError("Файл не найден")
-    if targetFile.is_folder then return UI.printError("Файл - это папка")
-    if targetFolder== null then return UI.printError("Не найдена целевая папка")
-    if not targetFolder.is_folder then return UI.printError("Целевуй путь должен быть папкой")
-    result = targetFile.copy(targetFolder.path,targetFile.name)
-    if typeof(result) == "string" then return UI.printError("Не удалось скопировать файл: "+result)
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 2 then
+		UI.printError "Использование - <b>cp [путь до файла] [путь назначение]</b>"
+		return 0
+	end if
+	filePath = args[0]
+	targetPath = args[1]
+	targetFile = trg.requestFile(filePath)
+	targetFolder = trg.requestFile(targetPath)
+	if targetFile == null then return UI.printError("Файл не найден")
+	if targetFile.is_folder then return UI.printError("Файл - это папка")
+	if targetFolder == null then return UI.printError("Не найдена целевая папка")
+	if not targetFolder.is_folder then return UI.printError("Целевуй путь должен быть папкой")
+	result = targetFile.copy(targetFolder.path, targetFile.name)
+	if typeof(result) == "string" then return UI.printError("Не удалось скопировать файл: " + result)
 end function
 
 Commands.Cmds["rm"] = {
-    "info": "Удалить файл",
-    "args": "[путь до файла]",
-    "types": ["shell","computer"],
+	"info": "Удалить файл",
+	"args": "[путь до файла]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["rm"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 1 then
-        UI.printError("Использование - <b>rm [путь до файла]</b>")
-        return 0;
-    end if
-    filePath = args[0]
-    targetFile = trg.requestFile(filePath)
-    if targetFile == null then return UI.printError("Файл не найден")
-    result = targetFile.delete()
-    if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось удалить файл: "+result)
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование - <b>rm [путь до файла]</b>"
+		return 0
+	end if
+	filePath = args[0]
+	targetFile = trg.requestFile(filePath)
+	if targetFile == null then return UI.printError("Файл не найден")
+	result = targetFile.delete
+	if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось удалить файл: " + result)
 end function
 
 Commands.Cmds["mkdir"] = {
-    "info": "Создать папку",
-    "args": "[целевой адрес] [название папки]",
-    "types": ["shell","computer"],
+	"info": "Создать папку",
+	"args": "[целевой адрес] [название папки]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["mkdir"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 2 then
-        UI.printError("Использование - <b>mkdir [целевой адрес] [название папки]</b>")
-        return 0;
-    end if
-    targetPath = args[0]
-    folderName = args[1]
-    targetFile = trg.requestFile(targetPath)
-    if targetFile == null then return UI.printError("Файл не найден")
-    if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
-    result = trg.comp.create_folder(targetPath,folderName)
-    if typeof(result) == "string" then return UI.printError("Не удалось создать папку: "+result)
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 2 then
+		UI.printError "Использование - <b>mkdir [целевой адрес] [название папки]</b>"
+		return 0
+	end if
+	targetPath = args[0]
+	folderName = args[1]
+	targetFile = trg.requestFile(targetPath)
+	if targetFile == null then return UI.printError("Файл не найден")
+	if not targetFile.is_folder then return UI.printError("Адрес должен быть папкой")
+	result = trg.comp.create_folder(targetPath, folderName)
+	if typeof(result) == "string" then return UI.printError("Не удалось создать папку: " + result)
 end function
 
 Commands.Cmds["rn"] = {
-    "info": "Переименовать файл",
-    "args": "[путь до файла] [новое название]",
-    "types": ["shell","computer"],
+	"info": "Переименовать файл",
+	"args": "[путь до файла] [новое название]",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["rn"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 2 then
-        UI.printError("Использование - <b>rn [путь до файла] [новое название]</b>")
-        return 0;
-    end if
-    filePath = args[0]
-    newName = args[1]
-    targetFile = trg.requestFile(filePath)
-    if targetFile == null then return UI.printError("Файл не найден")
-    if newName == null then return UI.printError("Укажите название")
-    result = targetFile.rename(newName)
-    if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось переименовать файл: "+result) else UI.print("Успешно!")
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 2 then
+		UI.printError "Использование - <b>rn [путь до файла] [новое название]</b>"
+		return 0
+	end if
+	filePath = args[0]
+	newName = args[1]
+	targetFile = trg.requestFile(filePath)
+	if targetFile == null then return UI.printError("Файл не найден")
+	if newName == null then return UI.printError("Укажите название")
+	result = targetFile.rename(newName)
+	if typeof(result) == "string" and result.len > 0 then return UI.printError("Не удалось переименовать файл: " + result) else UI.print("Успешно!")
 end function
 
 Commands.Cmds["grab"] = {
-    "info": "Заполучить данные на компьютере",
-    "args": "[Mail / Bank / All]",
-    "types": ["shell","computer"],
+	"info": "Заполучить данные на компьютере",
+	"args": "[Mail / Bank / All] (-c)",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["grab"]["exe"] = function(args)
-    trg = globals.current_target
-    if trg.type != "shell" and trg.type != "computer" then
-        UI.printError("Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>")
-        return 0;
-    end if
-    if args.len < 1 then
-        UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
-        return 0;
-    end if
-    mode = args[0]
-    if mode.lower != "mail" and mode.lower != "bank" and mode.lower != "all" then return UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
-    homeFolder = trg.comp.File("/home")
-    if homeFolder == null then return UI.printError("На цели не обнаружено папки home")
-    banks = []
-    mails = []
-    for userFolder in homeFolder.get_folders
-        configMail = trg.comp.File("/home/"+userFolder.name+"/Config/Mail.txt")
-        configBank = trg.comp.File("/home/"+userFolder.name+"/Config/Bank.txt")
-        if configMail != null then mails.push(configMail.get_content)
-        if configBank != null then banks.push(configBank.get_content)
-    end for
-    UI.print("Результат: ")
-    if mode.lower == "mail" or mode.lower == "all" then
-        UI.print("Данные почты:")
-        for mail in mails
-            UI.print("<color=#58B9DF>"+mail)
-        end for
-    end if
-    if mode.lower == "bank" or mode.lower == "all" then
-        UI.print("Данные банков:")
-        for bank in banks
-            UI.print("<color=#58B9DF>"+bank)
-        end for
-    end if
+	trg = globals.current_target
+	if trg.type != "shell" and trg.type != "computer" then
+		UI.printError "Можно запустить только в <b>SHELL</b> или <b>COMPUTER</b>"
+		return 0
+	end if
+	if args.len < 1 then
+		UI.printError "Использование - <b>grab [Mail / Bank / All]</b>"
+		return 0
+	end if
+	mode = args[0]
+	if args.len <= 1 then
+		args.push ""
+	end if
+	if mode.lower != "mail" and mode.lower != "bank" and mode.lower != "all" then return UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
+	homeFolder = trg.comp.File("/home")
+	if homeFolder == null then return UI.printError("На цели не обнаружено папки home")
+	banks = []
+	mails = []
+	for userFolder in homeFolder.get_folders
+		configMail = trg.comp.File("/home/" + userFolder.name + "/Config/Mail.txt")
+		configBank = trg.comp.File("/home/" + userFolder.name + "/Config/Bank.txt")
+		if configMail != null then
+			if args[1] == "-c" then
+				dataToParse = configMail.get_content
+				if dataToParse != null then
+					lines = dataToParse.split(char(10))
+					for line in lines
+						print line
+						email = line.split(":")[0]
+						password = crypto.decipher(line.split(":")[1])
+						mails.push email + " - " + password
+					end for
+				else
+					UI.printError "Не удалось получить данные почты - возможно данные защищены, либо файла не существует"
+				end if
+			else
+				mails.push configMail.get_content
+			end if
+		end if
+		if configBank != null then
+			if args[1] == "-c" then
+				dataToParse = configBank.get_content
+				lines = dataToParse.split(char(10))
+				for line in lines
+					bank = line.split(":")[0]
+					password = crypto.decipher(line.split(":")[1])
+					banks.push bank + " - " + password
+				end for
+			else
+				banks.push configBank.get_content
+			end if
+		end if
+		if configBank != null then banks.push(configBank.get_content)
+	end for
+
+	UI.print "Результат: "
+	if mode.lower == "mail" or mode.lower == "all" then
+		UI.print "Данные почты:"
+		for mail in mails
+			UI.print "<color=#58B9DF>" + mail
+		end for
+	end if
+	if mode.lower == "bank" or mode.lower == "all" then
+		UI.print "Данные банков:"
+		for bank in banks
+			UI.print "<color=#58B9DF>" + bank
+		end for
+	end if
 end function

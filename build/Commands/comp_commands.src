@@ -134,7 +134,7 @@ if newName==null then return UI.printError("Укажите название")
 result=targetFile.rename(newName)
 if typeof(result)=="string" and result.len>0 then return UI.printError("Не удалось переименовать файл: "+result) else UI.print("Успешно!")
 end function
-Commands.Cmds["grab"]={"info":"Заполучить данные на компьютере","args":"[Mail / Bank / All]","types":["shell","computer"]}
+Commands.Cmds["grab"]={"info":"Заполучить данные на компьютере","args":"[Mail / Bank / All] (-c)","types":["shell","computer"]}
 Commands.Cmds["grab"]["exe"]=function(args)
 trg=globals.current_target
 if trg.type!="shell" and trg.type!="computer" then
@@ -146,6 +146,9 @@ UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
 return 0
 end if
 mode=args[0]
+if args.len<=1 then
+args.push("")
+end if
 if mode.lower!="mail" and mode.lower!="bank" and mode.lower!="all" then return UI.printError("Использование - <b>grab [Mail / Bank / All]</b>")
 homeFolder=trg.comp.File("/home")
 if homeFolder==null then return UI.printError("На цели не обнаружено папки home")
@@ -154,7 +157,37 @@ mails=[]
 for userFolder in homeFolder.get_folders
 configMail=trg.comp.File("/home/"+userFolder.name+"/Config/Mail.txt")
 configBank=trg.comp.File("/home/"+userFolder.name+"/Config/Bank.txt")
-if configMail!=null then mails.push(configMail.get_content)
+if configMail!=null then
+if args[1]=="-c" then
+dataToParse=configMail.get_content
+if dataToParse!=null then
+lines=dataToParse.split(char(10))
+for line in lines
+print(line)
+email=line.split(":")[0]
+password=crypto.decipher(line.split(":")[1])
+mails.push(email+" - "+password)
+end for
+else
+UI.printError("Не удалось получить данные почты - возможно данные защищены, либо файла не существует")
+end if
+else
+mails.push(configMail.get_content)
+end if
+end if
+if configBank!=null then
+if args[1]=="-c" then
+dataToParse=configBank.get_content
+lines=dataToParse.split(char(10))
+for line in lines
+bank=line.split(":")[0]
+password=crypto.decipher(line.split(":")[1])
+banks.push(bank+" - "+password)
+end for
+else
+banks.push(configBank.get_content)
+end if
+end if
 if configBank!=null then banks.push(configBank.get_content)
 end for
 UI.print("Результат: ")
