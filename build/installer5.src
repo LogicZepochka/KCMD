@@ -1,4 +1,4 @@
-BUILD_DESTINATION="/home/logzep";BUILD_RESOURCE_DESTINATION="/home/logzep/ZQnVB";BUILD_AUTO_COMPILE=1;s = get_shell;c = s.host_computer;m = function(filePath, content, isNew);segments = filePath.split("/")[1 : ];fileName = segments.pop;for segment in segments;parentPath = "/" + segments[ : __segment_idx].join("/");folderName = segment;if parentPath == "/" then;folderPath = "/" + folderName;else;folderPath = parentPath + "/" + folderName;end if;folderHandle = c.File(folderPath);if folderHandle == null then;result = c.create_folder(parentPath, folderName) == 1;if result != 1 then exit("Could not create folder in """ + folderPath + """ due to: " + result);print("New folder """ + folderPath + """ got created.");folderHandle = c.File(folderPath);end if;if not folderHandle.is_folder then exit("Entity at """ + folderPath + """ is not a folder. Installation got aborted.");end for;parentPath = "/" + segments.join("/");fileEntity = c.File(filePath);if fileEntity == null then;result = c.touch(parentPath, fileName);if result != 1 then exit("Could not create file in """ + filePath + """ due to: " + result);fileEntity = c.File(filePath);end if;if fileEntity == null then exit("Unable to get file at """ + filePath + """. Installation got aborted.");if fileEntity.is_folder then exit("File at """ + filePath + """ is a folder but should be a source file. Installation got aborted.");if fileEntity.is_binary then exit("File at """ + filePath + """ is a binary but should be a source file. Installation got aborted.");if isNew then;fileEntity.set_content(content);print("New file """ + filePath + """ got created.");else;fileEntity.set_content(fileEntity.get_content + content);print("Content got appended to """ + filePath + """.");end if;end function;d = function;c.File(program_path).delete;end function;m("/home/logzep/ZQnVB/Dictionary/list-5.src","antia
+BUILD_DESTINATION="/home/logzep";BUILD_RESOURCE_DESTINATION="/home/logzep/lCAk2";BUILD_AUTO_COMPILE=1;s = get_shell;c = s.host_computer;m = function(filePath, content, isNew);segments = filePath.split("/")[1 : ];fileName = segments.pop;for segment in segments;parentPath = "/" + segments[ : __segment_idx].join("/");folderName = segment;if parentPath == "/" then;folderPath = "/" + folderName;else;folderPath = parentPath + "/" + folderName;end if;folderHandle = c.File(folderPath);if folderHandle == null then;result = c.create_folder(parentPath, folderName) == 1;if result != 1 then exit("Could not create folder in """ + folderPath + """ due to: " + result);print("New folder """ + folderPath + """ got created.");folderHandle = c.File(folderPath);end if;if not folderHandle.is_folder then exit("Entity at """ + folderPath + """ is not a folder. Installation got aborted.");end for;parentPath = "/" + segments.join("/");fileEntity = c.File(filePath);if fileEntity == null then;result = c.touch(parentPath, fileName);if result != 1 then exit("Could not create file in """ + filePath + """ due to: " + result);fileEntity = c.File(filePath);end if;if fileEntity == null then exit("Unable to get file at """ + filePath + """. Installation got aborted.");if fileEntity.is_folder then exit("File at """ + filePath + """ is a folder but should be a source file. Installation got aborted.");if fileEntity.is_binary then exit("File at """ + filePath + """ is a binary but should be a source file. Installation got aborted.");if isNew then;fileEntity.set_content(content);print("New file """ + filePath + """ got created.");else;fileEntity.set_content(fileEntity.get_content + content);print("Content got appended to """ + filePath + """.");end if;end function;d = function;c.File(program_path).delete;end function;m("/home/logzep/lCAk2/Dictionary/list-5.src","antia
 Ellantis
 Ellantim
 Verombamb
@@ -2507,7 +2507,7 @@ Allantani
 Allantann
 Allantans
 Talicarlb
-Talicarlj""",0);m("/home/logzep/ZQnVB/Dictionary/list-6.src","list6=""Boothi
+Talicarlj""",0);m("/home/logzep/lCAk2/Dictionary/list-6.src","list6=""Boothi
 Cagorne
 Asminge
 Dennor
@@ -2572,7 +2572,7 @@ Verthandm
 Verthandi
 Verthandl
 Allanicho
-Test""",1);m("/home/logzep/ZQnVB/Dictionary/DictionaryManager.src","Dictionary={}
+Test""",1);m("/home/logzep/lCAk2/Dictionary/DictionaryManager.src","Dictionary={}
 Dictionary.passwords=[]
 Dictionary.init=function
 self.passwords=[]
@@ -2599,7 +2599,7 @@ result=new Dictionary
 result.init
 print(""Dictionary initialized with ""+result.len+"" passwords"")
 return result
-end function",1);m("/home/logzep/ZQnVB/UI/UI.src","UI={}
+end function",1);m("/home/logzep/lCAk2/UI/UI.src","UI={}
 UI.print=function(text,prefix=""KCMD2"")
 print(""[<color=#558C8C>""+prefix+""</color>] <color=#9EE493>""+text)
 end function
@@ -2618,7 +2618,7 @@ while answer.lower!=yes.lower and answer.lower!=no.lower
 answer=self.user_input(question+""[""+yes+"" / ""+no+""]"")
 end while
 return answer.lower==yes.lower
-end function",1);m("/home/logzep/ZQnVB/libs.src","meta=include_lib(""/lib/metaxploit.so"")
+end function",1);m("/home/logzep/lCAk2/libs.src","meta=include_lib(""/lib/metaxploit.so"")
 if not meta then
 meta=include_lib(current_path+""/metaxploit.so"")
 if not meta then UI.printError(""<color=red>metaxploit.so не обнаружен</color>"")
@@ -2698,7 +2698,7 @@ end if
 end if
 end for
 return result
-end function",1);m("/home/logzep/ZQnVB/etc/metaHack.src","populateExplots=function(meta,metaLib)
+end function",1);m("/home/logzep/lCAk2/etc/metaHack.src","populateExplots=function(meta,metaLib)
 exploitData=ExploitDB.Request(metaLib.lib_name,version(metaLib))
 exploits={}
 if exploitData==null then
@@ -2747,7 +2747,7 @@ globals.targets.push(target)
 end if
 end for
 end for
-end function",1);m("/home/logzep/ZQnVB/Program.src","Program={}
+end function",1);m("/home/logzep/lCAk2/Program.src","Program={}
 Program.version=""1.4.0""
 Program.configPath=""/Config/config.cfg""
 Program.checkInst=""/.checkInst""
@@ -2845,7 +2845,7 @@ end if
 else
 UI.printWarning(""Загружено в портативном режиме"")
 end if
-end function",1);m("/home/logzep/ZQnVB/etc/jump.src","JumpFile={}
+end function",1);m("/home/logzep/lCAk2/etc/jump.src","JumpFile={}
 JumpFile.searchJumpPath=function(start)
 for folder in start.get_folders
 self.searchJumpPath(folder)
@@ -2912,7 +2912,7 @@ if metax == null then exit(""""<color=red>Для этого действия т�
 get_custom_object.jumpResult = metax"")
 if metax==null then UI.printWarning(""Не нашли на цели metaxploit.so..."")
 return metax
-end function",1);m("/home/logzep/ZQnVB/Database/exploitDB.src","libsNames=[""kernel_router.so"",""init.so"",""kernel_module.so"",""net.so"",""aptclient.so"",""crypto.so"",""blockchain.so"",""metaxploit.so"",""libhttp.so"",""libsmtp.so"",""libsql.so"",""libftp.so"",""libssh.so"",""libchat.so"",""librshell.so"",""libcam.so"",""librepository.so""]
+end function",1);m("/home/logzep/lCAk2/Database/exploitDB.src","libsNames=[""kernel_router.so"",""init.so"",""kernel_module.so"",""net.so"",""aptclient.so"",""crypto.so"",""blockchain.so"",""metaxploit.so"",""libhttp.so"",""libsmtp.so"",""libsql.so"",""libftp.so"",""libssh.so"",""libchat.so"",""librshell.so"",""libcam.so"",""librepository.so""]
 ExploitDB={}
 ExploitDB.ready=1
 ExploitDB.prepareDBFolders=function
@@ -2969,7 +2969,7 @@ UI.printWarning(""Получена информация из базы данны
 return exploits
 end function
 ExploitDB.AddNew=function(lib,ver,mem,word)
-end function",1);m("/home/logzep/ZQnVB/Targets/target.src","Target={}
+end function",1);m("/home/logzep/lCAk2/Targets/target.src","Target={}
 Target.New=function(object,targetIp,user=""guest"",local_ip=""---"")
 self.type=typeof(object)
 self.shell=null
@@ -3056,7 +3056,7 @@ if path=="""" then return null
 result=self.comp.File(path)
 if result==null and self.type==""shell"" then result=self.comp.File(self.cdFolder.path+""/""+path)
 return result
-end function",1);m("/home/logzep/ZQnVB/etc/self-updater.src","",1);m("/home/logzep/ZQnVB/RShellManipulator/RShellServer.src","RShellServer={}
+end function",1);m("/home/logzep/lCAk2/etc/self-updater.src","",1);m("/home/logzep/lCAk2/RShellManipulator/RShellServer.src","RShellServer={}
 RShellServer.New=function(ip,port,user,pass)
 self.ready=0
 self.shell=null
@@ -3110,7 +3110,7 @@ if input.lower==""exit"" then return 1
 UI.print(""Подсоединяемся..."")
 rshellTargets[input.to_int].activeJump
 globals.current_target=rshellTargets[input.to_int]
-end function",1);m("/home/logzep/ZQnVB/Nano/Nano.src","Nano={}
+end function",1);m("/home/logzep/lCAk2/Nano/Nano.src","Nano={}
 Nano.version=""1.0.0""
 Nano.content=function
 return self.file.get_content
@@ -3147,7 +3147,7 @@ self.file.set_content(self.content+char(10)+text)
 end function
 Nano.clearFile=function
 self.file.set_content("""")
-end function",1);m("/home/logzep/ZQnVB/UI/UI_Input.src","command_imput=function(text)
+end function",1);m("/home/logzep/lCAk2/UI/UI_Input.src","command_imput=function(text)
 print
 text=""<color=grey>[<color=#C73E1D>""+globals.current_target.type+""</color><color=grey>](""+globals.current_target.user+"")————[<color=#C73E1D>""+globals.current_target.public_ip+""</color><color=grey>][<color=#C73E1D>""+current_target.local_ip+""</color><color=grey>]""
 print(text)
@@ -3156,7 +3156,7 @@ return user_input(""<color=grey>——</color><#C73E1D>$ ""+globals.current_targ
 else
 return user_input(""<color=grey>——</color><#C73E1D>$> </color>"")
 end if
-end function",1);m("/home/logzep/ZQnVB/Commands/commands.src","Commands={}
+end function",1);m("/home/logzep/lCAk2/Commands/commands.src","Commands={}
 Commands.Cmds={}
 Commands.CheckExecutionTarget=function(command)
 cmdTypes=Commands.Cmds[command].types
@@ -3740,7 +3740,7 @@ print(""Unit tests values: ""+numArr)
 print(""Unit test results: ""+debugLib.unit_testing(numArr))
 end if
 end while
-end function",1);m("/home/logzep/ZQnVB/Commands/shell_commands.src","printLS=function(startFolder)
+end function",1);m("/home/logzep/lCAk2/Commands/shell_commands.src","printLS=function(startFolder)
 nameFile=startFolder.name
 permission=startFolder.permissions
 owner=startFolder.owner
@@ -4041,7 +4041,7 @@ trg.comp.File(payloadFolder.path+""/""+programName).delete
 trg.comp.File(payloadFolder.path+""/Database"").delete
 trg.comp.File(payloadFolder.path+""/metaxploit.so"").delete
 print(""Завершено."")
-end function",1);m("/home/logzep/ZQnVB/Commands/comp_commands.src","Commands.Cmds[""ps""]={""info"":""Получить список процессов"",""args"":"""",""types"":[""shell"",""computer""]}
+end function",1);m("/home/logzep/lCAk2/Commands/comp_commands.src","Commands.Cmds[""ps""]={""info"":""Получить список процессов"",""args"":"""",""types"":[""shell"",""computer""]}
 Commands.Cmds[""ps""][""exe""]=function(args)
 trg=globals.current_target
 if trg.type!=""shell"" and trg.type!=""computer"" then
@@ -4206,7 +4206,6 @@ dataToParse=configMail.get_content
 if dataToParse!=null then
 lines=dataToParse.split(char(10))
 for line in lines
-print(line)
 email=line.split("":"")[0]
 password=crypto.decipher(line.split("":"")[1])
 mails.push(email+"" - ""+password)
@@ -4246,24 +4245,24 @@ for bank in banks
 UI.print(""<color=#58B9DF>""+bank)
 end for
 end if
-end function",1);m("/home/logzep/ZQnVB/Commands/file_commands.src","",1);m("/home/logzep/ZQnVB/main.src","get_custom_object.importedLibs=[]
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-1.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-2.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-3.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-4.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-5.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/list-6.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Dictionary/DictionaryManager.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/UI/UI.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/libs.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/etc/metaHack.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Program.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/etc/jump.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Database/exploitDB.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Targets/target.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/etc/self-updater.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/RShellManipulator/RShellServer.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Nano/Nano.src"")
+end function",1);m("/home/logzep/lCAk2/Commands/file_commands.src","",1);m("/home/logzep/lCAk2/main.src","get_custom_object.importedLibs=[]
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-1.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-2.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-3.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-4.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-5.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/list-6.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Dictionary/DictionaryManager.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/UI/UI.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/libs.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/etc/metaHack.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Program.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/etc/jump.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Database/exploitDB.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Targets/target.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/etc/self-updater.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/RShellManipulator/RShellServer.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Nano/Nano.src"")
 clear_screen
 main_target=new Target
 main_target.New(get_shell,get_shell.host_computer.public_ip,active_user)
@@ -4273,11 +4272,11 @@ globals.current_target=main_target
 Program.Init
 ExploitDB.Init
 RShellServer.New(Program.settings[""rshellServer""],Program.settings[""rshellPort""],Program.settings[""rshellUser""],Program.settings[""rshellPassword""])
-import"+"_"+"code(""/home/logzep/ZQnVB/UI/UI_Input.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Commands/commands.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Commands/shell_commands.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Commands/comp_commands.src"")
-import"+"_"+"code(""/home/logzep/ZQnVB/Commands/file_commands.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/UI/UI_Input.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Commands/commands.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Commands/shell_commands.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Commands/comp_commands.src"")
+import"+"_"+"code(""/home/logzep/lCAk2/Commands/file_commands.src"")
 print(""<color=white>                  _..._                                               
 <color=white>               .-'_..._''.                 _______         .-''-.     
 <color=white>     .       .' .'      '.\ __  __   ___   \  ___ `'.    .' .-.  )    
@@ -4298,4 +4297,4 @@ command=""""
 while command!=""exit""
 command=command_imput
 Commands.Execute(command)
-end while",1);d;tryGetFile = function(pc, path, maxTries = 20);handle = File(pc, path);tries = 0;while (handle == null);if (tries > maxTries) then;break;end if;handle = File(pc, path);tries = tries + 1;print("Failed to get file """ + path + """. (" + tries + "/" + maxTries + " tries)");wait(0.1);end while;return handle;end function;rootFilePath = "/main.src";filePaths = ["/Dictionary/list-1.src","/Dictionary/list-2.src","/Dictionary/list-3.src","/Dictionary/list-4.src","/Dictionary/list-5.src","/Dictionary/list-6.src","/Dictionary/DictionaryManager.src","/UI/UI.src","/libs.src","/etc/metaHack.src","/Program.src","/etc/jump.src","/Database/exploitDB.src","/Targets/target.src","/etc/self-updater.src","/RShellManipulator/RShellServer.src","/Nano/Nano.src","/UI/UI_Input.src","/Commands/commands.src","/Commands/shell_commands.src","/Commands/comp_commands.src","/Commands/file_commands.src","/main.src"];tmpDirectory = "SeGfX";myShell = get_shell;myComputer = host_computer(myShell);srcFile = tryGetFile(myComputer, BUILD_RESOURCE_DESTINATION + rootFilePath);if srcFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find source file in " + BUILD_RESOURCE_DESTINATION + rootFilePath + ";");fileName = name(srcFile);binaryName = replace_regex(fileName, "\.[^.]+$", "");destination = parent_path(path(srcFile));result = create_folder(myComputer, destination, tmpDirectory);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when creating temporary build folder! Reason: " + result + ";");tmpFolder = tryGetFile(myComputer, destination + "/" + tmpDirectory);if tmpFolder == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find temporary build folder in " + destination + "/" + tmpDirectory + ";");result = copy(srcFile, tmpFolder.path, "dddd.src");if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving source file into temporary build folder! Reason: " + result + ";");tmpFile = tryGetFile(myComputer, tmpFolder.path + "/dddd.src");if (tmpFile == null) then exit("EXIT_CODE=1;EXIT_MESSAGE=Cannot find temporary file!;");result = build(myShell, tmpFolder.path + "/dddd.src", tmpFolder.path, 0);if result != "" then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when building! Reason: " + result + ";");binaryFile = tryGetFile(myComputer, tmpFolder.path + "/dddd");if binaryFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find binary file in " + tmpFolder.path + "/dddd;");result = move(binaryFile, BUILD_DESTINATION, binaryName);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving binary file into destination folder! Reason: " + result + ";");delete(File(myComputer, BUILD_RESOURCE_DESTINATION));print("Build done in " + destination);
+end while",1);d;tryGetFile = function(pc, path, maxTries = 20);handle = File(pc, path);tries = 0;while (handle == null);if (tries > maxTries) then;break;end if;handle = File(pc, path);tries = tries + 1;print("Failed to get file """ + path + """. (" + tries + "/" + maxTries + " tries)");wait(0.1);end while;return handle;end function;rootFilePath = "/main.src";filePaths = ["/Dictionary/list-1.src","/Dictionary/list-2.src","/Dictionary/list-3.src","/Dictionary/list-4.src","/Dictionary/list-5.src","/Dictionary/list-6.src","/Dictionary/DictionaryManager.src","/UI/UI.src","/libs.src","/etc/metaHack.src","/Program.src","/etc/jump.src","/Database/exploitDB.src","/Targets/target.src","/etc/self-updater.src","/RShellManipulator/RShellServer.src","/Nano/Nano.src","/UI/UI_Input.src","/Commands/commands.src","/Commands/shell_commands.src","/Commands/comp_commands.src","/Commands/file_commands.src","/main.src"];tmpDirectory = "urWEM";myShell = get_shell;myComputer = host_computer(myShell);srcFile = tryGetFile(myComputer, BUILD_RESOURCE_DESTINATION + rootFilePath);if srcFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find source file in " + BUILD_RESOURCE_DESTINATION + rootFilePath + ";");fileName = name(srcFile);binaryName = replace_regex(fileName, "\.[^.]+$", "");destination = parent_path(path(srcFile));result = create_folder(myComputer, destination, tmpDirectory);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when creating temporary build folder! Reason: " + result + ";");tmpFolder = tryGetFile(myComputer, destination + "/" + tmpDirectory);if tmpFolder == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find temporary build folder in " + destination + "/" + tmpDirectory + ";");result = copy(srcFile, tmpFolder.path, "dddd.src");if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving source file into temporary build folder! Reason: " + result + ";");tmpFile = tryGetFile(myComputer, tmpFolder.path + "/dddd.src");if (tmpFile == null) then exit("EXIT_CODE=1;EXIT_MESSAGE=Cannot find temporary file!;");result = build(myShell, tmpFolder.path + "/dddd.src", tmpFolder.path, 0);if result != "" then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when building! Reason: " + result + ";");binaryFile = tryGetFile(myComputer, tmpFolder.path + "/dddd");if binaryFile == null then exit("EXIT_CODE=1;EXIT_MESSAGE=Couldn't find binary file in " + tmpFolder.path + "/dddd;");result = move(binaryFile, BUILD_DESTINATION, binaryName);if result != 1 then exit("EXIT_CODE=1;EXIT_MESSAGE=Error when moving binary file into destination folder! Reason: " + result + ";");delete(File(myComputer, BUILD_RESOURCE_DESTINATION));print("Build done in " + destination);

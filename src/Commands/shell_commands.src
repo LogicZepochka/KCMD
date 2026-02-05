@@ -340,7 +340,7 @@ Commands.Cmds["launch"]["exe"] = function(args)
 		return 0
 	end if
 	if args.len < 1 then
-		UI.printError "Использование: <b>launch [path] (args)</b>"
+		UI.printError "Использование: <b>launch [path/app] (args)</b>"
 		return 0
 	end if
 	filePath = args[0]
@@ -349,7 +349,12 @@ Commands.Cmds["launch"]["exe"] = function(args)
 		arg = args[1 : ].join(" ")
 	end if
 	result = trg.shell.launch(filePath, arg)
-	if typeof(result) == "string" then return UI.printError("Программа не найдена")
+	if typeof(result) == "string" then
+		result = trg.shell.launch("/usr/bin/" + filePath, arg)
+		if typeof(result) == "string" then
+			return UI.printError("Программа не найдена")
+		end if
+	end if
 end function
 
 Commands.Cmds["switch"] = {

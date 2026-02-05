@@ -163,7 +163,6 @@ dataToParse=configMail.get_content
 if dataToParse!=null then
 lines=dataToParse.split(char(10))
 for line in lines
-print(line)
 email=line.split(":")[0]
 password=crypto.decipher(line.split(":")[1])
 mails.push(email+" - "+password)

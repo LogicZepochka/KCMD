@@ -2,731 +2,894 @@ Commands = {}
 Commands.Cmds = {}
 
 Commands.CheckExecutionTarget = function(command)
-    cmdTypes = Commands.Cmds[command].types
-    if indexOf(cmdTypes,current_target) == null then return 0
-    return 1
+	cmdTypes = Commands.Cmds[command].types
+	if indexOf(cmdTypes, current_target) == null then return 0
+	return 1
 end function
 
 Commands.Execute = function(text)
-    cmdInfo = text.split(" ")
-    cmd = cmdInfo[0].lower
-    cmdInfo.remove(0)
-    params = []
-    if(cmdInfo.len > 0) then params = cmdInfo
-    if not hasIndex(Commands.Cmds,cmd) then
-        UI.printError("Команда не найдена. Введите <b>help</b> для списка доступных комманд")
-        return 0;
-    end if
+	cmdInfo = text.split(" ")
+	cmd = cmdInfo[0].lower
+	cmdInfo.remove 0
+	params = []
+	if cmdInfo.len > 0 then params = cmdInfo
+	if not hasIndex(Commands.Cmds, cmd) then
+		UI.printError "Команда не найдена. Введите <b>help</b> для списка доступных комманд"
+		return 0
+	end if
 
-    Commands.Cmds[cmd]["exe"](params)
+	Commands.Cmds[cmd]["exe"] params
 end function
 
 Commands.showCommands = function(wordsInRow = 4)
-    trg = globals.current_target
-    UI.print("ТЕКУЩИЕ КОММАНДЫ")
-    wordInRow = 1
-    str = ""
-    for cmd in Commands.Cmds.indexes
-        if wordInRow > 4 then
-            str = str[:-1]
-            str = str + "\n"
-            wordInRow = 1
-        end if
-        if indexOf(Commands.Cmds[cmd]["types"],trg.type) == null then str = str + "<color=#ff0000>"+cmd+"</color> " else str = str + "<color=#00ff00>"+cmd+"</color> "
-        wordInRow = wordInRow + 1
-    end for
-    print(format_columns(str))
-    UI.print("Введи <b>help [комманда]</b> для подробной информации")
+	trg = globals.current_target
+	UI.print "ТЕКУЩИЕ КОММАНДЫ"
+	wordInRow = 1
+	str = ""
+	for cmd in Commands.Cmds.indexes
+		if wordInRow > 4 then
+			str = str[ : -1]
+			str += "\n"
+			wordInRow = 1
+		end if
+		if indexOf(Commands.Cmds[cmd]["types"], trg.type) == null then str = str + "<color=#ff0000>" + cmd + "</color> " else str = str + "<color=#00ff00>" + cmd + "</color> "
+		wordInRow += 1
+	end for
+	print format_columns(str)
+	UI.print "Введи <b>help [комманда]</b> для подробной информации"
 end function
 
 Commands.Cmds["populatedb"] = {
-    "info": "Заполнить базу данных новыми библиотеками",
-    "args": "(Количество новых записей)",
-    "types": ["shell","computer","file"],
+	"info": "Заполнить базу данных новыми библиотеками",
+	"args": "(Количество новых записей)",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["populatedb"]["exe"] = function(args)
-    targets = 100
-    if args.len > 0 then
-        if typeof(args[0].to_int) == "number" then targets = args[0]
-    end if
+	targets = 100
+	if args.len > 0 then
+		if typeof(args[0].to_int) == "number" then targets = args[0]
+	end if
 
-    for i in range(0,targets)
-        ip = randIp
-        if not is_valid_ip(ip) then continue;
-        victimRouter = get_router(ip)
-        if victimRouter == null then continue;
-        targetPorts = [0]
-        ports = victimRouter.used_ports
-        for port in ports
-            targetPorts.push = port.port_number
-        end for
+	for i in range(0, targets)
+		ip = randIp
+		if not is_valid_ip(ip) then continue
+		victimRouter = get_router(ip)
+		if victimRouter == null then continue
+		targetPorts = [ 0 ]
+		ports = victimRouter.used_ports
+		for port in ports
+			targetPorts.push = port.port_number
+		end for
 
-        for port in targetPorts
-            netSession = net_use(meta, ip, port)
-            if netSession == null then
-                continue;
-            end if
-            metaLib = dump_lib(netSession)
-            populateExplots(meta,metaLib)
-        end for
-        UI.print("<color=red>Пополнено "+i+" из "+targets)
-        UI.print(printPercent(i,targets))
-    end for
-    UI.print("Пополнение завершено.")
+		for port in targetPorts
+			netSession = net_use(meta, ip, port)
+			if netSession == null then
+				continue
+			end if
+			metaLib = dump_lib(netSession)
+			populateExplots meta, metaLib
+		end for
+		UI.print "<color=red>Пополнено " + i + " из " + targets
+		UI.print printPercent(i, targets)
+	end for
+	UI.print "Пополнение завершено."
 end function
 
 Commands.Cmds["help"] = {
-    "info": "Список доступных комманд для выполнения",
-    "args": "",
-    "types": ["shell","computer","file"],
+	"info": "Список доступных комманд для выполнения",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["help"]["exe"] = function(args)
-    
-    if args.len < 1 then 
-        Commands.showCommands
-    else
-        if Commands.Cmds.hasIndex(args[0]) == 0 then return UI.printError("Нет комманды <b>"+args[0]+"</b>")
-        UI.print("Команда "+args[0])
-        UI.print("Использование: <b> "+args[0]+" "+Commands.Cmds[args[0]]["args"])
-        UI.print("Описание: <b> "+Commands.Cmds[args[0]]["info"])
-        UI.print("Используется в <b> "+Commands.Cmds[args[0]]["types"].join(", "))
-    end if
+
+	if args.len < 1 then
+		Commands.showCommands
+	else
+		if Commands.Cmds.hasIndex(args[0]) == 0 then return UI.printError("Нет комманды <b>" + args[0] + "</b>")
+		UI.print "Команда " + args[0]
+		UI.print "Использование: <b> " + args[0] + " " + Commands.Cmds[args[0]]["args"]
+		UI.print "Описание: <b> " + Commands.Cmds[args[0]]["info"]
+		UI.print "Используется в <b> " + Commands.Cmds[args[0]]["types"].join(", ")
+	end if
 end function
 
 Commands.Cmds["exit"] = {
-    "info": "Завершить выполнение программы",
-    "args": "",
-    "types": ["shell","computer","file"],
+	"info": "Завершить выполнение программы",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["exit"]["exe"] = function(args)
-    UI.print("Завершение программы...")
+	UI.print "Завершение программы..."
 end function
 
 Commands.Cmds["nmap"] = {
-    "info": "Проверить доступность портов у цели",
-    "args": "[IP]",
-    "types": ["shell","computer","file"],
+	"info": "Проверить доступность портов у цели",
+	"args": "[IP]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["nmap"]["exe"] = function(args)
-    if args.len < 1 then return print("Использование: <b>nmap [IP/domain]</b>")
-    
-    ipAddress = args[0]
-    isLanIp = is_lan_ip(ipAddress)
+	if args.len < 1 then return print("Использование: <b>nmap [IP/domain]</b>")
 
-    if isLanIp then
-        router = get_router;
-    else
-        if is_valid_ip(ipAddress) then
-            router = get_router(ipAddress)
-        else
-            ipAddress = nslookup(ipAddress)
-            router = get_router(ipAddress)
-        end if
-    end if
+	ipAddress = args[0]
+	isLanIp = is_lan_ip(ipAddress)
 
-    global = true
-    if args.len == 2 and args[1] == "-l" then global = false
+	if isLanIp then
+		router = get_router
+	else
+		if is_valid_ip(ipAddress) then
+			router = get_router(ipAddress)
+		else
+			ipAddress = nslookup(ipAddress)
+			router = get_router(ipAddress)
+		end if
+	end if
 
-    if router == null then 
-        UI.printError("<color=red>IP адресс не найден")
-        return 1;
-    end if
-    lans = []
+	global = true
+	if args.len == 2 and args[1] == "-l" then global = false
 
-    UI.print("IP: "+ipAddress,"KCMD>NMAP")
-    
-    print("-<b>ports</b>-------------------------------------------------------------")
+	if router == null then
+		UI.printError "<color=red>IP адресс не найден"
+		return 1
+	end if
+	lans = []
 
-    info = " <#D06B05>TYPE PORT STATE SERVICE VERSION LAN CONNECT\n"
-    info = info + " <#04b7f3>Router 0 open router " + router.kernel_version + " " + router.local_ip + " " + "true"
+	UI.print "IP: " + ipAddress, "KCMD>NMAP"
 
-    lans = router.devices_lan_ip
-    if not isLanIp then
-        u_ports = router.used_ports
-    else
-        u_ports = router.device_ports(ipAddress)
-    end if
-    u_lans = []
-    for port in u_ports
-        u_lans.push(port.get_lan_ip)
-    end for
-    results = []
+	print "-<b>ports</b>-------------------------------------------------------------"
 
-    if global then
-        for lan in lans
-            lan_ports = router.device_ports(lan)
+	info = " <#D06B05>TYPE PORT STATE SERVICE VERSION LAN CONNECT\n"
+	info = info + " <#04b7f3>Router 0 open router " + router.kernel_version + " " + router.local_ip + " " + "true"
 
-            if lan_ports then
-                for port in lan_ports
-                    lan = port.get_lan_ip
-            
-                    c = false
-                    for res in results
-                        if lan == res then
-                            c = true
-                            break
-                        end if
-                    end for
-                    if c then continue
-            
-                    type = "Server"
-                    if (lan.split("\.")[2] != router.local_ip.split("\.")[2] and port.port_number == 8080) or lan == router.local_ip or port.port_number == 8080 then type = "Subnet"
-                    service_info = router.port_info(port)
-                    for p in lan_ports
-                        if p.port_number == 37777 then type = "Cam"
-                    end for
-            
-                    connect = "false"
-                    for ul in u_lans
-                        if ul == lan then
-                            connect = "true"
-                        end if
-                    end for
-                    if lan == router.local_ip then connect = "true"
-            
-                    port_status = "open"
-                    if(port.is_closed and not isLanIp) then port_status = "closed"
-            
-                    if type == "Server" or type == "Cam" then
-                        if port_status == "open" then info = info + "\n <#05e365>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-                        if port_status == "closed" then info = info + "\n <#d00505>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-                    else
-                        info = info + "\n <#f5e294>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-                    end if
-                end for
-            else
-                type = "Computer"
-        
-                info = info + "\n <#ca45ff>" + type + " ### ### ### #### " + lan + " ####"
-            end if
-            results.push(lan)
-        end for
-        print(format_columns(info))
-    else
-        lan_ports = router.used_ports
-        for port in lan_ports
-            lan = port.get_lan_ip
-        
-            type = "Server"
-            if (lan.split("\.")[2] != router.local_ip.split("\.")[2] and port.port_number == 8080) or lan == router.local_ip or port.port_number == 8080 then type = "Subnet"
-            service_info = router.port_info(port)
-            for p in lan_ports
-                if p.port_number == 37777 then type = "Cam"
-            end for
-            
-            connect = "false"
-            for ul in u_lans
-                if ul == lan then
-                    connect = "true"
-                end if
-            end for
-            if lan == router.local_ip then connect = "true"
-            
-            port_status = "open"
-            if(port.is_closed and not isLanIp) then port_status = "closed"
-            
-            if type == "Server" or type == "Cam" then
-                if port_status == "open" then info = info + "\n <#05e365>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-                if port_status == "closed" then info = info + "\n <#d00505>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-            else
-                info = info + "\n <#f5e294>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
-            end if
-        end for
-        print(format_columns(info))
-    end if
+	lans = router.devices_lan_ip
+	if not isLanIp then
+		u_ports = router.used_ports
+	else
+		u_ports = router.device_ports(ipAddress)
+	end if
+	u_lans = []
+	for port in u_ports
+		u_lans.push port.get_lan_ip
+	end for
+	results = []
 
-    print("-<b>firewall</b>---------------------------------------------------------")
-    info = "<#D06B05> ACTION PORT SOURCE_IP DESTINATION_IP"
-    firewalls = router.firewall_rules
-    if firewalls.len < 1 then
-        print("<#05e365> No firewall rules.")
-    else
-        for fw in firewalls
-            action = fw.split(" ")[0]
-            if action == "ALLOW" then info = info + "\n<#05e365> " + fw
-            if action == "DENY" then info = info + "\n<#d00505> " + fw
-        end for
-        print(format_columns(info))
-    end if
+	if global then
+		for lan in lans
+			lan_ports = router.device_ports(lan)
 
-    print("-<b>whois</b>------------------------------------------------------------")
-    whois_info = whois(ipAddress)
-    for wh in whois_info.split("\n")
-        str = wh.split(":")[0]
-        info = wh.split(":")[1]
-        if str == "Domain name" then
-            print("<#04b7f3> Company name:  <#05e365>" + info.replace(" ", "").split("\.")[0])
-            print("<#04b7f3> Website:  <#05e365>www." + info.replace(" ", ""))
-        else if str == "Administrative contact" then
-            print("<#04b7f3> Admin fullname: <#05e365>" + info)
-        else if str == "Error" then
-            print("<b><color=red> Error: " + info)
-        else
-            print("<#04b7f3> " + str + ": <#05e365>" + info)
-        end if
-    end for
+			if lan_ports then
+				for port in lan_ports
+					lan = port.get_lan_ip
 
-    
+					c = false
+					for res in results
+						if lan == res then
+							c = true
+							break
+						end if
+					end for
+					if c then continue
 
-    smtp = false
-    smtp_lans = []
-    smtp_ports = []
-    for port in router.used_ports
-        if router.port_info(port).split(" ")[0] == "smtp" then
-            smtp = true
-            smtp_lans.push(port.get_lan_ip)
-            smtp_ports.push(port.port_number)
-        end if
-    end for
+					type = "Server"
+					if (lan.split("\.")[2] != router.local_ip.split("\.")[2] and port.port_number == 8080) or lan == router.local_ip or port.port_number == 8080 then type = "Subnet"
+					service_info = router.port_info(port)
+					for p in lan_ports
+						if p.port_number == 37777 then type = "Cam"
+					end for
 
-    if smtp then
-        print("-<b>smtp-user-list</b>--------------------------------------------------")
-        crypto = include_lib("/lib/crypto.so")
-        if not crypto then crypto = include_lib(current_path + "/crypto.so")
-        if not crypto then
-            print("<color=red>  Error: failed to load <b>crypto.so</b> to get smtp information!\n"+color_r+"install the library correctly!")
-        else
-            for lan in smtp_lans
-                port = smtp_ports[smtp_lans.indexOf(lan)]
-            
-                print(" <#04b7f3>lan: <#05e365>" + lan + "\n <#04b7f3>port: <#05e365>" + port)
-                info = " <#D06B05>USER EMAIL"
-            
-                sul = crypto.smtp_user_list(ipAddress, port)
-                i = 0
-                for u in sul
-                    user = sul[i].split(" ")[0]
-                    e_info = sul[i].split(" ")[2] + "_" + sul[i].split(" ")[3]
-                    info = info + "\n <#05e365>" + user + " " + e_info
-                    i = i + 1
-                end for
-                print(format_columns(info))
-                print("<#04b7f3> results: <#05e365>" + sul.len)
-                if smtp_lans.len > 1 then print()
-            end for
-        end if
-    end if
+					connect = "false"
+					for ul in u_lans
+						if ul == lan then
+							connect = "true"
+						end if
+					end for
+					if lan == router.local_ip then connect = "true"
 
-    print("-------------------------------------------------------------------")
+					port_status = "open"
+					if port.is_closed and not isLanIp then port_status = "closed"
+
+					if type == "Server" or type == "Cam" then
+						if port_status == "open" then info = info + "\n <#05e365>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+						if port_status == "closed" then info = info + "\n <#d00505>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+					else
+						info = info + "\n <#f5e294>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+					end if
+				end for
+			else
+				type = "Computer"
+
+				info = info + "\n <#ca45ff>" + type + " ### ### ### #### " + lan + " ####"
+			end if
+			results.push lan
+		end for
+		print format_columns(info)
+	else
+		lan_ports = router.used_ports
+		for port in lan_ports
+			lan = port.get_lan_ip
+
+			type = "Server"
+			if (lan.split("\.")[2] != router.local_ip.split("\.")[2] and port.port_number == 8080) or lan == router.local_ip or port.port_number == 8080 then type = "Subnet"
+			service_info = router.port_info(port)
+			for p in lan_ports
+				if p.port_number == 37777 then type = "Cam"
+			end for
+
+			connect = "false"
+			for ul in u_lans
+				if ul == lan then
+					connect = "true"
+				end if
+			end for
+			if lan == router.local_ip then connect = "true"
+
+			port_status = "open"
+			if port.is_closed and not isLanIp then port_status = "closed"
+
+			if type == "Server" or type == "Cam" then
+				if port_status == "open" then info = info + "\n <#05e365>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+				if port_status == "closed" then info = info + "\n <#d00505>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+			else
+				info = info + "\n <#f5e294>" + type + " " + port.port_number + " " + port_status + " " + service_info + " " + lan + " " + connect
+			end if
+		end for
+		print format_columns(info)
+	end if
+
+	print "-<b>firewall</b>---------------------------------------------------------"
+	info = "<#D06B05> ACTION PORT SOURCE_IP DESTINATION_IP"
+	firewalls = router.firewall_rules
+	if firewalls.len < 1 then
+		print "<#05e365> No firewall rules."
+	else
+		for fw in firewalls
+			action = fw.split(" ")[0]
+			if action == "ALLOW" then info = info + "\n<#05e365> " + fw
+			if action == "DENY" then info = info + "\n<#d00505> " + fw
+		end for
+		print format_columns(info)
+	end if
+
+	print "-<b>whois</b>------------------------------------------------------------"
+	whois_info = whois(ipAddress)
+	for wh in whois_info.split("\n")
+		str = wh.split(":")[0]
+		info = wh.split(":")[1]
+		if str == "Domain name" then
+			print "<#04b7f3> Company name:  <#05e365>" + info.replace(" ", "").split("\.")[0]
+			print "<#04b7f3> Website:  <#05e365>www." + info.replace(" ", "")
+		else if str == "Administrative contact" then
+			print "<#04b7f3> Admin fullname: <#05e365>" + info
+		else if str == "Error" then
+			print "<b><color=red> Error: " + info
+		else
+			print "<#04b7f3> " + str + ": <#05e365>" + info
+		end if
+	end for
+
+
+
+	smtp = false
+	smtp_lans = []
+	smtp_ports = []
+	for port in router.used_ports
+		if router.port_info(port).split(" ")[0] == "smtp" then
+			smtp = true
+			smtp_lans.push port.get_lan_ip
+			smtp_ports.push port.port_number
+		end if
+	end for
+
+	if smtp then
+		print "-<b>smtp-user-list</b>--------------------------------------------------"
+		crypto = include_lib("/lib/crypto.so")
+		if not crypto then crypto = include_lib(current_path + "/crypto.so")
+		if not crypto then
+			print "<color=red>  Error: failed to load <b>crypto.so</b> to get smtp information!\n" + color_r + "install the library correctly!"
+		else
+			for lan in smtp_lans
+				port = smtp_ports[smtp_lans.indexOf(lan)]
+
+				print " <#04b7f3>lan: <#05e365>" + lan + "\n <#04b7f3>port: <#05e365>" + port
+				info = " <#D06B05>USER EMAIL"
+
+				sul = crypto.smtp_user_list(ipAddress, port)
+				i = 0
+				for u in sul
+					user = sul[i].split(" ")[0]
+					e_info = sul[i].split(" ")[2] + "_" + sul[i].split(" ")[3]
+					info = info + "\n <#05e365>" + user + " " + e_info
+					i += 1
+				end for
+				print format_columns(info)
+				print "<#04b7f3> results: <#05e365>" + sul.len
+				if smtp_lans.len > 1 then print
+			end for
+		end if
+	end if
+
+	print "-------------------------------------------------------------------"
 end function
 
 Commands.Cmds["use"] = {
-    "info": "Проникнуть в цель",
-    "args": "[TARGET_ID]",
-    "types": ["shell","computer","file"],
+	"info": "Проникнуть в цель",
+	"args": "[TARGET_ID]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["use"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
-        return 0;
-    end if
-    id = args[0].to_int
-    if typeof(id) == "string" then
-        UI.printError("Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>")
-        return 0;
-    end if
-    if id >= globals.targets.len or id < 0 then
-        UI.printError("Не найдена цель. Проверь список целей.")
-        return 0;
-    end if
-    temp = globals.targets[id];
-    if(temp.type == "file") then 
-        if(temp.can_read) then
-            print("==================["+temp.name+"]======================")
-            print(temp.content)
-            print("==================["+temp.name+"]======================")
-        else
-            print("==================["+temp.name+"]======================")
-            UI.printError("Недостаточно прав для прочтения файла")
-            print("==================["+temp.name+"]======================")
-        end if
-    end if
+	if args.len < 1 then
+		UI.printError "Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>"
+		return 0
+	end if
+	id = args[0].to_int
+	if typeof(id) == "string" then
+		UI.printError "Использование: use [TARGET_ID]. Проверьте список целей через <b>targets</b>"
+		return 0
+	end if
+	if id >= globals.targets.len or id < 0 then
+		UI.printError "Не найдена цель. Проверь список целей."
+		return 0
+	end if
+	temp = globals.targets[id]
+	if temp.type == "file" then
+		if temp.can_read then
+			print "==================[" + temp.name + "]======================"
+			print temp.content
+			print "==================[" + temp.name + "]======================"
+		else
+			print "==================[" + temp.name + "]======================"
+			UI.printError "Недостаточно прав для прочтения файла"
+			print "==================[" + temp.name + "]======================"
+		end if
+	end if
 
-    globals.current_target = globals.targets[id]
-    if(globals.current_target.type == "shell") then 
-        globals.current_target.calculateStartFolder()
-        globals.current_target.activeJump()
-    end if
+	globals.current_target = globals.targets[id]
+	if globals.current_target.type == "shell" then
+		globals.current_target.calculateStartFolder
+		globals.current_target.activeJump
+	end if
 end function
 
 Commands.Cmds["nano"] = {
-    "info": "Открыть текстовый редактор",
-    "args": "[Путь до текстового файла]",
-    "types": ["shell","computer","file"],
+	"info": "Открыть текстовый редактор",
+	"args": "[Путь до текстового файла]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["nano"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: nano [Путь до текстового файла]")
-        return 0
-    end if
-    trg = globals.current_target
-    file = trg.requestFile(args[0])
-    if file == null then return UI.printError("Файл не найден")
-    nano = Nano.New(file)
-    if typeof(nano) == "string" then return UI.printError("Не удалось открыть файл в редакторе: "+nano)
-    nano.showEditor()
+	if args.len < 1 then
+		UI.printError "Использование: nano [Путь до текстового файла]"
+		return 0
+	end if
+	trg = globals.current_target
+	file = trg.requestFile(args[0])
+	if file == null then return UI.printError("Файл не найден")
+	nano = Nano.New(file)
+	if typeof(nano) == "string" then return UI.printError("Не удалось открыть файл в редакторе: " + nano)
+	nano.showEditor
 end function
 
 Commands.Cmds["targets"] = {
-    "info": "Вывести список доступных для проникновения объектов",
-    "args": "[IP] [PORT] (Локальный IP или новый пароль)",
-    "types": ["shell","computer","file"],
+	"info": "Вывести список доступных для проникновения объектов",
+	"args": "[IP] [PORT] (Локальный IP или новый пароль)",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["targets"]["exe"] = function(args)
-    str = "<color=#9EE493>ID</color> <color=#9EE493>P-IP</color> <color=#9EE493>L-IP</color> <color=#9EE493>TYPE</color> <color=#9EE493>USER</color> <color=#9EE493>VUL-LVL</color>\n"
-    i = 0
-    for target in globals.targets
-        user = target.user
-        if target.type == "file" then
-            user = target.file.path
-        else
-        if user == "root" then user = "<color=red>root</color>" else user = "<color=#2B193D>"+user+"</color>"
-        end if
-        str = str + "<color=#2B193D>"+i+"</color> "+"<color=#558C8C>"+target.public_ip+"</color> "+"<color=#558C8C>"+target.local_ip+"</color> "+"<color=#D17A22>"+target.type+"</color> "+user+" "+target.calculateProtectionRate+"\n"
-        i=i+1
-    end for
-    print(format_columns(str))
+	str = "<color=#9EE493>ID</color> <color=#9EE493>P-IP</color> <color=#9EE493>L-IP</color> <color=#9EE493>TYPE</color> <color=#9EE493>USER</color> <color=#9EE493>VUL-LVL</color>\n"
+	i = 0
+	for target in globals.targets
+		user = target.user
+		if target.type == "file" then
+			user = target.file.path
+		else
+			if user == "root" then user = "<color=red>root</color>" else user = "<color=#2B193D>" + user + "</color>"
+		end if
+		str = str + "<color=#2B193D>" + i + "</color> " + "<color=#558C8C>" + target.public_ip + "</color> " + "<color=#558C8C>" + target.local_ip + "</color> " + "<color=#D17A22>" + target.type + "</color> " + user + " " + target.calculateProtectionRate + "\n"
+		i += 1
+	end for
+	print format_columns(str)
 end function
 
 Commands.Cmds["revertlogs"] = {
-    "info": "Восстановить логи",
-    "args": "",
-    "types": ["shell","computer"],
+	"info": "Восстановить логи",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+	],
 }
 Commands.Cmds["revertlogs"]["exe"] = function(args)
-    trg = globals.current_target
-    trg.replaceLog()
+	trg = globals.current_target
+	trg.replaceLog
 end function
 
 Commands.Cmds["rh"] = {
-    "info": "Выполнить удаленный взлом",
-    "args": "[IP] [PORT] (Локальный IP или новый пароль)",
-    "types": ["shell","computer","file"],
+	"info": "Выполнить удаленный взлом",
+	"args": "[IP] [PORT] (Локальный IP или новый пароль)",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["rh"]["exe"] = function(args)
-    
-    if args.len < 2 then 
-        UI.printError("Использование: rh [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)")
-        return 0;
-    end if
 
-    insertData = ""
-    if args.len >= 3 then insertData = args[2]
+	if args.len < 2 then
+		UI.printError "Использование: rh [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)"
+		return 0
+	end if
 
-    ip = args[0]
-    if not is_valid_ip(ip) then
-        UI.printError("Использование: rh [IP] [PORT] (Локальный IP или новый пароль)")
-        return 0;
-    end if
-    victimRouter = get_router(ip)
-    if victimRouter == null then
-        UI.print("Не удалось проанализировать конечный адрес (возможно, адрес не роутера)")
-        return 0;
-    end if
-    port = args[1].to_int
-    targetPorts = []
-    if typeof(port) == "string" then
-        if port.lower == "all" then
-            for portObj in victimRouter.used_ports
-                targetPorts.push(portObj.port_number)
-            end for
-        else
-            ports = port.split(":")
-            for prt in ports
-                if typeof(prt.to_int) == "string" then continue;
-                tmp = victimRouter.ping_port(prt.to_int)
-                if tmp == null and prt.to_int != 0 then
-                    UI.printError("Порт "+prt+" закрыт...")
-                    continue;
-                end if
-                if(prt.to_int == 0) then targetPorts.push(0) else targetPorts.push(tmp.port_number)
-                
-            end for
-        end if
-    else 
-        
-        prt = victimRouter.ping_port(port)
-        if prt == null and port != 0 then
-            UI.printError("Порт "+port+" закрыт")
-        else
-            targetPorts.push(port)
-        end if
-    end if
-    
-    if(targetPorts.len == 0) then
-        UI.printError("Нет портов для атаки")
-        return 0;
-    end if
+	insertData = ""
+	if args.len >= 3 then insertData = args[2]
 
-    for port in targetPorts
-        UI.print("Подключение через порт "+port+"...")
-        netSession = net_use(meta, ip, port)
-        if netSession == null then
-            UI.printError("Порт закрыт","KCMD2>RH")
-            return 0;
-        end if
-        
-        metaLib = dump_lib(netSession)
-        UI.print("Попытка взлома <b>"+metaLib.lib_name+"</b> версии <b>"+version(metaLib)+"</b>")
-        scanExploits(meta,metaLib,ip,insertData)
-    end for
-    UI.print("Завершение атаки...")
+	ip = args[0]
+	if not is_valid_ip(ip) then
+		UI.printError "Использование: rh [IP] [PORT] (Локальный IP или новый пароль)"
+		return 0
+	end if
+	victimRouter = get_router(ip)
+	if victimRouter == null then
+		UI.print "Не удалось проанализировать конечный адрес (возможно, адрес не роутера)"
+		return 0
+	end if
+	port = args[1].to_int
+	targetPorts = []
+	if typeof(port) == "string" then
+		if port.lower == "all" then
+			for portObj in victimRouter.used_ports
+				targetPorts.push portObj.port_number
+			end for
+		else
+			ports = port.split(":")
+			for prt in ports
+				if typeof(prt.to_int) == "string" then continue
+				tmp = victimRouter.ping_port(prt.to_int)
+				if tmp == null and prt.to_int != 0 then
+					UI.printError "Порт " + prt + " закрыт..."
+					continue
+				end if
+				if prt.to_int == 0 then targetPorts.push(0) else targetPorts.push(tmp.port_number)
+
+			end for
+		end if
+	else
+
+		prt = victimRouter.ping_port(port)
+		if prt == null and port != 0 then
+			UI.printError "Порт " + port + " закрыт"
+		else
+			targetPorts.push port
+		end if
+	end if
+
+	if targetPorts.len == 0 then
+		UI.printError "Нет портов для атаки"
+		return 0
+	end if
+
+	for port in targetPorts
+		UI.print "Подключение через порт " + port + "..."
+		netSession = net_use(meta, ip, port)
+		if netSession == null then
+			UI.printError "Порт закрыт", "KCMD2>RH"
+			return 0
+		end if
+
+		metaLib = dump_lib(netSession)
+		UI.print "Попытка взлома <b>" + metaLib.lib_name + "</b> версии <b>" + version(metaLib) + "</b>"
+		scanExploits(
+			meta,
+			metaLib,
+			ip,
+			insertData)
+	end for
+	UI.print "Завершение атаки..."
+end function
+
+Commands.Cmds["lh"] = {
+	"info": "Выполнить взлом в локальной сети",
+	"args": "[local IP] [PORT] (Локальный IP или новый пароль)",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
+}
+Commands.Cmds["lh"]["exe"] = function(args)
+
+	if args.len < 2 then
+		UI.printError "Использование: м [IP] [PORT/PORT1:PORT2/all] (Локальный IP или новый пароль)"
+		return 0
+	end if
+
+	insertData = ""
+	if args.len >= 3 then insertData = args[2]
+
+	ip = args[0]
+	if not is_valid_ip(ip) then
+		UI.printError "Использование: lh [IP] [PORT] (Локальный IP или новый пароль)"
+		return 0
+	end if
+	victimRouter = get_router(ip)
+	if victimRouter == null then
+		UI.print "Не удалось проанализировать конечный адрес (возможно, адрес не роутера)"
+		return 0
+	end if
+	port = args[1].to_int
+	targetPorts = []
+	if typeof(port) == "string" then
+		if port.lower == "all" then
+			for portObj in victimRouter.used_ports
+				targetPorts.push portObj.port_number
+			end for
+		else
+			ports = port.split(":")
+			for prt in ports
+				if typeof(prt.to_int) == "string" then continue
+				tmp = victimRouter.ping_port(prt.to_int)
+				if tmp == null and prt.to_int != 0 then
+					UI.printError "Порт " + prt + " закрыт..."
+					continue
+				end if
+				if prt.to_int == 0 then targetPorts.push(0) else targetPorts.push(tmp.port_number)
+
+			end for
+		end if
+	else
+
+		prt = victimRouter.ping_port(port)
+		if prt == null and port != 0 then
+			UI.printError "Порт " + port + " закрыт"
+		else
+			targetPorts.push port
+		end if
+	end if
+
+	if targetPorts.len == 0 then
+		UI.printError "Нет портов для атаки"
+		return 0
+	end if
+
+	for port in targetPorts
+		UI.print "Подключение через порт " + port + "..."
+		netSession = net_use(meta, ip, port)
+		if netSession == null then
+			UI.printError "Порт закрыт", "KCMD2>RH"
+			return 0
+		end if
+
+		metaLib = dump_lib(netSession)
+		UI.print "Попытка взлома <b>" + metaLib.lib_name + "</b> версии <b>" + version(metaLib) + "</b>"
+		scanExploits(
+			meta,
+			metaLib,
+			ip,
+			insertData)
+	end for
+	UI.print "Завершение атаки..."
 end function
 
 Commands.Cmds["return"] = {
-    "info": "Вернуться к начальной точке",
-    "args": "",
-    "types": ["shell","computer","file"],
+	"info": "Вернуться к начальной точке",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["return"]["exe"] = function(args)
-    globals.current_target = main_target
-    UI.print("Возвращены к изначальной точке")
+	globals.current_target = main_target
+	UI.print "Возвращены к изначальной точке"
 end function
 
 Commands.Cmds["external"] = {
-    "info": "Запустить на текущей цели скрипт, расположенный в папке <b>"+Program.settings["internalExploits"]+"</b>",
-    "args": "[SCRIPTNAME] (PARAMS)",
-    "types": ["shell"],
+	"info": "Запустить на текущей цели скрипт, расположенный в папке <b>" + Program.settings["internalExploits"] + "</b>",
+	"args": "[SCRIPTNAME] (PARAMS)",
+	"types": [ "shell" ],
 }
 Commands.Cmds["external"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Вы не ввели название скрипта")
-        return 0;
-    end if
-    launchArgs = ""
-    if args > 1 then
-        for arg in args[1:]
-            launchArgs = arg + " "
-        end for
-        launchArgs = launchArgs[:-1]
-    end if
-    scriptName = args[0]
-    script = get_shell.host_computer.File(Program.path+Program.settings["internalExploits"]+"/"+scriptName)
-    if script != null then
-        UI.print("Запускаем <b>"+scriptName+"</b>")
-        get_custom_object.target = current_target
-        
-        result = get_shell.launch(Program.path+Program.settings["internalExploits"]+"/"+scriptName,launchArgs)
-        wait(1)
-        if typeof(result) == "string" then
-            UI.printError("Произошла ошибка при работе скрипта: "+result)
-        end if
-        UI.print("Скрипт завершен")
-    else 
-        UI.printError("Скрипт не найден. Проерьте его местоположение в <b>"+Program.path+Program.settings["internalExploits"])
-    end if
+	if args.len < 1 then
+		UI.printError "Вы не ввели название скрипта"
+		return 0
+	end if
+	launchArgs = ""
+	if args > 1 then
+		for arg in args[1 : ]
+			launchArgs = arg + " "
+		end for
+		launchArgs = launchArgs[ : -1]
+	end if
+	scriptName = args[0]
+	script = get_shell.host_computer.File(Program.path + Program.settings["internalExploits"] + "/" + scriptName)
+	if script != null then
+		UI.print "Запускаем <b>" + scriptName + "</b>"
+		get_custom_object.target = current_target
+
+		result = get_shell.launch(Program.path + Program.settings["internalExploits"] + "/" + scriptName, launchArgs)
+		wait 1
+		if typeof(result) == "string" then
+			UI.printError "Произошла ошибка при работе скрипта: " + result
+		end if
+		UI.print "Скрипт завершен"
+	else
+		UI.printError "Скрипт не найден. Проерьте его местоположение в <b>" + Program.path + Program.settings["internalExploits"]
+	end if
 end function
 
 Commands.Cmds["crack"] = {
-    "info": "Расшифровать пароль",
-    "args": "[шифр]",
-    "types": ["shell","computer","file"],
+	"info": "Расшифровать пароль",
+	"args": "[шифр]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["crack"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: <b>crack [шифр]</b>")
-        return 0
-    end if
-    UI.print("Взламываем...")
-    wait(1)
-    result = crypto.decipher(args[0])
-    wait(1)
-    if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: "+result)
+	if args.len < 1 then
+		UI.printError "Использование: <b>crack [шифр]</b>"
+		return 0
+	end if
+	UI.print "Взламываем..."
+	wait 1
+	result = crypto.decipher(args[0])
+	wait 1
+	if result == null then UI.printError("Не удалось взломать зашифрованный текст") else UI.print("Успешно: " + result)
 end function
 
 Commands.Cmds["ssh"] = {
-    "info": "SSH",
-    "args": "[айпи] [пользователь] [пароль] [порт (опционально)]",
-    "types": ["shell","computer","file"],
+	"info": "SSH",
+	"args": "[айпи] [пользователь] [пароль] [порт (опционально)]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["ssh"]["exe"] = function(args)
-    if args.len < 3 then
-        UI.printError("Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>")
-        return 0
-    end if
-    UI.print("Подключаемся...")
-    wait(1)
-    port = 22
-    if args.len == 4 then port = args[3].to_int
-    if typeof(port) != "number" then 
-        UI.printError("Неверный порт: " + port)
-        return 0
-    end if
-    shell = get_shell.connect_service(args[0], port, args[1], args[2], "ssh")
-    if typeof(shell) != "shell" then
-        if typeof(shell) == "string" then return UI.printError("Не удалось установить соединение: "+shell)
-        return UI.printError("Не удалось установить соединение: Неизвестная ошибка")
-    end if
-    sshTarget = new Target
-    sshTarget.New(shell,shell.host_computer.public_ip,args[1])
-    globals.current_target = sshTarget
+	if args.len < 3 then
+		UI.printError "Использование: <b>ssh [айпи] [пользователь] [пароль] [порт (опционально)]</b>"
+		return 0
+	end if
+	UI.print "Подключаемся..."
+	wait 1
+	port = 22
+	if args.len == 4 then port = args[3].to_int
+	if typeof(port) != "number" then
+		UI.printError "Неверный порт: " + port
+		return 0
+	end if
+	shell = get_shell.connect_service(
+		args[0],
+		port,
+		args[1],
+		args[2],
+		"ssh")
+	if typeof(shell) != "shell" then
+		if typeof(shell) == "string" then return UI.printError("Не удалось установить соединение: " + shell)
+		return UI.printError("Не удалось установить соединение: Неизвестная ошибка")
+	end if
+	sshTarget = new Target
+	sshTarget.New shell, shell.host_computer.public_ip, args[1]
+	globals.current_target = sshTarget
 end function
 
 Commands.Cmds["deltarget"] = {
-    "info": "Удалить из целей",
-    "args": "[ID / all]",
-    "types": ["shell","computer","file"],
+	"info": "Удалить из целей",
+	"args": "[ID / all]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["deltarget"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: <b>deltarget [ID / all]</b>")
-        return 0
-    end if
-    if args[0].lower == "all" then
-        globals.targets = []
-        UI.print("Весь список целей очищен")
-        return 1;
-    end if
-    id = args[0].to_int
-    if typeof(id) == "string" then return UI.printError("Использование: <b>deltarget [ID / all]</b>")
-    if id >= globals.targets.len or id < 0 then return UI.printError("Не найдена цель под данным ID")
-    globals.targets.remove(id)
-    UI.print("Цель под ID "+id+" удалена.")
+	if args.len < 1 then
+		UI.printError "Использование: <b>deltarget [ID / all]</b>"
+		return 0
+	end if
+	if args[0].lower == "all" then
+		globals.targets = []
+		UI.print "Весь список целей очищен"
+		return 1
+	end if
+	id = args[0].to_int
+	if typeof(id) == "string" then return UI.printError("Использование: <b>deltarget [ID / all]</b>")
+	if id >= globals.targets.len or id < 0 then return UI.printError("Не найдена цель под данным ID")
+	globals.targets.remove id
+	UI.print "Цель под ID " + id + " удалена."
 end function
 
 Commands.Cmds["rshell"] = {
-    "info": "Получить соединения со стороннего сервера",
-    "args": "",
-    "types": ["shell","computer","file"],
+	"info": "Получить соединения со стороннего сервера",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["rshell"]["exe"] = function(args)
-    RShellServer.Fetch()
+	RShellServer.Fetch
 end function
 
 Commands.Cmds["rshellinfo"] = {
-    "info": "Получить данные Rshell для социальной инженерии",
-    "args": "",
-    "types": ["shell","computer","file"],
+	"info": "Получить данные Rshell для социальной инженерии",
+	"args": "",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["rshellinfo"]["exe"] = function(args)
-    UI.print("Текущие данные RSHELL:")
-    UI.print("IP: "+Program.settings["rshellServer"])
-    UI.print("PORT: "+Program.settings["rshellPort"])
+	UI.print "Текущие данные RSHELL:"
+	UI.print "IP: " + Program.settings["rshellServer"]
+	UI.print "PORT: " + Program.settings["rshellPort"]
 end function
 
 Commands.Cmds["bruteforce"] = {
-    "info": "Брутфорсить цель используя библиотеку паролей",
-    "args": "[IP]",
-    "types": ["shell","computer","file"],
+	"info": "Брутфорсить цель используя библиотеку паролей",
+	"args": "[IP]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["bruteforce"]["exe"] = function(args)
 
-    // Remove when dictionary will be ready
-    return print("[Currently not available]")
+	// Remove when dictionary will be ready
+	return print("[Currently not available]")
 
 
-    if(args.len != 1) then return UI.printError("Использование: <b>bruteforce [IP]</b>")
-    if(not is_valid_ip(args[0])) then return UI.printError("Неправильный IP адрес")
-    trg = globals.current_target
-    if(trg.type != "shell") then trg = main_target
-    dic = globals.Dict
-    len = dic.len
-    ip = args[0]
-    if get_router(ip) == null then return UI.printError("Нет соединения с конечной целью")
-    if get_router(ip).ping_port(22) == null then return UI.printError("SSH порт закрыт")
-    result = null
-    for i in range(0,len)
-        nextPass = dic.requestNextPassword
-        UI.print("ПОПЫТКА ВЗЛОМА "+i+" из "+len)
-        shell = trg.shell.connect_service(ip,22,"root",nextPass)
-        if typeof(shell) != "shell" then 
-            UI.printError("НЕ ВЕРНЫЙ ПАРОЛЬ") 
-        else
-            UI.print("БРУТ ФОРС УСПЕШЕН. Пароль: "+nextPass)
-            result = shell
-            break;
-        end if
-    end for
+	if args.len != 1 then return UI.printError("Использование: <b>bruteforce [IP]</b>")
+	if not is_valid_ip(args[0]) then return UI.printError("Неправильный IP адрес")
+	trg = globals.current_target
+	if trg.type != "shell" then trg = main_target
+	dic = globals.Dict
+	len = dic.len
+	ip = args[0]
+	if get_router(ip) == null then return UI.printError("Нет соединения с конечной целью")
+	if get_router(ip).ping_port(22) == null then return UI.printError("SSH порт закрыт")
+	result = null
+	for i in range(0, len)
+		nextPass = dic.requestNextPassword
+		UI.print "ПОПЫТКА ВЗЛОМА " + i + " из " + len
+		shell = trg.shell.connect_service(
+			ip,
+			22,
+			"root",
+			nextPass)
+		if typeof(shell) != "shell" then
+			UI.printError "НЕ ВЕРНЫЙ ПАРОЛЬ"
+		else
+			UI.print "БРУТ ФОРС УСПЕШЕН. Пароль: " + nextPass
+			result = shell
+			break
+		end if
+	end for
 
-    if result == null then
-        UI.printWarning("Не удалось забрутфорсить цель...")
-    else
-        target = new Target
-        target.New(result,ip)
-        globals.current_target = target
-    end if
+	if result == null then
+		UI.printWarning "Не удалось забрутфорсить цель..."
+	else
+		target = new Target
+		target.New result, ip
+		globals.current_target = target
+	end if
 end function
 
 Commands.Cmds["debuglib"] = {
-    "info": "Задебажить библиотеку",
-    "args": "[lib path]",
-    "types": ["shell","computer","file"],
+	"info": "Задебажить библиотеку",
+	"args": "[lib path]",
+	"types": [
+		"shell",
+		"computer",
+		"file",
+	],
 }
 Commands.Cmds["debuglib"]["exe"] = function(args)
-    if args.len < 1 then
-        UI.printError("Использование: <b>debuglib [lib path]</b>")
-        return 0
-    end if
-    targetLib = meta.load(args[0])
-    if(targetLib == null) then return UI.printError("Требуемый адрес не является библиотекой")
-    print("============================================")
-    print("Name: "+targetLib.lib_name)
-    print("Version: "+targetLib.version)
-    print("============================================")
-    print("<color=red>ВНИМАНИЕ")
-    print("<color=white>Продолжая действия вы можете все запороть! Нажми CTRL+C чтобы остановиться")
-    print("")
-    username = user_input("debug user: ")
-    password = user_input("debug password: ")
-    debugLib = targetLib.debug_tools(username, password)
-    if typeof(debugLib) != "debugLibrary" then
-        return UI.printError("Неверные данные!")
-    end if
-    select = ""
-    
-    clear_screen;
-    print("=====================[DEBUG MODE]==========================")
-    print("Name: "+targetLib.lib_name)
-    print("Version: "+targetLib.version)
-    print("=====================[DEBUG MODE]==========================")
-    while select.lower != "exit"
-        print("1 - Scan")
-        print("2 - Apply Patch")
-        print("3 - Payload")
-        print("4 - Unit tests")
-        print("EXIT - exit debug mode")
+	if args.len < 1 then
+		UI.printError "Использование: <b>debuglib [lib path]</b>"
+		return 0
+	end if
+	targetLib = meta.load(args[0])
+	if targetLib == null then return UI.printError("Требуемый адрес не является библиотекой")
+	print "============================================"
+	print "Name: " + targetLib.lib_name
+	print "Version: " + targetLib.version
+	print "============================================"
+	print "<color=red>ВНИМАНИЕ"
+	print "<color=white>Продолжая действия вы можете все запороть! Нажми CTRL+C чтобы остановиться"
+	print ""
+	username = user_input("debug user: ")
+	password = user_input("debug password: ")
+	debugLib = targetLib.debug_tools(username, password)
+	if typeof(debugLib) != "debugLibrary" then
+		return UI.printError("Неверные данные!")
+	end if
+	select = ""
 
-        select = user_input("Select: ")
+	clear_screen
+	print "=====================[DEBUG MODE]=========================="
+	print "Name: " + targetLib.lib_name
+	print "Version: " + targetLib.version
+	print "=====================[DEBUG MODE]=========================="
+	while select.lower != "exit"
+		print "1 - Scan"
+		print "2 - Apply Patch"
+		print "3 - Payload"
+		print "4 - Unit tests"
+		print "EXIT - exit debug mode"
 
-        if(select == "1") then
-            file = main_target.comp.touch(Program.path,"scan_results.txt");
-            if(typeof(file) == "string") then 
-                UI.printError("Ошибка создания скана: "+file) 
-            else
-            scanResult = debugLib.scan();
-            file = main_target.comp.File(Program.path+"/scan_results.txt").set_content(scanResult);
-            print("Сканирование завершено. Проверь в файл scan_results")
-            end if
-        end if
+		select = user_input("Select: ")
 
-        if(select == "2") then
-            print("Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER")
-            print("")
-            user_input()
-            file = main_target.comp.File(Program.path+"/patch.txt")
-            if(file == null) then 
-                UI.printError("Файл path.txt не найден")
-            else
-                patch = file.get_content
-                print("Patch result: "+debugLib.apply_patch(patch))
-            end if
-        end if
+		if select == "1" then
+			file = main_target.comp.touch(Program.path, "scan_results.txt")
+			if typeof(file) == "string" then
+				UI.printError "Ошибка создания скана: " + file
+			else
+				scanResult = debugLib.scan
+				file = main_target.comp.File(Program.path + "/scan_results.txt").set_content(scanResult)
+				print "Сканирование завершено. Проверь в файл scan_results"
+			end if
+		end if
 
-        if(select == "3") then
-            print("ERROR: Не реализовано")
-        end if
+		if select == "2" then
+			print "Создай текстовый файл с названием patch.txt, внеси туда изменения и нажми ENTER"
+			print ""
+			user_input
+			file = main_target.comp.File(Program.path + "/patch.txt")
+			if file == null then
+				UI.printError "Файл path.txt не найден"
+			else
+				patch = file.get_content
+				print "Patch result: " + debugLib.apply_patch(patch)
+			end if
+		end if
 
-        if(select == "4") then
-            print("Введи числа ЧЕРЕЗ ПРОБЕЛ с ошибками в строках:")
-            print("")
-            linesStr = user_input()
-            numArr = []
-            numbers = linesStr.split(" ")
-            for num in numbers
-                numArr.push(num.to_int)
-            end for
-            print("Unit tests values: "+numArr)
-            print("Unit test results: " + debugLib.unit_testing(numArr))
-        end if
-    end while
+		if select == "3" then
+			print "ERROR: Не реализовано"
+		end if
+
+		if select == "4" then
+			print "Введи числа ЧЕРЕЗ ПРОБЕЛ с ошибками в строках:"
+			print ""
+			linesStr = user_input
+			numArr = []
+			numbers = linesStr.split(" ")
+			for num in numbers
+				numArr.push num.to_int
+			end for
+			print "Unit tests values: " + numArr
+			print "Unit test results: " + debugLib.unit_testing(numArr)
+		end if
+	end while
 end function
